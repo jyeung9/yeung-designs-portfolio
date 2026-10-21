@@ -1,0 +1,63 @@
+/* Components scale within their own bounds. Artwork is genuinely edge to edge. */
+.scene-sleeve{container-type:inline-size;padding:0!important;border:1px solid #e7dfcc}
+.scene-sleeve>img{position:absolute;inset:0;display:block;width:100%;height:100%;object-fit:cover;object-position:50% 40%;padding:0;border:0}
+.pending-cover{display:grid;place-content:center;text-align:center;width:100%;height:100%;padding:12%;font:500 10cqi/1.4 'DM Sans';background:#d2c3a1;color:#3e433b;overflow-wrap:normal}
+.desk-polaroid.wall-polaroid{width:150px;height:182px;margin-top:14px}
+.wall-polaroid .photo-caption{font-size:18px}.wall-polaroid:after{height:29px;top:-9px}
+.rail{display:none!important}
+/* Pen returns to a clear resting area once the lettering has finished. */
+.desk-note:is(:hover,:focus-visible)>.desk-pen{animation:pen-write-clear 1.65s linear forwards}
+@keyframes pen-write-clear{0%{left:5%;top:-32%;transform:rotate(-28deg)}15%{left:14%;top:-35%;transform:rotate(-24deg)}30%{left:29%;top:-30%;transform:rotate(-30deg)}45%{left:46%;top:-35%;transform:rotate(-24deg)}60%{left:64%;top:-30%;transform:rotate(-30deg)}80%{left:79%;top:-34%;transform:rotate(-24deg)}100%{left:108%;top:-10%;transform:rotate(14deg)}}
+.section-menu a{display:flex;align-items:center;gap:12px;padding:12px 8px;min-height:64px;font-size:13px}.section-menu .dock-art{width:30px;height:30px;flex:none;margin:0}.section-menu .letter-art{height:23px}.section-menu .profile-art{font-size:24px;border-width:3px}.section-menu .sleeve-art:before{width:24px;height:24px;left:10px;top:3px}.section-menu .sleeve-art i{width:7px;height:7px;left:19px;top:11px}.menu-home{width:30px;height:30px;display:grid;place-items:center;font:32px/1 'Instrument Serif';flex:none}
+/* A single enlarged sleeve, with readable copy outside its image. */
+#work .projects.record-browser{display:block;width:100%;max-width:850px;margin:0 auto;padding:0 12px 24px;perspective:1000px}
+#work .record-browser .project{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(220px,.9fr);grid-template-rows:auto auto 1fr;column-gap:44px;align-items:start;width:100%;max-width:none;margin:0;transform:none}
+#work .record-browser .project-art{grid-column:1;grid-row:1/4;width:100%;height:auto;aspect-ratio:1;margin:0;border:1px solid #d5cbb6;transform:rotate(-3deg);box-shadow:4px 4px 0 #b6a991,8px 8px 0 #ded4c1,14px 20px 32px #30261926}
+#work .record-browser .project-art img{inset:0;width:100%;height:100%;padding:0;object-fit:cover;object-position:50% 40%;background:transparent}
+#work .record-browser .project small{grid-column:2;margin:18px 0 0;font-size:12px}
+#work .record-browser .project h3{grid-column:2;font-size:32px;line-height:1.2;margin:12px 0 18px}
+#work .record-browser .project p{grid-column:2;font-size:18px;line-height:1.65;margin:0}
+.record-controls{display:flex;align-items:center;justify-content:center;gap:24px;padding:20px 0;max-width:850px;margin:0 auto}.record-controls button{min-height:48px;padding:12px 22px;border:1px solid var(--muted);border-radius:24px;font:400 15px 'DM Sans'}.record-count{font:400 12px/1.5 'DM Mono';color:var(--muted);text-align:center}.record-controls button:hover{color:var(--accent);border-color:var(--accent)}
+#work.page-enter{animation:collection-scroll .65s cubic-bezier(.2,.7,.2,1)}
+#work .record-browser .record-reveal{animation:record-enlarge .55s ease-out}
+@keyframes collection-scroll{from{translate:0 65svh;opacity:0}to{translate:0 0;opacity:1}}
+@keyframes record-enlarge{from{opacity:0;transform:scale(.84) translateY(28px)}to{opacity:1;transform:scale(1) translateY(0)}}
+@media(max-width:900px){#work .record-browser .project{display:block;max-width:450px;margin:0 auto}#work .record-browser .project-art{margin-bottom:30px}#work .record-browser .project h3{font-size:28px}#work .record-browser .project p{font-size:16px}.record-controls{gap:12px;flex-wrap:wrap}.section-menu a{gap:8px;font-size:12px}.section-menu .dock-art,.menu-home{width:24px;height:24px}}
+@media(max-width:600px){.desk-polaroid.wall-polaroid{width:105px;height:127px;margin-top:12px}.wall-polaroid .photo-caption{font-size:14px}.wall-polaroid:after{height:22px;top:-7px}.section-menu a{flex-direction:column;align-items:center;text-align:center;gap:7px;font-size:11px;padding:10px 5px}.section-menu .dock-art{width:28px;height:28px}.section-menu .letter-art{height:21px}.record-controls{gap:8px}.record-controls button{padding:12px 15px}.record-count{order:3;flex-basis:100%;font-size:11px}#work .projects.record-browser{padding:0 4px 16px}#work .record-browser .project h3{font-size:25px}#work .record-browser .project p{font-size:16px}}
+@media(max-height:500px) and (min-width:600px){.desk-polaroid.wall-polaroid{width:85px;height:103px;margin-top:10px}.wall-polaroid .photo-caption{font-size:13px}.wall-polaroid:after{height:20px}}
+@media(prefers-reduced-motion:reduce){#work.page-enter,#work .record-browser .record-reveal{animation:none}.desk-note:is(:hover,:focus-visible)>.desk-pen{animation:none;left:108%;top:-10%;transform:rotate(14deg)}}
+/* Internal object lettering scales with the object, never with the viewport. */
+.note-paper{container-type:inline-size}.note-paper .written-hello{font-size:24cqi!important;line-height:1.4}
+.skill-chips{display:flex;flex-wrap:wrap;gap:8px;list-style:none;padding:0;margin:18px 0 0}.skill-chips li{padding:7px 11px;border:1px solid var(--line);border-radius:16px;font:400 12px/1.4 'DM Sans';color:var(--muted);background:var(--panel)}
+#work .record-browser .project{grid-template-rows:auto auto auto 1fr}#work .record-browser .project-art{grid-row:1/5}#work .record-browser .skill-chips{grid-column:2}
+.strategy-feature{padding:28px;border:1px solid var(--line);border-radius:16px;max-width:850px;margin:32px 0 56px}.strategy-feature h3,.exploration-heading h3{font:600 28px/1.2 'DM Sans';margin:12px 0}.strategy-feature p,.exploration-heading p{font-size:17px;line-height:1.6;color:var(--muted);margin:0}.strategy-feature .case-status{font-size:13px;margin-top:20px}.exploration-heading{margin-bottom:30px}
+.exploration-gallery{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:32px;align-items:start}.exploration-record{display:block;min-width:0}.exploration-record>img{display:block;width:100%;aspect-ratio:1;object-fit:cover;box-shadow:4px 4px 0 #b9ae97,8px 12px 22px #33271f20;transition:transform .25s}.exploration-record:hover>img,.exploration-record:focus-visible>img{transform:translateY(-6px) rotate(-2deg)}.exploration-record h4{font:600 23px/1.2 'DM Sans';margin:24px 0 10px}.exploration-record .skill-chips{margin:0}
+@media(max-width:900px){.exploration-gallery{grid-template-columns:1fr 1fr}.section-menu a{min-height:56px}}
+@media(max-width:600px){.exploration-gallery{grid-template-columns:1fr;gap:36px}.strategy-feature{padding:18px;margin-bottom:36px}.skill-chips li{font-size:11px;padding:6px 10px}.section-menu a{font-size:10px;gap:4px;padding:8px 4px}.section-menu .dock-art{width:24px;height:24px}.section-menu .letter-art{height:18px}}
+@media(prefers-reduced-motion:reduce){.exploration-record>img{transition:none}}
+
+/* October 20 refinement: text navigation, complete artwork, adjacent records. */
+.section-menu{border-left:1px solid #a5a9a54d;padding-left:0}
+.section-menu a{display:block;min-height:48px;padding:14px 12px 14px 16px;border:0!important;background:none!important;font-size:14px;font-weight:400;color:var(--muted);text-align:left;line-height:1.5}
+.section-menu a[aria-current=page]{color:var(--ink);font-weight:700}
+.grid-studies{position:absolute;inset:0;pointer-events:none;overflow:hidden;color:var(--muted);opacity:.19}
+.grid-studies svg{position:absolute;width:clamp(100px,13vw,180px);height:auto}
+.study-selection{left:8%;top:18%;rotate:-6deg}.study-curves{right:7%;bottom:18%;rotate:5deg}
+.exploration-record>img{object-fit:contain;padding:12px;background:var(--panel)}
+#about>.about-layout{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,2fr);gap:44px;max-width:none;align-items:start}
+.about-polaroid{position:relative;width:100%;aspect-ratio:150/182;margin:12px 0 0;transform:rotate(-4deg)}
+.about-polaroid .polaroid-paper{position:absolute;inset:0;display:flex;flex-direction:column;padding:9% 9% 15%;background:#f7f0df;box-shadow:3px 8px 20px #30261b26}
+.about-polaroid:after{content:'';position:absolute;top:-10px;left:27%;width:46%;height:30px;rotate:7deg;background:linear-gradient(100deg,#d8c49ca8,#e9dbb9d9,#d7c297a6);clip-path:polygon(2% 0,100% 4%,97% 100%,0 92%)}
+#work .projects.record-browser{position:relative;overflow:hidden;isolation:isolate;max-width:900px;padding:16px 0 26px}
+#work .record-browser .project{position:relative;z-index:2;display:block;width:60%;max-width:500px;margin:0 auto;pointer-events:none}
+#work .record-browser .project>*{pointer-events:auto}
+#work .record-browser .project-art{width:100%;aspect-ratio:1;transform:none;margin:0 0 32px}
+#work .record-browser .project small{display:block;margin-top:0}
+#work .record-browser .project h3{margin:12px 0 16px}
+.neighbor-record{position:absolute;top:36px;width:36%;padding:0;border:0;background:none;opacity:.3;z-index:1;transition:opacity .2s;cursor:pointer}
+.neighbor-record.previous{left:-20%;rotate:-9deg}.neighbor-record.next{right:-20%;rotate:9deg}
+#work .neighbor-record .project-art{width:100%;aspect-ratio:1;height:auto;transform:none;margin:0;pointer-events:none}
+.neighbor-record:hover,.neighbor-record:focus-visible{opacity:.65}
+.record-controls button:disabled{opacity:.35;cursor:default}
+@media(max-width:600px){.section-menu a{font-size:12px;padding:12px 4px 12px 8px;overflow-wrap:normal;min-height:48px}.grid-studies{opacity:.12}.study-selection{left:0;top:16%}.study-curves{right:-24px;bottom:9%}#about>.about-layout{grid-template-columns:1fr;gap:32px}.about-polaroid{width:55%;max-width:220px;margin:10px auto 0}#work .record-browser .project{width:72%}#work .record-browser .project h3{font-size:24px;overflow-wrap:anywhere}.neighbor-record{width:44%;top:30px}.neighbor-record.previous{left:-32%}.neighbor-record.next{right:-32%}}
+@media(prefers-reduced-motion:reduce){.neighbor-record{transition:none}}

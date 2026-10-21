@@ -1,0 +1,39 @@
+/* Shared section shell: a stable side rail plus a centred content column. */
+body:not([data-page=home]) main{width:calc(100% - 240px);margin:0 40px 0 200px;padding:0;min-width:0}
+body:not([data-page=home]) main>.section{display:block;width:100%;max-width:1100px;min-height:calc(100svh - 100px);height:auto;margin:0 auto;padding:clamp(30px,5vh,64px) 0 64px;border-top:1px solid var(--line)}
+body:not([data-page=home]) .section-menu{width:145px;max-width:145px;left:28px;gap:10px}
+.section h2{font:400 clamp(36px,4vw,56px)/1.12 'Instrument Serif',serif;letter-spacing:-.02em;margin:12px 0 20px}
+.section .eyebrow{font-size:12px;line-height:1.5}
+.section-head{display:flex;align-items:end;gap:32px;justify-content:space-between;margin:0 0 44px}.section-head p{font-size:16px;line-height:1.6;max-width:270px;margin:0 0 20px}
+#work .projects{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));align-items:start;gap:36px;padding:16px 6px 24px;perspective:none}
+#work .project{width:auto;max-width:none;min-width:0;transform:none;animation:none;background:none}
+#work .project-art{transform:rotate(calc((var(--sleeve-index) - 1)*3deg));transition:transform .25s;aspect-ratio:1;height:auto;border-width:5px;margin-bottom:28px}
+#work .project:hover .project-art,#work .project:focus-visible .project-art{transform:translateY(-8px) rotate(0)}
+#work .project small{font-size:11px;line-height:1.5;margin-top:0;letter-spacing:.02em}
+#work .project h3{font:600 clamp(20px,2vw,25px)/1.25 'DM Sans';letter-spacing:-.025em;margin:10px 0}
+#work .project p{font:400 16px/1.6 'DM Sans';max-width:none}
+#about{max-width:900px}#about>div:first-child{margin-bottom:32px}#about>div:nth-child(2){max-width:680px}#about p,#about p+p{font:400 19px/1.7 'DM Sans';margin:0 0 24px}#about .text-link{font-size:15px;padding:12px 0}
+#contact{max-width:760px}.page-heading{margin-bottom:28px}.page-heading p{font-size:17px;line-height:1.5;color:var(--muted);margin:0}
+.contact-form{display:grid;gap:20px;width:100%;max-width:680px}.form-row{display:grid;grid-template-columns:1fr 1fr;gap:24px}.contact-form label{display:grid;gap:8px;font:500 15px/1.5 'DM Sans';color:var(--ink)}.contact-form label>span{display:inline;color:var(--muted);font-weight:400}
+.contact-form input,.contact-form textarea{width:100%;padding:13px 16px;border:1px solid #7c827580;border-radius:8px;background:var(--panel);color:var(--ink);font:400 16px/1.5 'DM Sans';min-width:0}.contact-form input{min-height:48px}.contact-form textarea{resize:vertical;min-height:140px}.contact-form input:focus-visible,.contact-form textarea:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
+.contact-form .form-honey{display:none}.form-actions{display:flex;gap:12px;align-items:center}.form-actions button{min-height:48px;padding:12px 24px;border:1px solid var(--line);border-radius:24px;font-size:15px}.form-actions .submit-button{background:var(--ink);color:var(--bg)}.form-actions .cancel-button{border-color:var(--muted)}.form-actions button:disabled{opacity:.6;cursor:wait}.form-status{font-size:15px;line-height:1.5;margin:0;padding:14px 16px;border:1px solid var(--line);border-radius:8px}.direct-email{font-size:14px;line-height:1.6;margin:0;color:var(--muted);overflow-wrap:anywhere}.direct-email a{text-decoration:underline;text-underline-offset:4px}
+/* Taped portrait sits on the wall beside and just below the introduction. */
+.greeting{position:relative}
+.desk-polaroid.wall-polaroid{position:absolute;display:block;left:calc(100% + 26px);top:18px;width:90px;height:109px;z-index:45;outline-offset:8px;pointer-events:auto}
+.wall-polaroid .polaroid-paper{transform:rotate(7deg);box-shadow:2px 5px 9px #3c302a26;padding:9% 9% 12%}
+.wall-polaroid:after{content:'';position:absolute;width:48%;height:20px;left:26%;top:-6px;rotate:-8deg;background:linear-gradient(100deg,#d8c49ca8,#e9dbb9d9,#d7c297a6);box-shadow:0 1px 1px #67573f17;clip-path:polygon(2% 0,100% 4%,97% 100%,0 92%);pointer-events:none}
+.wall-polaroid:is(:hover,:focus-visible) .polaroid-paper{transform:rotate(3deg) translateY(-2px)}
+.solo-player-scene .independent-player:after{content:'';position:absolute;left:0;right:-3%;top:78%;height:26%;background:radial-gradient(ellipse,#39261955,transparent 68%);filter:blur(9px);transform:rotate(-5deg);z-index:-1;pointer-events:none}
+@media(min-width:1800px){body:not([data-page=home]) main{width:calc(100% - 320px);margin-left:240px;margin-right:80px}.section-menu{left:44px}}
+@media(max-width:900px){body:not([data-page=home]) main{width:calc(100% - 170px);margin-left:150px;margin-right:20px}body:not([data-page=home]) .section-menu{left:12px;width:120px;max-width:120px}#work .projects{gap:24px;grid-template-columns:1fr 1fr}#work .project:last-child{grid-column:1/-1;max-width:350px}.section-head{display:block}.section-head p{max-width:none;margin-bottom:0}.desk-polaroid.wall-polaroid{width:70px;height:85px;left:calc(100% + 18px)}}
+@media(max-width:600px){body:not([data-page=home]) main{width:calc(100% - 112px);margin:0 16px 0 96px}body:not([data-page=home]) main>.section{padding-top:24px;min-height:calc(100svh - 76px)}body:not([data-page=home]) .section-menu{left:8px;width:76px;max-width:76px}.section-menu a{font-size:11px;padding:12px 6px}.section h2{font-size:34px}.section-head{margin-bottom:30px}.section-head p{font-size:15px}#work .projects{grid-template-columns:1fr;gap:36px;padding:4px}#work .project:last-child{grid-column:auto;max-width:none}#work .project-art{margin-bottom:22px}#work .project h3{font-size:22px}#work .project p{font-size:15px}#about p,#about p+p{font-size:16px;line-height:1.65}.form-row{grid-template-columns:1fr;gap:20px}.form-actions{flex-wrap:wrap}.form-actions button{padding:12px 20px}.contact-form{gap:18px}.contact-form input,.contact-form textarea{padding:12px}.desk-polaroid.wall-polaroid{width:48px;height:59px;left:calc(100% + 8px);top:20px}.wall-polaroid:after{height:13px;top:-4px}.wall-polaroid .photo-caption{font-size:9px}}
+@media(max-width:360px){.desk-polaroid.wall-polaroid{left:auto;right:-40px;top:22px;width:42px;height:51px}}
+@media(max-height:500px) and (min-width:600px){.desk-polaroid.wall-polaroid{left:8px;top:32px;width:48px;height:59px}.wall-polaroid:after{height:13px}.wall-polaroid .photo-caption{font-size:9px}}
+@media(prefers-reduced-motion:reduce){#work .project-art{transition:none}}
+.contact-form label>span{color:var(--ink);font-weight:500}.contact-form label small{font-size:14px;color:var(--muted);font-weight:400}
+/* Section content has a generous gutter without wasting the usable phone width. */
+@media(max-width:400px){body:not([data-page=home]) main{width:calc(100% - 100px);margin-left:88px;margin-right:12px}.contact-form label{font-size:14px}.form-actions{gap:10px}.form-actions button{padding:12px 16px}}
+/* Portrait occupies its own row below the greeting; it never covers the headline. */
+.desk-polaroid.wall-polaroid{position:relative;left:auto;right:auto;top:auto;margin:12px auto 0;width:60px;height:73px}
+.wall-polaroid .photo-caption{font-size:10px}.wall-polaroid:after{height:15px}
+@media(max-width:600px){.desk-polaroid.wall-polaroid{width:42px;height:51px;margin-top:9px}.wall-polaroid .photo-caption{font-size:8px}.wall-polaroid:after{height:11px}}

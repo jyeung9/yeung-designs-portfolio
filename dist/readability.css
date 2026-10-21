@@ -1,0 +1,33 @@
+/* Site minimum: never shrink text to fit a layout. Headings retain their larger scale. */
+body{font-size:16px}
+.masthead nav a,.status,.edition,.deck-signature,.headphone-music-prompt,
+.pending-cover,.sleeves-prompt,.note-paper .written-hello,#headphone-hint,
+.finish-picker button,.text-link,.rail a,.rail a>span,.local-time,.local-time strong,
+.time-message,.ambient-toggle,.eyebrow,.project-tag,.project small,.skill-chips li,
+.record-controls button,.record-count,.contact-form label,.contact-form label>span,
+.contact-form label small,.form-actions button,.form-status,.direct-email,.direct-email a,
+.case-status,.footer,.footer span,.mono,dialog p,.section-menu a,.desk-cursor-hint,
+.afterglow .hero-copy>p,.music-note,.section-head p{font-size:16px!important;line-height:1.5}
+.section-menu a{padding:12px 10px 12px 16px;min-height:48px}
+.record-controls{flex-wrap:wrap}.record-count{overflow-wrap:anywhere}
+.deck-signature{max-width:44%;white-space:normal;right:5%;bottom:5%;font-family:'DM Sans',sans-serif}
+.pending-cover{overflow-wrap:anywhere;padding:10%;line-height:1.3}
+.note-paper .written-hello{white-space:normal;line-height:1.15}
+.local-time{white-space:normal;flex-wrap:wrap;justify-content:flex-end;gap:4px 12px}
+.afterglow .hero-bottom{height:auto;min-height:44px}
+.sleeves-prompt{max-width:calc(100vw - 24px)}
+@media(max-width:600px){
+ body:not([data-page=home]) .section-menu{width:98px;max-width:98px;left:8px}
+ body:not([data-page=home]) main{width:calc(100% - 128px);margin:0 12px 0 116px}
+ .section-menu a{padding:12px 4px 12px 8px;font-size:16px!important}
+ .afterglow .hero-bottom{min-height:44px}.local-time{justify-content:center;gap:0 10px}
+ .local-time strong{white-space:normal}.masthead nav{gap:12px}
+ .record-count{flex-basis:100%}.record-controls{gap:8px}
+ .deck-signature{font-size:16px!important;max-width:50%;bottom:5%;line-height:1.1}
+ .pending-cover{font-size:16px!important;line-height:1.15}
+ .desk-note{min-width:64px;min-height:64px}
+}
+/* Decorative maker microprint cannot stay legible on a shrinking player. */
+.deck-signature{display:none}
+.live-label{font-size:clamp(16px,2vw,26px)}
+.afterglow .hero-copy>.music-note{font-size:16px!important;line-height:1.5}

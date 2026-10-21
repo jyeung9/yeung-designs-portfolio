@@ -1,0 +1,46 @@
+/* Active iteration: one page at a time, fluid type, independent player pieces. */
+[hidden]{display:none!important}
+html,body{margin:0;min-width:0;overflow-x:clip;font-family:'DM Sans',sans-serif}
+*{box-sizing:border-box}
+.masthead{position:relative;width:100%;max-width:none;padding:24px clamp(20px,4vw,64px);min-height:84px;gap:20px}
+.brand{font-size:18px;white-space:nowrap}.brand-mark{width:28px;height:28px;font-size:22px}
+.masthead nav{gap:24px}.masthead nav a{font-size:15px;min-height:44px;display:inline-flex;align-items:center}
+.afterglow .hero{width:calc(100% - 48px);max-width:none;margin:0 24px;padding:24px 24px 0;min-height:calc(100svh - 84px);display:flex;flex-direction:column;align-items:center}
+.afterglow .hero-copy{width:100%;max-width:1000px;margin:0;padding:8px 0 0;gap:20px;flex:none;text-align:center}
+.afterglow .hero-copy .greeting{font:400 16px/1.5 'DM Sans',sans-serif}
+.headline-top{font:400 clamp(36px,4vw,64px)/1.12 'DM Sans',sans-serif;letter-spacing:-.045em}
+.headline-bottom{font:600 clamp(30px,4.1vw,64px)/1.15 'DM Sans',sans-serif;letter-spacing:-.04em;max-width:100%;text-wrap:balance}
+.afterglow .hero-copy>p{font:400 16px/1.5 'DM Sans',sans-serif}
+.scene-slot{width:min(440px,85vw);margin:10px 0 0}.solo-player-scene{aspect-ratio:1.5}
+.connection-object .solo-player-scene .independent-player{left:5%;top:5%;width:90%;aspect-ratio:1.5;perspective:none}
+.solo-player-scene .live-record{background:repeating-radial-gradient(circle,#101517 0 2px,#65706e 2.3px 2.8px,#202626 3.1px 4.8px);box-shadow:inset 0 0 0 3px #0c1112}
+.live-label{overflow:hidden;isolation:isolate}.live-label img{width:100%;height:100%;object-fit:cover;position:absolute;inset:0}
+.solo-player-scene .independent-player .deck-dot{width:8px;height:8px;background:#53604d;box-shadow:inset 0 1px 3px #152012,0 0 0 3px #a58d6e;transition:background .3s,box-shadow .3s}
+.solo-player-scene .independent-player.playing .deck-dot{background:#87f398;box-shadow:inset 0 0 2px #e3ffe8,0 0 0 3px #69776c,0 0 12px 4px #64e98b88}
+.solo-player-scene .independent-player .headphone-music-prompt{position:fixed;top:auto;left:0;bottom:auto;right:auto;width:max-content;max-width:calc(100vw - 24px);transform:none!important;font:400 14px/1.4 'DM Sans',sans-serif;z-index:1000}
+.solo-player-scene .independent-player:not(.pointer-positioned) .headphone-music-prompt{position:absolute;left:50%;top:100%;margin-top:24px;transform:translateX(-50%)!important}
+.finish-picker{display:flex;justify-content:center;flex-wrap:wrap;gap:8px;margin:0}.finish-picker button{font:400 12px/1.4 'DM Mono',monospace;min-height:44px;padding:10px 12px;border:1px solid transparent;border-radius:24px;background:transparent;color:var(--muted);cursor:pointer}.finish-picker button[aria-pressed=true]{border-color:currentColor;color:var(--ink)}
+.music-note{font-size:14px!important;max-width:360px;margin:0!important}
+.afterglow .hero-bottom{position:static;width:100%;margin:24px 0 0;padding:0 0 20px;display:flex;justify-content:flex-end;order:5}.local-time{font:400 12px/1.6 'DM Mono',monospace;max-width:100%;text-align:right}.local-time br,.time-message{display:none}.local-time .ambient-toggle{margin-left:12px;min-height:44px;font:inherit}
+.rail{position:relative;inset:auto;left:auto;bottom:auto;transform:none;width:max-content;max-width:100%;margin:28px auto 0;padding:0;gap:16px;z-index:20;display:flex;flex-direction:row;background:none!important;border:0;border-radius:0;box-shadow:none!important;backdrop-filter:none!important}
+.rail a{min-width:92px;padding:8px;font:400 14px/1.4 'DM Sans',sans-serif}.rail a:first-child{min-width:130px}.rail a>span:last-child{padding-bottom:9px}
+main>.section{width:min(1100px,100%);min-height:calc(100svh - 220px);padding:50px 32px 60px;margin:auto;scroll-margin:0}.section-head h2{font-size:clamp(32px,4vw,52px)}
+body:not([data-page=home]) .rail{margin:12px auto 32px}
+.projects{display:flex;justify-content:center;gap:24px;perspective:1200px;padding:70px 0 30px}.project{display:block;min-width:0;flex:1;max-width:310px;transform:rotate(calc((var(--sleeve-index) - 1)*7deg));transform-origin:50% 90%;transition:transform .4s;position:relative;padding:0;background:var(--paper)}.project:hover,.project:focus-visible{transform:translateY(-20px) rotate(0);z-index:2}
+.project-art{aspect-ratio:1!important;height:auto!important;min-height:0;overflow:hidden;border-radius:2px;box-shadow:4px 5px 0 #817660,8px 14px 28px #211b2926;border:7px solid #eee8d9;position:relative;background:#dbe5df}.project-art img{height:100%;width:100%;position:absolute;inset:0;object-fit:contain;padding:18px;background:#dbe5df}.capi-art img{background:#e7dff1}.project small{display:block;font:400 12px/1.5 'DM Mono';margin-top:22px}.project h3{font:600 24px/1.3 'DM Sans';margin:8px 0}.project p{font:400 16px/1.6 'DM Sans';margin:0}.project-tag{font-size:11px}
+.page-enter{animation:page-arrive .65s cubic-bezier(.2,.7,.2,1)}.page-enter .project{animation:sleeve-fan .9s both;animation-delay:calc(var(--sleeve-index)*90ms)}
+@keyframes page-arrive{from{opacity:0;translate:0 100px}to{opacity:1;translate:0 0}}
+@keyframes sleeve-fan{from{opacity:0;transform:translateX(calc((1 - var(--sleeve-index))*180px)) rotate(0)}to{opacity:1;transform:rotate(calc((var(--sleeve-index) - 1)*7deg))}}
+/* Warm oak: irregular grain, softly bevelled solid-wood plinth. */
+[data-player=wood] .independent-deck{border-radius:20px;background:repeating-linear-gradient(3deg,#9a65341a 0 1px,transparent 2px 7px),radial-gradient(ellipse at 18% 50%,#e7c69400 20%,#a66a2c22 21%,#eccda133 23%,transparent 35%),linear-gradient(110deg,#f5dfb6,#d7ae75 48%,#edcfa1 78%,#d2a36a);border:1px solid #fff0cf}
+[data-player=chrome] .independent-player .independent-deck{border-radius:8px;border:1px solid #fbffff;background:linear-gradient(118deg,#74858c 0%,#edf4f5 16%,#a8b5bb 31%,#f5fafb 48%,#8c9b9f 68%,#d4dfe2 82%,#f9ffff);box-shadow:0 5px 0 #7b8c93,0 9px 0 #4b5b64,0 23px 28px #17314030}
+[data-player=chrome] .live-label{background:#ccd7de;color:#263944}[data-player=chrome] .deck-signature{color:#263944}
+[data-player=jade] .independent-player .independent-deck{border-radius:40px;border:1px solid #d8ead7;background:radial-gradient(ellipse at 23% 10%,#e8f2dfaa,transparent 60%),linear-gradient(125deg,#90b5a1,#497c6a 60%,#759b89);box-shadow:0 7px 0 #376153,0 12px 0 #294c42,0 24px 28px #15392c38}
+[data-player=jade] .live-label{background:#f3a98e;color:#532f28}[data-player=jade] .deck-signature{color:#f5eee0}
+@media(max-width:600px){.masthead{padding:16px 20px;min-height:76px}.brand{font-size:16px}.masthead nav{gap:14px}.masthead nav a{font-size:14px}.afterglow .hero{width:calc(100% - 24px);margin:0 12px;padding:16px 12px 0;min-height:calc(100svh - 76px)}.afterglow .hero-copy{gap:18px;padding-top:0}.headline-top{font-size:clamp(32px,9vw,44px)}.headline-bottom{font-size:clamp(29px,8vw,40px)}.scene-slot{width:min(400px,100%);margin:4px 0 0}.afterglow .hero-copy>p{font-size:15px}.rail{gap:0;margin-top:20px}.rail a{min-width:80px;font-size:13px}.rail a:first-child{min-width:125px}.afterglow .hero-bottom{margin-top:14px;justify-content:center;padding-bottom:8px}.local-time{text-align:center;font-size:11px}.finish-picker{gap:0}.finish-picker button{padding:10px;font-size:11px}.projects{flex-direction:column;align-items:center;gap:44px;padding:20px 10px}.project{width:100%;max-width:350px;transform:none}.page-enter .project{animation:page-arrive .5s both}.section-head{display:block}.section-head p{margin-top:16px}.about,.contact{display:block}.about>div+div{margin-top:24px}main>.section{padding:28px 24px}.project h3{font-size:24px}}
+@media(prefers-reduced-motion:reduce){.page-enter,.page-enter .project{animation:none}.project{transition:none}.project:hover{transform:none}}
+/* A quieter vinyl-inspired maker's mark; keeps the familiar lowercase j. */
+.brand-mark{border:1px solid currentColor;border-radius:50%;background:repeating-radial-gradient(circle,transparent 0 3px,#76847b22 3.5px 4px);font:italic 22px/1 'Instrument Serif';display:grid;place-items:center;flex:none}
+@media(min-width:601px) and (max-width:850px){.projects{gap:18px}.project h3{font-size:20px}.project p{font-size:15px}.project small{font-size:11px}.section-head{display:block}.section-head p{margin-top:12px}}
+@media(max-height:800px) and (min-width:601px){.scene-slot{width:min(360px,80vw)}.afterglow .hero-copy{gap:12px}.rail{margin-top:14px}.afterglow .hero{padding-top:12px}.afterglow .hero-bottom{margin-top:6px}}
+.afterglow .hero-copy .greeting,.afterglow .hero-copy>p{color:var(--muted)}
