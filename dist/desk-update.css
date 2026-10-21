@@ -85,3 +85,6 @@
 #home>.rail a{min-height:64px;padding:8px 16px;gap:4px}
 #home>.rail .dock-art{width:32px;height:32px;margin:0 auto}
 #home>.rail a>span:last-child{font-size:16px;padding:0 8px 12px}
+/* Center the note within the free tabletop beside the player. */
+.desk-note{left:68%;top:48%}
+@media(max-width:600px){.desk-note{left:68%;top:48%}}
