@@ -79,3 +79,9 @@
 @keyframes toggle-hit-left{0%{transform:translateX(var(--travel)) scale(1)}38%{transform:translateX(0) scale(.82,1.12)}58%{transform:translateX(7px) scale(1.06,.96)}78%{transform:translateX(0) scale(.96,1.03)}90%{transform:translateX(2px) scale(1.01,.99)}100%{transform:translateX(0) scale(1)}}
 @media(max-width:600px){.theme-knob{--travel:23px}}
 @media(prefers-reduced-motion:reduce){.ambient-toggle.bounce-right .theme-knob,.ambient-toggle.bounce-left .theme-knob{animation:none}}
+
+/* A single, transparent collection entry restores the original bottom menu. */
+#home>.rail:not([hidden]){display:flex!important;justify-content:center;flex:none}
+#home>.rail a{min-height:64px;padding:8px 16px;gap:4px}
+#home>.rail .dock-art{width:32px;height:32px;margin:0 auto}
+#home>.rail a>span:last-child{font-size:16px;padding:0 8px 12px}

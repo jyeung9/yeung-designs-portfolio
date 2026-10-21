@@ -1,7 +1,9 @@
-// The supplied portfolio artwork lives inside an independently rendered laptop.
-sleeveLink.classList.add('laptop-link');
-sleeveLink.innerHTML='<span class="laptop-object" aria-hidden="true"><span class="laptop-display"><span class="camera-notch"></span><img src="assets/capi-overview.png" alt=""></span><span class="laptop-keyboard"><span class="key-grid"></span><span class="trackpad"></span></span><span class="laptop-edge"></span></span><span class="sleeves-prompt">browse collection</span>';
-sleeveLink.setAttribute('aria-label','browse collection — laptop showing CAPI AI work');
+// Keep collection navigation in the familiar bottom menu, not on the desk.
+sleeveLink.remove();
+const collectionMenu=document.querySelector('#home > .rail');
+collectionMenu.querySelectorAll('a:not([href="#work"])').forEach(link=>link.remove());
+collectionMenu.hidden=false;
+requestAnimationFrame(fitWelcome);
 // Pen and writing share a coordinate system, so the nib follows the letter baseline.
 note.querySelector('.note-paper').append(note.querySelector('.desk-pen'));
 // A dimensionally consistent arm: pivot, counterweight, tube, headshell and stylus.
