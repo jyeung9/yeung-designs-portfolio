@@ -1,3 +1,11 @@
+## Consolidated design-system website — October 28, 2026
+
+Julie approved publishing the consolidated guide and adding it to B-Side. The living reference is at `/design-system/`, linked by the “design system” exploration card. Short topic summaries lead; expandable Details preserve the full specifications. The responsive inspector shows the selected component in a focused visual crop, with a Full page toggle, six viewport presets, computed geometry/type/spacing, relative parent width, visible-element inventory and declared min/max rules.
+
+The guide distinguishes current portfolio choices from Apple platform guidance, and identifies accessibility checks that remain incomplete. Its interface uses Helvetica and the requested documentation palette; embedded components retain their actual portfolio fonts and styling. Source: `dist/design-system/`. This guide is the primary consolidated browsing surface; older text/captures below retain historical evidence.
+
+Queued separately: mobile bottom-menu restoration, then contact artwork as a matcha latte with a straw. Neither is included in this release.
+
 ## Approved player-first release — October 28, 2026
 
 Julie approved the reviewed local version and requested documentation and live publication. This is the current contract; earlier entries below are historical when they conflict.

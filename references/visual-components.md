@@ -1,3 +1,7 @@
+## Living visual reference — October 28, 2026
+
+The consolidated guide at `/design-system/` combines words and live component visuals, accessible through B-Side. Selecting a component focuses its actual visual; Full page restores context. Six viewport presets expose real responsive measurements rather than screenshot estimates. Short summaries and expandable specifications preserve detail without putting every rule on screen at once.
+
 ## Approved player-first release — October 28, 2026
 
 ![Approved player-first home, 1920×1080](player-first-approved-desktop.png)

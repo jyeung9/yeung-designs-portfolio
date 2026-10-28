@@ -181,6 +181,8 @@ placeNav();requestAnimationFrame(fitWelcome);
 const projectSkills=[['product design','design systems','community operations','ai-assisted development'],['product design','mobile ux','responsive design'],['product design','design systems','creative tools']];
 const projectTitles=['titanic’s end app','connectmyhealth','capi ai'];
 sourceCards.forEach((card,i)=>{card.querySelector('h3').textContent=projectTitles[i];const list=document.createElement('ul');list.className='skill-chips';list.setAttribute('aria-label','project skills and focus');for(const skill of projectSkills[i]){const li=document.createElement('li');li.textContent=skill;list.appendChild(li)}card.appendChild(list)});
+// [design-approved:design-system-entry] Keep the living visual reference discoverable in B-Side.
+document.querySelector('#explorations .exploration-gallery').insertAdjacentHTML('afterbegin',`<a class="exploration-record" href="design-system/"><img src="assets/design-system-cover.svg" alt="Design system: typography, spacing and component reference"><h4>design system</h4><ul class="skill-chips" aria-label="project focus"><li>visual guidelines</li><li>responsive components</li></ul></a>`);
 const explorationLink=document.createElement('a');explorationLink.href='#explorations';explorationLink.innerHTML='<span class="dock-art sleeve-art" aria-hidden="true"><i></i></span><span>side quests</span>';sideMenu.querySelector('[href="#work"]').after(explorationLink);
 showRecord(0);updateSideMenu();
 
