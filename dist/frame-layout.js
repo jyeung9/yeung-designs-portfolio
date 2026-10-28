@@ -39,3 +39,17 @@ const frameObserver=new ResizeObserver(queueFrameFit);
 window.addEventListener('resize',queueFrameFit);
 window.addEventListener('hashchange',queueFrameFit);
 document.fonts.ready.then(queueFrameFit);
+
+// Round the tapered tabletop with the same physical CSS radius as the player.
+// A measured path preserves the existing footprint without clipping off the corners.
+function roundTableCorners(){
+ const table=cabinetScene.querySelector('.shared-table');
+ const {width:w,height:h}=table.getBoundingClientRect();
+ if(!w||!h)return;
+ const r=parseFloat(getComputedStyle(cabinetScene).getPropertyValue('--hardware-radius'))||12;
+ const inset=w*.03;
+ const path=`M ${inset+r} 0 H ${w-inset-r} Q ${w-inset} 0 ${w-inset+inset*r/h} ${r} L ${w-inset*r/h} ${h-r} Q ${w} ${h} ${w-r} ${h} H ${r} Q 0 ${h} ${inset*r/h} ${h-r} L ${inset-inset*r/h} ${r} Q ${inset} 0 ${inset+r} 0 Z`;
+ table.style.setProperty('--table-outline',`path('${path}')`);
+}
+const tableCornerObserver=new ResizeObserver(roundTableCorners);
+tableCornerObserver.observe(cabinetScene);

@@ -1,3 +1,13 @@
+## Approved wooden tabletop — October 28, 2026
+
+Julie approved the local rounded-table preview and authorized publication plus documentation updates. The warm oak table retains its shallow tapered silhouette (3% inset at the top corners), 2:1 scene footprint, existing grain, warm layered wood colors, and centered record player. All four table corners now use the same shared **12px corner-radius value** as the player deck, rather than a sharp polygon that clips the rounding away. The corner contour recomputes when the scene resizes, preserving the taper and fixed CSS-pixel rounding without stretching the scene.
+
+Geometry and shared radius: `dist/responsive-scene.css`; responsive corner contour: `roundTableCorners()` in `dist/frame-layout.js`. The retained material layers come from `dist/iteration.css` and `dist/assets/oak-grain.svg`, with earlier base styles in `dist/record-cabinet.css` and `dist/oak-scene.css`. This update changes the corner treatment only; playback, layout proportions, text and LED behavior remain as reviewed.
+
+Visual evidence: [approved local preview capture](references/rounded-table-preview.png), retained in the [visual component library](references/visual-components.md). The capture is a small component crop from the reviewed implementation, not the original supplied reference or a full responsive test matrix.
+
+Future changes follow the **preview → explicit approval → documentation → push/publication** workflow in [AGENTS.md](AGENTS.md) and [design-rules.md](design-rules.md).
+
 ## Current frame and scrolling contract — October 28, 2026
 
 This contract supersedes earlier fixed-width, scrolling-navigation and mobile side-menu rules below.

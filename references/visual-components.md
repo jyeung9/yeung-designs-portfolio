@@ -1,3 +1,13 @@
+## Approved update: rounded wooden table — October 28, 2026
+
+**Status:** reviewed in the local preview; Julie explicitly approved publication and documentation updates. This supersedes sharp tabletop corners in earlier captures.
+
+![Approved rounded wooden tabletop preview](rounded-table-preview.png)
+
+The table and player share a 12px corner-radius value. The table keeps its tapered top edge, oak grain and existing proportions; a responsive curved outline replaces the sharp polygon cutout. Preserve this rounded treatment at every scene size. The retained image is a small implementation crop; it documents the approved treatment but does not establish full-screen or all-state verification. See [the design description](../design-system.md) for ownership and sizing.
+
+**Review workflow:** show the local preview before changing the accepted description or visual reference. Only after explicit approval should the documentation be updated and the change pushed/published. Unapproved preview captures must not be labeled approved.
+
 # Visual component reference library
 
 Updated October 28, 2026. This library stores visual evidence alongside component rules so future work does not reconstruct the design from prose alone. References are local, durable copies, outside the published `dist` folder.

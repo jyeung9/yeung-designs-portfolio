@@ -1,6 +1,6 @@
 /* Shared normalized scene. No breakpoint changes to these proportions. */
 .connection-object .cabinet-scene{--player-width:52%;--disc-width:22%;--hardware-radius:12px;position:relative;width:100%;aspect-ratio:2!important;height:auto;min-height:0;container-type:inline-size;overflow:visible;transform:none}
-.cabinet-scene .shared-table{inset:0!important;width:100%!important;height:100%!important;min-height:0;transform:none;border-radius:var(--hardware-radius)!important;mask-image:none!important;-webkit-mask-image:none!important;clip-path:polygon(3% 0,97% 0,100% 100%,0 100%)}
+.cabinet-scene .shared-table{inset:0!important;width:100%!important;height:100%!important;min-height:0;transform:none;border-radius:var(--hardware-radius)!important;mask-image:none!important;-webkit-mask-image:none!important;clip-path:var(--table-outline,none)}
 .cabinet-scene .independent-player,.cabinet-scene .arm-control{left:50%!important;top:50%!important;width:var(--player-width)!important;height:auto!important;aspect-ratio:1.5;translate:-50% -50%;min-width:44px;min-height:44px}
 .cabinet-scene .independent-deck{border-radius:var(--hardware-radius)!important}
 .cabinet-scene .edge-disc{width:var(--disc-width)!important;top:50%!important;translate:0 -50%;min-width:44px;min-height:44px;touch-action:manipulation}
