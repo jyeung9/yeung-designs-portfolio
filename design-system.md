@@ -2,14 +2,19 @@
 
 This section is the running source of truth; older sections below are historical when they conflict.
 
-- Tonearm toggles play/pause; faded left/right tabletop discs select previous/next song. These controls are separate objects, use the shared handwritten prompt and support keyboard/touch.
+- Tonearm toggles play/pause; left/right tabletop discs with directional arrows select previous/next song. These controls are separate objects, use the shared handwritten prompt and support keyboard/touch.
 - Uploaded local audio only; start silent, explicit play/pause. Never insert an external player or change page geometry during playback.
 - Disc change: pause and decelerate, lift/park arm, lift disc and slide right, bring replacement from left, settle, then resume and lower arm. Reduced motion skips travel.
+- Hovering anywhere over the player activates record and tonearm motion while stopped; playback and disc-change physics take priority. Song titles appear on the vinyl and an inset LED display without changing layout.
+- Table sides are solid, with no fade. The platter sits slightly higher on the deck.
+- Gray background drawings use fine dotted strokes; the grid remains solid.
+- Sleeve prompts lead with the intended benefit, then project name. Do not claim measured outcomes without evidence.
+- Contact note and its annotation read “contact me”.
 - Table has a visible front edge, coherent perspective and contact shadows. All objects retain their proportions at every breakpoint.
 - Text-to-object gaps use the same spacing token above the sleeves and below the subtitle.
 - Sleeves have separate paper jackets and inner vinyl, with focus/touch equivalents for hover.
 - Polaroid tape stays anchored while the photo sways from its top edge; reduced motion disables sway.
-- Every hover annotation uses locally hosted **Caveat 500** (Portfolio Hand), 22px, with the same thin handdrawn underline. The yellow note uses the same face without an underline. Never render duplicate prompts.
+- Every hover annotation uses locally hosted **Caveat 500** (Portfolio Hand), 22px, with the same thin handdrawn underline, transparent background, no border and no box shadow. The yellow note uses the same face without an underline. Never render duplicate prompts.
 - Touch: tap to preview an object's label, tap again to activate, tap elsewhere to dismiss. Controls retain accessible names when labels are hidden.
 
 # portfolio design system

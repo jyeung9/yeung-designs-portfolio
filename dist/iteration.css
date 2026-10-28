@@ -70,3 +70,39 @@
 @media(prefers-reduced-motion:reduce){.edge-disc:is(:hover,:focus-visible,.audio-preview) .edge-disc-face{animation:none}}
 
 .cabinet-record:after{content:"";position:absolute;inset:-6px;z-index:0}
+
+/* October 27: solid tabletop and integrated player feedback. */
+.cabinet-scene .shared-table{left:-20%;width:140%;top:51%;height:51%;mask-image:none!important;-webkit-mask-image:none!important}
+.cabinet-scene .independent-player.tonearm-only{pointer-events:auto}
+.edge-disc-face{mask-image:none!important;-webkit-mask-image:none!important}
+.edge-disc-arrow{position:absolute;inset:0;display:grid;place-items:center;color:#24332b;font:500 28px/1 sans-serif;z-index:2}
+.now-playing-led{position:absolute;right:5%;bottom:7%;width:30%;height:20%;padding:3%;display:flex;flex-direction:column;justify-content:center;gap:2px;box-sizing:border-box;background:linear-gradient(140deg,#132c29,#091814);border:1px solid #70786b;border-radius:3px;box-shadow:inset 0 2px 4px #000b,0 1px 0 #f8ead5;overflow:hidden;text-align:left;color:#a6d8ab;font:500 16px/1.1 'DM Mono',monospace;z-index:8}
+.now-playing-led span{font-size:16px;opacity:.7}.now-playing-led strong{font-weight:500;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;text-shadow:0 0 5px #b7fca16b}
+.deck-signature{display:none!important}
+.cabinet-scene .live-label{font:500 16px/1.05 var(--hover-hand);text-align:center;overflow:hidden;padding:4%;box-sizing:border-box;overflow-wrap:anywhere}
+.cabinet-scene .independent-player.player-hover:not(.playing):not(.changing-record) .live-arm{animation:arm-curiosity 1.6s ease-in-out infinite}
+@keyframes arm-curiosity{0%,100%{rotate:-3deg}50%{rotate:4deg}}
+@media(prefers-reduced-motion:reduce){.cabinet-scene .independent-player.player-hover .live-arm{animation:none!important}}
+@media(max-width:600px){.cabinet-scene .shared-table{left:-6%;width:112%}.now-playing-led{right:3%;width:32%;padding:2%}}
+
+.cabinet-scene .live-platter{top:4%!important}
+.now-playing-led{right:2%;bottom:5%;width:36%;height:27%;padding:2%;}
+.now-playing-led span,.now-playing-led strong{display:block;flex-shrink:0;white-space:nowrap;max-width:100%;overflow:hidden;font-size:16px!important;line-height:1.1!important;letter-spacing:-.5px}
+.now-playing-led strong{animation:led-title-scroll 9s ease-in-out infinite;width:max-content;max-width:none}
+@keyframes led-title-scroll{0%,25%{translate:0}75%,100%{translate:min(0px,calc(75px - 100%))}}
+@media(prefers-reduced-motion:reduce){.now-playing-led strong{animation:none;max-width:100%;text-overflow:ellipsis}}
+
+/* Shared annotations are handwriting on the page, never floating cards. */
+.jacket-title,#home>.rail.balanced-menu .menu-label,.headphone-music-prompt,.edge-disc-label{background:transparent!important;border:0!important;border-radius:0!important;box-shadow:none!important;backdrop-filter:none!important;padding:10px 14px 18px!important;text-shadow:0 1px 3px var(--bg)}
+#home>.rail.balanced-menu .desk-note .menu-label{display:block!important}
+.jacket-title{width:240px!important;max-width:70vw!important;white-space:normal!important;z-index:100!important}
+.jacket-title small{display:block;font:500 18px/1.25 var(--hover-hand);margin-top:4px}
+.cabinet-record:is(:hover,:focus-visible,.touch-preview){z-index:100!important}
+.cabinet-shelf:has(.cabinet-record:is(:hover,:focus-visible,.touch-preview)){z-index:100!important}
+.grid-studies :is(path,rect,ellipse,circle,line,polyline){stroke-dasharray:1 5!important;stroke-linecap:round!important}
+.now-playing-led span,.now-playing-led strong{font-family:'DM Sans',sans-serif!important;font-weight:400!important;letter-spacing:-.7px}
+.arm-control>.edge-disc-label{top:-12%;left:85%}
+@media(max-width:600px){.arm-control>.edge-disc-label{left:60%;top:-18%}}
+.now-playing-led{width:40%;right:2%;height:28%}
+.now-playing-led span{font-family:Arial,sans-serif!important;letter-spacing:-.8px}
+@media(max-width:600px){.cabinet-scene .shared-table{left:0;width:100%}.edge-disc{width:25%}.edge-disc-left{left:-3%}.edge-disc-right{right:-3%}.now-playing-led{width:40%}}

@@ -61,10 +61,10 @@ musicButton.removeAttribute('aria-expanded');musicButton.removeAttribute('aria-c
  let hovered=false,focused=false,angle=0,speed=0,last=0,raf=0,wiggleTime=0,hoverStarted=0;
  function frame(now){const dt=last?Math.min((now-last)/1000,.05):0;last=now;const playing=player.classList.contains('playing');const target=playing?200:0;
  speed+=(target-speed)*(1-Math.exp(-dt/(playing?1.4:player.classList.contains('changing-record')?.22:1.1)));if(Math.abs(speed-target)<.12)speed=target;
- angle=(angle+speed*dt)%360;const wiggle=!playing&&speed<1&&(hovered||focused)&&!reduced.matches;
+ angle=(angle+speed*dt)%360;const wiggle=!playing&&speed<1&&!player.classList.contains('changing-record')&&(hovered||focused||player.classList.contains('player-hover'))&&!reduced.matches;
  wiggleTime=wiggle?wiggleTime+dt:0;const offset=wiggle?Math.sin(wiggleTime*4)*7:0;
  record.style.transform=`rotate(${reduced.matches?angle:angle+offset}deg)`;
- if(!reduced.matches&&(speed>0||playing||hovered||focused)){raf=requestAnimationFrame(frame)}else{raf=0;last=0}
+ if(!reduced.matches&&(speed>0||playing||hovered||focused||player.classList.contains('player-hover'))){raf=requestAnimationFrame(frame)}else{raf=0;last=0}
  }
  function start(){if(!raf&&!document.hidden)raf=requestAnimationFrame(frame)}
  function setHover(value){if(value&&!hovered)hoverStarted=performance.now();hovered=value;player.classList.toggle('disk-hover',value);start()}
