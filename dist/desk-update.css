@@ -101,8 +101,8 @@
 #home>.rail.balanced-menu .desk-polaroid:after{content:none}
 #home>.rail.balanced-menu .note-paper{padding:10%;border-top-width:4px}
 #home>.rail.balanced-menu .written-hello{font-size:16px!important}
-#home>.rail.balanced-menu .sleeve-art:before{width:44px;height:44px;left:19px;top:6px}
-#home>.rail.balanced-menu .sleeve-art i{width:12px;height:12px;left:35px;top:22px}
+#home>.rail.balanced-menu .sleeve-art:before{width:78.571%;height:78.571%;left:33.929%;top:10.714%}
+#home>.rail.balanced-menu .sleeve-art i{width:21.429%;height:21.429%;left:62.5%;top:39.286%}
 #home>.rail.balanced-menu a:is(:hover,:focus-visible){z-index:40}
 @media(max-width:380px){#home>.rail.balanced-menu{gap:8px}#home>.rail.balanced-menu>a{gap:12px}#home>.rail.balanced-menu .menu-object,#home>.rail.balanced-menu .dock-art{width:48px;height:48px}}
 @media(min-width:601px){#home>.rail.balanced-menu{width:min(540px,100%)}#home>.rail.balanced-menu a>span:last-child{white-space:nowrap}}

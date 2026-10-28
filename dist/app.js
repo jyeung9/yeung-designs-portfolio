@@ -95,14 +95,7 @@ window.addEventListener('hashchange',placeNav);placeNav();
 const sleeveLink=document.createElement('a');sleeveLink.href='#work';sleeveLink.className='scene-sleeves';sleeveLink.setAttribute('aria-label','browse collection (of work)');
 sleeveLink.innerHTML=`<span class="sleeve-stack" aria-hidden="true"><span class="scene-sleeve sleeve-back"><span>capi</span></span><span class="scene-sleeve sleeve-middle"><span>care, connected.</span></span><span class="scene-sleeve sleeve-front"><span class="sleeve-orbit"></span><small>selected works / vol. 01</small><strong>good things<br>happen<br>together.</strong><span class="sleeve-credit">yeung designs</span></span></span><span class="sleeves-prompt">browse collection (of work)</span>`;
 document.querySelector('.solo-player-scene').appendChild(sleeveLink);
-// Wheel/swipe between whole sections; longer case-study content can scroll normally.
-const sectionOrder=['home','work','explorations','about','contact'];let scrollEnergy=0,lastWheel=0,lockedUntil=0,touchY=null;
-function stepSection(delta){const i=sectionOrder.indexOf(document.body.dataset.page),next=sectionOrder[i+delta];if(next){lockedUntil=performance.now()+1000;location.hash=next;return true}return false}
-function atEdge(delta){return document.body.dataset.page==='home'||(delta>0?innerHeight+scrollY>=document.documentElement.scrollHeight-3:scrollY<=3)}
-addEventListener('wheel',e=>{if(e.ctrlKey||e.target.closest('input,textarea,select,form,dialog')||document.querySelector('dialog[open]')||Math.abs(e.deltaX)>Math.abs(e.deltaY))return;const now=performance.now(),delta=Math.sign(e.deltaY);if(!atEdge(delta))return;e.preventDefault();if(now<lockedUntil){lastWheel=now;return}if(now-lastWheel>180)scrollEnergy=0;scrollEnergy+=e.deltaY;lastWheel=now;if(Math.abs(scrollEnergy)>65){stepSection(Math.sign(scrollEnergy));scrollEnergy=0}},{passive:false});
-addEventListener('touchstart',e=>{touchY=e.target.closest('input,textarea,select,form,dialog')?null:e.touches[0].clientY},{passive:true});
-addEventListener('touchend',e=>{if(touchY===null)return;const dy=touchY-e.changedTouches[0].clientY;touchY=null;if(Math.abs(dy)>65&&performance.now()>lockedUntil&&atEdge(Math.sign(dy)))stepSection(Math.sign(dy))},{passive:true});
-addEventListener('keydown',e=>{if(e.target.closest('input,textarea,select,form,dialog')||!['PageDown','PageUp'].includes(e.key)||document.querySelector('dialog[open]'))return;const delta=e.key==='PageDown'?1:-1;if(atEdge(delta)){e.preventDefault();stepSection(delta)}});
+// Scrolling never changes routes or activates a sidebar. Navigation is explicit.
 
 const sharedTable=document.createElement('div');sharedTable.className='shared-table';sharedTable.setAttribute('aria-hidden','true');document.querySelector('.solo-player-scene').prepend(sharedTable);
 // Status is normal layout content; it must never obscure the role or headline.

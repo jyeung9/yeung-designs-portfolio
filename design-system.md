@@ -1,10 +1,28 @@
+## Current frame and scrolling contract — October 28, 2026
+
+This contract supersedes earlier fixed-width, scrolling-navigation and mobile side-menu rules below.
+
+- Reserve header, readable headline/role, annotation, LED, navigation and timezone rows first. Allocate the remaining height to one shared scene width, capped at 760px and available width. The 2:1 table, 52% player, 22% discs and 18.9% sleeves retain their proportions. A 233px scene floor preserves 44px sleeve targets. Never crop or distort objects to conceal a height conflict.
+- Desktop dock artwork adapts together between 72–112px based on width and height; labels have their own space. Text and control hit areas do not scale with the scene. At widths up to 600px, navigation, social links, timezone and appearance controls live in the hamburger.
+- Target a complete landing frame at ordinary phone/tablet/desktop sizes. When the fixed readable rows plus minimum artwork exceed the viewport (short landscape, very narrow phones, enlarged text), permit vertical reachability and flag `data-fit="scroll-required"`; do not hide content. A single-window guarantee at every possible size is incompatible with minimum targets and enlarged text.
+- **Scroll stability:** wheel, swipe and PageDown are native scrolling, never implicit route changes. Scrolling must not reveal a sidebar, change content width, shift the landing page right, or alter its alignment. Page changes require an explicit navigation action. Hidden routes must remain hidden despite display rules.
+- **Mobile section progress:** no side menu or horizontal section-menu strip. In a long case study, each section owns a compact sequential number, sticky at the top of the viewport and bounded by that section. As the next section arrives, its number replaces the previous one naturally. The number never consumes a side column or moves the body copy. Desktop retains the case-study section menu and matching active heading color.
+- **Workshop annotation:** “case studies” sits above a gently uneven curved line aimed toward the shelf’s top-right area. Reserve a 56px annotation row and 16px of separation to the cover row (8px margin + 8px gap). Keep the annotation separate from cover hit areas; do not rotate or translate it into a sleeve. These are portfolio-specific clear-space values, not Apple-prescribed annotation margins.
+- **Vines:** use open alternating arcs around the letters, with visible SVG/mask overflow. Reserve 16px above and 12px below the headline for botanical details; the final stem stays connected to the last n. Hand-drawn details should feel crafted and in progress while the layout remains stable.
+- **Apple reference:** [Apple’s UI design guidance](https://developer.apple.com/design/tips/) recommends 44×44pt touch controls, non-overlapping text and preserved image aspect ratios. This web design uses 44×44 CSS px targets and explicit component clear space; point and CSS-pixel units are not presented as interchangeable native-platform measurements.
+- Ownership: `frame-layout.css/js` owns the measured frame budget and spacing; `responsive-scene.css` owns internal proportions; `page-layout.css` owns route layout; case-study files own section progress. Edit these authorities rather than adding competing overrides.
+
+### Verification of the current update
+
+Measured landing frame fits at 390×844, 768×1024, 1280×800 and 1440×900. At 320×568 the page is 589px high; at 844×390 it is 756px high. These are explicit minimum-target/readability conflicts. A 29-step width sweep from 320–1440px at 900px height retained the 2:1 scene without horizontal overflow. Enlarged 200% text at 489×844 required 944px page height, with no horizontal overflow. Mobile case-study scrolling kept main x=0, hid the sidebar and pinned the current number at y=0. Screenshots include both themes and empty/playing/expanded states; not every theme/state was recaptured at every size in this update. See [current captures and measurements](references/viewport-fit-qa/index.html); older comprehensive captures below predate these changes.
+
 ## Single proportional record scene — October 28, 2026
 
-This is the current sizing contract. It supersedes the measured-offset centering and older fixed-height rules below. `responsive-scene.css` owns artwork geometry; `frame-layout.css` owns page rows and spacing; `frame-layout.js` only assembles the structure. Do not add device-specific object coordinates or height-driven shrink routines.
+This is the current sizing contract. It supersedes the measured-offset centering and older fixed-height rules below. `responsive-scene.css` owns artwork geometry; `frame-layout.css` owns page rows and spacing; `frame-layout.js` allocates the shared width after measuring fixed rows. Do not add device-specific object coordinates.
 
 | Element | Proportional sizing / placement | Independent readability / interaction rule |
 | --- | --- | --- |
-| Overall scene | Width min(760px, available content width); 2:1 aspect ratio at every viewport | Height shortage creates page scrolling, never a smaller ratio or hidden overflow |
+| Overall scene | Width min(760px, available content width); 2:1 aspect ratio at every viewport | Use remaining height as well as width; below the minimum target floor, allow scrolling |
 | Tabletop | Same 100% width and height as the scene; shallow trapezoid with 3% top-edge inset | Center is the scene center; no measured or arbitrary vertical translation |
 | Player | 52% of scene width, 3:2 bounds, center at 50% / 50% | Actual hit area shares those exact coordinates; at least 44×44px |
 | Platter, tonearm and deck details | Existing local percentages inside the player; move and scale as one unit | Playback, queued transfer and pause state remain authoritative |
@@ -17,8 +35,8 @@ This is the current sizing contract. It supersedes the measured-offset centering
 | Expanded artwork | Square width min(100%, 280px), circular art at 80% | Maintains aspect ratio and scrolls with the card instead of being clipped by an overlap |
 | Mobile chips | Horizontal flex-wrap directly below impact; 0.4rem gaps, compact 0.2rem padding | Text stays 1rem minimum. More rows at narrow widths / 200% text are intentional |
 | Main headline / role | Existing DM Sans hierarchy: headline 1.75–3rem desktop / 1.5625–2.125rem phone; role 1rem | Text wraps with enlargement, independent of artwork size |
-| Navigation objects | Existing 48px artwork; own normal-flow section | Controls at least 44px; phone navigation folds into hamburger |
-| Section spacing | 1rem gaps / 1.75rem scene clearance; phone 0.75rem / 1.5rem | Content determines row height. No offsets used to repair overlap |
+| Navigation objects | Shared clamp(72px, 7vw, 112px) desktop artwork; own normal-flow section | Controls at least 44px; phone navigation folds into hamburger |
+| Section spacing | 0.25rem frame gaps and scene clearance; annotation and vine clear space are separately reserved | Content determines row height. No offsets used to repair overlap |
 
 Validation and captures: [responsive comparison gallery](references/shared-scene-qa/index.html). Tested 320×568, 390×844, 768×1024, 1440×900 and 844×390, both themes and empty/playing/expanded states; 200% text on phone. A 72-step width sweep (320–1440px and back) and 22-step height sweep (1024–352px) retained a 2:1 scene and centered player. Normal minimum sleeve target measured about 51px. Some pages require vertical scrolling, particularly short landscape and enlarged text. This is the documented tradeoff, not a claim that every screen can contain all content at once.
 
@@ -38,7 +56,7 @@ Open the [visual component reference library](references/visual-components.md) b
 - Landing page fits the available viewport: reserve header, text and footer space, then size and center the whole scene. Scale complete graphics proportionally; never crop a graphic to conceal overflow. Text remains at least 16px and primary touch targets at least 44px. Extremely constrained accessibility/zoom views must remain reachable rather than silently clipped.
 - Mobile uses a top-right hamburger for home, collection, about, contact, LinkedIn and résumé. Hide the bottom dock and desktop social links on phone widths. The modal menu supports keyboard focus, Escape and direct first-tap actions.
 - The headline vine draws left to right behind the words, followed by a sprout at the final n. Reduced motion shows the completed drawing immediately.
-- Native case studies preserve portfolio typography, cream paper, restrained accent colors and rounded chips. Desktop has a persistent left section menu; mobile has a sticky horizontal section menu. The active menu item and section heading share the record’s accent color, with aria-current for accessibility.
+- Native case studies preserve portfolio typography, cream paper, restrained accent colors and rounded chips. Desktop has a persistent left section menu; mobile has section-owned sticky numbers. The active menu item and section heading share the record’s accent color, with aria-current for accessibility.
 - Case studies scroll intentionally; the no-scroll requirement applies to the landing composition. Include only sections supported by source material, not fabricated research, tests, metrics or reflections. Store source provenance below. All shelf and collection entry points stay on this website.
 - Case-study sources: existing CAPI Notion page 2a55db5f5e7e80fca480cdc137fe6a0b and ConnectMyHealth page 649b8aee46924d63a12dc8f0aa4ecf7a, read October 28. Supplied local project images remain the visual evidence. Screenshot reference supplies structure only, not its branding, text or reported outcomes.
 

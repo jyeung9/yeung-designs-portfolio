@@ -17,8 +17,6 @@ body{font-size:16px}
 .afterglow .hero-bottom{height:auto;min-height:44px}
 .sleeves-prompt{max-width:calc(100vw - 24px)}
 @media(max-width:600px){
- body:not([data-page=home]) .section-menu{width:98px;max-width:98px;left:8px}
- body:not([data-page=home]) main{width:calc(100% - 128px);margin:0 12px 0 116px}
  .section-menu a{padding:12px 4px 12px 8px;font-size:16px!important}
  .afterglow .hero-bottom{min-height:44px}.local-time{justify-content:center;gap:0 10px}
  .local-time strong{white-space:normal}.masthead nav{gap:12px}
