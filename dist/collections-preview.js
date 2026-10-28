@@ -16,6 +16,11 @@
  const rows=item.system?[['portfolio'],item.tags,['mobile','desktop','web']]:[[item.name==='neon owl'?'business':'exploration'],item.tags,[]];
  rows.forEach((list,n)=>{const row=document.createElement('span');row.className='collection-chip-row';row.dataset.row=n+1;if(list.length){row.tabIndex=0;row.setAttribute('aria-label',['Project category','Skills and focus','Platform'][n])}list.forEach(text=>{const chip=document.createElement('span');chip.textContent=text;row.append(chip)});tags.append(row)});card.append(tags);if(item.system){const group=document.createElement('div');group.className='b-record-group';const system=document.createElement('a');system.className='system-link';system.href='design-system/';system.textContent='view design system';group.append(card,system);grid.append(group)}else grid.append(card)});
  b.querySelector('.strategy-feature').remove();b.querySelector('.exploration-heading').remove();b.querySelector('.exploration-gallery').remove();
- const h=b.querySelector('.page-heading h2'), title=document.createElement('h1');title.textContent='B-Side';h.replaceWith(title);
+ const h=b.querySelector('.page-heading h2'), title=document.createElement('h1');title.textContent='b-side';h.replaceWith(title);
  const desc=document.createElement('p');desc.textContent='Explorations, side projects, and works in progress.';b.querySelector('.page-heading').append(desc);b.append(grid);
 })();
+
+// [design-approved:shared-page-headings] Common sans heading and mono supporting copy across routed pages.
+for(const id of ['about','contact']){const old=document.querySelector('#'+id+' h2');if(old){const title=document.createElement('h1');title.innerHTML=id==='contact'?'say hi':old.innerHTML;old.replaceWith(title)}}
+document.querySelector('#work h1').textContent='a-side';
+for(const [href,label] of [['#work','a-side'],['#explorations','b-side']]){const link=document.querySelector('.section-menu a[href="'+href+'"]');if(link)link.textContent=label;}

@@ -1,3 +1,16 @@
+## Approved navigation and legibility release — October 28, 2026
+
+Julie authorized GitHub and public publication with these notes:
+- adjust scroll weight
+- dark-mode menu labels are fixed
+- city name centered
+
+The reviewed local state also includes contained 16px chips, shared DM Sans headings and DM Mono supporting text, “say hi”, lowercase a-side / b-side, and record stacks that unfold on page entry and gather on exit. Chips wrap within cards instead of clipping; readability takes priority over the former three-line limit and fitting every item in short windows.
+
+Scroll input accumulates 42 units with a fixed 300ms gate, rather than waiting for trackpad momentum to stop. Reversing direction releases the gate. Record exits take 110ms and entries 240ms; reduced motion bypasses animations. Night menu labels use #f1f3f7. City selects center the selected label with balanced 44px side padding, a chevron inset 16px, and 44px minimum height.
+
+Verified syntax/whitespace, About/Contact font families and labels, mobile chip containment at 390px, desktop section navigation, and computed night-menu colors / centered city alignment. These are targeted checks, not a complete accessibility audit.
+
 ## Approved cross-page consistency checkpoint — October 28, 2026
 
 GitHub checkpoint authorized with Julie’s note: “improve font, styling, and design pattern consistency across pages”. This checkpoint is not a public deployment.

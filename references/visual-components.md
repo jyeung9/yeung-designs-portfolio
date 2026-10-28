@@ -1,3 +1,11 @@
+## Approved navigation and legibility release — October 28, 2026
+
+![Night menu labels and centered city](../.local-previews/night-menu-preview.png)
+
+![Contained chips](../.local-previews/contained-chips-preview.png)
+
+![Shared page heading](../.local-previews/shared-heading-preview.png)
+
 ## Approved cross-page consistency checkpoint — October 28, 2026
 
 GitHub checkpoint; public publication remains separate. The screenshots below preserve the reviewed stage before the next chip-fit and stack-animation experiment.
