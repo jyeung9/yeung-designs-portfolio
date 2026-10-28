@@ -106,3 +106,18 @@
 #home>.rail.balanced-menu a:is(:hover,:focus-visible){z-index:40}
 @media(max-width:380px){#home>.rail.balanced-menu{gap:8px}#home>.rail.balanced-menu>a{gap:12px}#home>.rail.balanced-menu .menu-object,#home>.rail.balanced-menu .dock-art{width:48px;height:48px}}
 @media(min-width:601px){#home>.rail.balanced-menu{width:min(540px,100%)}#home>.rail.balanced-menu a>span:last-child{white-space:nowrap}}
+/* Level tabletop and deck share a camera angle; raised hardware shares deck space. */
+.shared-table{transform:perspective(1100px) rotateX(34deg)}
+.solo-player-scene .independent-player .independent-deck,
+.solo-player-scene .independent-player:hover .independent-deck,
+.solo-player-scene .independent-player:focus-visible .independent-deck{transform:perspective(1000px) rotateX(34deg);transform-style:preserve-3d}
+@keyframes oak-jiggle-bold{0%,100%{transform:perspective(1000px) translateY(-2px) rotateX(34deg) rotateZ(0)}25%{transform:perspective(1000px) translateY(-6px) rotateX(32deg) rotateZ(-2deg)}75%{transform:perspective(1000px) translateY(-3px) rotateX(36deg) rotateZ(2deg)}}
+.solo-player-scene .live-arm{left:77%;top:13%;width:7%;height:62%;transform-origin:50% 10%;transform:translateZ(12px) rotate(-3deg);transform-style:preserve-3d;filter:none}
+.solo-player-scene .independent-player.playing .live-arm{transform:translateZ(12px) rotate(31deg)}
+.arm-bearing{left:-14%;top:0;width:128%;background:radial-gradient(circle at 36% 30%,#f9fcfa 0 12%,#aeb9b9 15% 27%,#414d50 29% 36%,#d3dbd9 39% 52%,#5c696c 58% 65%,#bcc8c7 69%);box-shadow:0 2px 0 #849295,0 5px 0 #455255,3px 10px 5px #26302e55}
+.arm-counterweight{left:-1%;top:-12%;height:15%;width:102%;border-radius:4px;background:linear-gradient(90deg,#475458,#aebbbd 18%,#f4f8f5 40%,#a0adae 65%,#4d5a5e);box-shadow:inset 0 1px 0 #fff9,0 3px 0 #425054,3px 8px 4px #26302e55;transform:translateZ(4px)}
+.arm-tube{left:39%;top:10%;width:22%;height:68%;border-radius:8px;background:linear-gradient(90deg,#3b4c50,#aebfc0 26%,#fafff9 42% 56%,#829697 72%,#3e5054);box-shadow:1px 1px 0 #dce5e0,3px 9px 3px #26302e45;transform:translateZ(5px)}
+.arm-cartridge{left:6%;top:74%;width:88%;height:16%;border-radius:3px 3px 2px 2px;transform:translateZ(5px) rotate(-12deg);background:linear-gradient(110deg,#879a9b,#36474b 45%,#1b2a2e);border-top:2px solid #b8c7c5;box-shadow:inset 1px 0 0 #d9e5df77,2px 2px 0 #17272b,2px 5px 0 #101b1f,4px 10px 4px #26302e44}
+.arm-cartridge:before{content:'';position:absolute;left:24%;top:14%;width:16%;aspect-ratio:1;border-radius:50%;background:#dce5df;box-shadow:7px 0 0 #dce5df}
+.arm-cartridge:after{content:'';position:absolute;right:-46%;top:0;width:50%;height:12%;border-radius:2px;background:linear-gradient(#e9f0e9,#657b7d);box-shadow:1px 2px 0 #33484b;transform:rotate(-22deg);transform-origin:left}
+.arm-stylus{left:35%;bottom:-32%;width:30%;height:32%;background:linear-gradient(#d4b16c 0 45%,#e6e5dc 50% 75%,#263234 76%);transform:translateZ(-3px);clip-path:polygon(0 0,100% 0,65% 100%,35% 100%)}
