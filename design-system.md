@@ -220,3 +220,6 @@ The laptop uses a dark graphite chassis, near-upright thin-bezel display, shallo
 
 ## floating shelf and larger player — October 27
 The latest composition supersedes the cabinet body: retain only the tabletop, double the player width from 34% to 68% of the scene, and place three square featured-record sleeves on a separate shelf above the player. The fixed scene ratio is now 1.6:1 at every viewport. Sleeve names appear only on hover or keyboard focus; touch users tap once to reveal the title and again to open the project. Labels stay above all other objects and never change sleeve geometry. Other fun stuff remains accessible through side quests.
+
+## spacious tabletop and touch disclosure
+Remove headphones and return play/pause activation to the record player. Extend the tabletop sideways with faded ends. Keep 24px above and 32px below the scene; put “product designer | AI systems thinker” close to “meaningful connection.” Bottom navigation labels are hidden at rest, revealed on hover/keyboard focus; touch uses first-tap preview, second-tap activation, with dismissal when tapping elsewhere. The timezone selector starts with “select your timezone”; clock, selector and theme control have separate touch targets and generous gaps, wrapping onto two rows on phones rather than squeezing.
