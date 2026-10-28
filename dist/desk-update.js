@@ -60,12 +60,12 @@ function useCity(city){chosenCity=city;sessionStorage.removeItem('julie-vinyl-th
 clockSelect.onchange=()=>{const request=++clockRequest;locationNotice.hidden=true;
  if(clockSelect.value!=='locate'){useCity(clockSelect.value==='local'?null:cityData[Number(clockSelect.value)]);return}
  clockSelect.value='local';useCity(null);
- if(!navigator.geolocation){locationNotice.textContent='location is unavailable. choose a city instead.';locationNotice.hidden=false;return}
+ if(!navigator.geolocation){locationNotice.textContent='location is unavailable. choose a city instead.';locationNotice.hidden=true;return}
  navigator.geolocation.getCurrentPosition(position=>{if(request!==clockRequest)return;
   const rad=Math.PI/180,lat=position.coords.latitude*rad,lon=position.coords.longitude*rad;
   const nearest=cityData.reduce((best,c)=>{const distance=Math.acos(Math.min(1,Math.max(-1,Math.sin(lat)*Math.sin(c[2]*rad)+Math.cos(lat)*Math.cos(c[2]*rad)*Math.cos(lon-c[3]*rad))));return distance<best.distance?{city:c,distance}:best},{city:null,distance:Infinity}).city;
-  clockSelect.value=String(cityData.indexOf(nearest));useCity(nearest);locationNotice.textContent='nearest listed city: '+nearest[0]+'. you can choose another.';locationNotice.hidden=false;
- },()=>{if(request!==clockRequest)return;clockSelect.value='local';useCity(null);locationNotice.textContent='time stays hidden. choose a timezone when you’re ready.';locationNotice.hidden=false},{enableHighAccuracy:false,timeout:10000,maximumAge:300000});
+  clockSelect.value=String(cityData.indexOf(nearest));useCity(nearest);locationNotice.textContent='nearest listed city: '+nearest[0]+'. you can choose another.';locationNotice.hidden=true;
+ },()=>{if(request!==clockRequest)return;clockSelect.value='local';useCity(null);locationNotice.textContent='time stays hidden. choose a timezone when you’re ready.';locationNotice.hidden=true},{enableHighAccuracy:false,timeout:10000,maximumAge:300000});
 };
 window.renderWorldClock();
 // Music is handled locally by music-sequence.js.

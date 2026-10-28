@@ -1,3 +1,19 @@
+## Current interaction contract — October 27, 2026
+
+This section is the current source of truth. Check it before implementation and during preview. Historical notes below do not override it. Product goals remain in product-intent.md.
+
+| Component | Required behavior / preview check |
+| --- | --- |
+| Player and loaded record | One click/tap anywhere on the deck loads and plays when empty, pauses when playing, and resumes when paused. Keyboard Enter/Space does the same. No first-tap interception for music. No autoplay. |
+| Side stacks | One click/tap changes track with the existing physical transfer animation. Only “previous track” / “next track” appears beneath the curved arrow on hover/focus. |
+| Shelf sleeves | Vinyl slips out first, then details expand after 1.1 seconds. Touch previews the sleeve before navigation. |
+| Expanded sleeve | Same saturated circular artwork as the small sleeve: circle diameter 80% of square. Rounded jacket, separate vinyl visibly sliding and rocking at right. Title/impact above, three chip-category rows below, all text at least 16px. |
+| View Record | Handwritten accent-colored link with the same fine squiggly underline as header links; no button border. |
+| Timezone | Clock hidden until opt-in; no explanatory fallback paragraph. Denial leaves the selector available. Time-based lighting starts only after selection. |
+| Motion and input | Check empty, playing, paused, switching; mouse, keyboard and phone widths. Reduced motion suppresses looping decoration. |
+
+Before publication: verify direct record clicks, no extra timezone prose, matching sleeve artwork proportions, CTA underline, phone overflow and readable chips. Record what was actually checked, not assumed.
+
 ## Current iteration checklist — October 27, 2026
 
 This section is the running source of truth; older sections below are historical when they conflict.

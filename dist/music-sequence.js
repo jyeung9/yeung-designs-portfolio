@@ -44,18 +44,12 @@ shelf.querySelectorAll('.cabinet-record').forEach(link=>{const vinyl=document.cr
 // Step 7: partial vinyl controls share the tabletop plane; the tonearm owns play/pause.
 trackControls.className='edge-track-controls';
 trackControls.innerHTML=[[-1,'previous song','left'],[1,'next song','right']].map(([step,label,side])=>`<button type="button" class="edge-disc edge-disc-${side}" data-step="${step}" aria-label="${label}"><span class="edge-disc-face" aria-hidden="true"><i></i><b class="edge-disc-arrow">${step<0?"←":"→"}</b></span><span class="edge-disc-label">${label}</span></button>`).join('');
-musicButton.onclick=null;musicButton.tabIndex=-1;musicButton.setAttribute('aria-hidden','true');musicButton.classList.add('tonearm-only');
+musicButton.onclick=toggleLocal;musicButton.tabIndex=-1;musicButton.setAttribute('aria-hidden','true');musicButton.classList.add('tonearm-only');
 const armControl=document.createElement('button');armControl.type='button';armControl.className='arm-control';armControl.setAttribute('aria-label','play music');armControl.setAttribute('aria-pressed','false');armControl.innerHTML='<span class="edge-disc-label">play music</span>';cabinetScene.append(armControl);armControl.onclick=toggleLocal;
 function updateArmControl(){const playing=!localAudio.paused&&!localAudio.ended;armControl.setAttribute('aria-label',playing?'pause music':'play music');armControl.setAttribute('aria-pressed',String(playing));armControl.querySelector('span').textContent=playing?'pause music':'play music';}
 ['playing','pause','ended','error'].forEach(name=>localAudio.addEventListener(name,updateArmControl));
 armControl.addEventListener('keydown',event=>{if(event.key==='ArrowRight'||event.key==='ArrowLeft'){event.preventDefault();switchRecord(event.key==='ArrowRight'?1:-1);}});
-let audioPreview=null;
-[armControl,...trackControls.querySelectorAll('button')].forEach(button=>{
- button.addEventListener('pointerdown',event=>{if(event.pointerType==='touch'&&audioPreview!==button){audioPreview=button;button.dataset.previewAudio='true';document.querySelectorAll('.audio-preview').forEach(el=>el.classList.remove('audio-preview'));button.classList.add('audio-preview');}});
- button.addEventListener('click',event=>{if(button.dataset.previewAudio){event.preventDefault();event.stopImmediatePropagation();delete button.dataset.previewAudio;}},true);
-});
-document.addEventListener('pointerdown',event=>{if(!event.target.closest('.arm-control,.edge-disc')){audioPreview=null;document.querySelectorAll('.audio-preview').forEach(el=>el.classList.remove('audio-preview'));}});
-document.getElementById('headphone-hint').textContent='use the tonearm to play or pause. use the left and right discs to change songs.';
+document.getElementById('headphone-hint').textContent='click the record player to play or pause. use the left and right discs to change songs.';
 requestAnimationFrame(fitWelcome);
 
 const nowPlaying=document.createElement('span');nowPlaying.className='now-playing-led';nowPlaying.innerHTML='<span>NOW PLAYING</span><strong>ready</strong>';musicButton.querySelector('.independent-deck').append(nowPlaying);

@@ -1,3 +1,5 @@
+> Current implementation and interaction decisions: see the **Current interaction contract** at the top of design-system.md. Earlier directions below are historical where they conflict with that contract.
+
 # portfolio design rules
 
 > current direction — return to the light off-white grid and centered interactive headphones. the realistic room, wall lighting, and glass-heavy interface are archived explorations, not requirements for the active design. preserve readable typography, consistent spacing and accessible controls. Cindy Ly remains the primary reference for restraint, personal interaction and compact navigation.

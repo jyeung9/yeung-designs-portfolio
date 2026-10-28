@@ -247,3 +247,22 @@ body.time-lighting #home{background-color:transparent!important}
 body.time-lighting{transition:--ambient-top 3s linear,--ambient-bottom 3s linear,color 2s}
 
 .expanded-cover .cover-artwork{background:#f2e7c5}
+
+/* Current interaction contract: the whole deck is one immediate play/pause target. */
+.cabinet-scene .arm-control{left:24%;top:29%;width:52%;height:58%;border-radius:14px;z-index:20}
+.cabinet-scene .arm-control>.edge-disc-label{left:50%;top:-12%}
+.location-notice{display:none!important}
+/* Expand the same square sleeve and its 80%-diameter circular artwork. */
+.expanded-cover{aspect-ratio:1;min-height:0;gap:10px}
+.expanded-cover .cover-artwork>.jacket-art{opacity:1}
+.expanded-cover .cover-artwork .jacket-orbit{inset:10%;width:80%;height:80%;border-radius:50%}
+.expanded-cover:before{background:linear-gradient(#fff7dcf5, #fff7dcaa 18%,transparent 35% 57%,#fff7dcd9 76%,#fff7dcf5)}
+.cover-heading{padding-bottom:0}
+.cover-cta{border:0;border-radius:0;color:var(--accent);padding:8px 4px 12px;position:relative}
+.cover-cta:after{content:'';position:absolute;left:8%;right:8%;bottom:2px;height:7px;background:currentColor;mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 8' preserveAspectRatio='none'%3E%3Cpath d='M2 5 C23 2 35 6 51 4 S77 3 98 4' fill='none' stroke='black' stroke-width='1.7' stroke-linecap='round'/%3E%3C/svg%3E") center/100% 100% no-repeat;opacity:.8}
+@keyframes expanded-disc-peek{0%,100%{transform:translateX(-5%) rotate(-12deg)}35%{transform:translateX(23%) rotate(17deg)}55%{transform:translateX(17%) rotate(7deg)}75%{transform:translateX(23%) rotate(14deg)}}
+.expanded-cover>.cover-peek-disc{animation-duration:2s}
+@media(max-width:600px){.expanded-cover{min-height:0;gap:8px;padding:16px}.cover-heading strong{font-size:20px!important}.cover-heading>span{font-size:18px!important}.cover-chips{gap:4px}.cover-cta{font-size:20px;padding:4px 4px 10px}.expanded-cover .cover-heading{padding-bottom:0}.chip-row>span{padding:3px 7px}}
+
+.expanded-cover:before{background:none}
+.cover-heading{background:#fff7dce8;border-radius:6px;padding:3px}
