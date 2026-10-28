@@ -2,6 +2,7 @@
 
 This section is the running source of truth; older sections below are historical when they conflict.
 
+- Queue starts unloaded with all ten songs stacked on the left and no right stack. First play loads from the left; each change deposits the current disc on the other side. When the source empties, load directly from the opposite side, starting with the oldest deposited song. One visible layer represents one track. Returning home resets the queue.
 - Tonearm toggles play/pause; left/right tabletop discs with directional arrows select previous/next song. These controls are separate objects, use the shared handwritten prompt and support keyboard/touch.
 - Uploaded local audio only; start silent, explicit play/pause. Never insert an external player or change page geometry during playback.
 - Disc change: pause and decelerate, lift/park arm, lift disc and slide right, bring replacement from left, settle, then resume and lower arm. Reduced motion skips travel.
@@ -9,8 +10,8 @@ This section is the running source of truth; older sections below are historical
 - Table sides are solid, with no fade. The platter sits slightly higher on the deck.
 - Gray background drawings use fine dotted strokes; the grid remains solid.
 - Sleeves lift forward on hover/focus or first touch; project name and intended benefit are printed on the enlarged square cover. A click or second touch opens the existing case-study destination. No detached tooltip below sleeves. Do not claim measured outcomes without evidence.
-- The scene uses one 2:1 coordinate system at all sizes: player 52% wide, side discs 22%, table 100%. Breakpoints change overall available size, never relative object proportions.
-- LED uses recessed dark glass and green dot-matrix lettering: smaller uppercase NOW PLAYING above a larger song title. All rendered text must remain at least 16px, including hardware text and enlarged-cover chips. This supersedes the decorative-text exception; the display and cover layouts need sufficient physical space rather than shrinking their text.
+- The scene uses a 2:1 coordinate system: player 52% wide, side discs 22%, table 100%. Player and disc proportions stay fixed; mobile adds tabletop height and lowers the LED to preserve readable type and avoid overlap.
+- LED uses recessed dark glass and green dot-matrix lettering: smaller uppercase NOW PLAYING above a larger song title. All rendered text must remain at least 16px, including hardware text and enlarged-cover chips. This supersedes the decorative-text exception. The mobile LED sits lower with more tabletop clearance; expanded covers use viewport-bounded readable layouts rather than scaled text.
 - Contact note and its annotation read “contact me”.
 - Table has a visible front edge, coherent perspective and contact shadows. All objects retain their proportions at every breakpoint.
 - Text-to-object gaps use the same spacing token above the sleeves and below the subtitle.
@@ -19,9 +20,9 @@ This section is the running source of truth; older sections below are historical
 - Every hover annotation uses locally hosted **Caveat 500** (Portfolio Hand), 22px, with the same thin handdrawn underline, transparent background, no border and no box shadow. The yellow note uses the same face without an underline. Never render duplicate prompts.
 - Touch: tap to preview an object's label, tap again to activate, tap elsewhere to dismiss. Controls retain accessible names when labels are hidden.
 
-## Next expanded-cover layout — awaiting supplied sketch
+## Expanded-cover layout — supplied sketch implemented
 
-Image IMG_6246.jpg was unavailable on October 27. Do not infer its composition. Use rounded corners, larger square covers and larger type. Chips belong at the bottom right; do not print category descriptors such as “industry”, “skillsets” or “type of app”. The inner vinyl gently wiggles in and out on hover/focus/touch preview. LED always stays behind the loaded disc.
+EXPANDED-VINYL.jpg supplied October 27 establishes the composition: case-study name and impact statement at top left, central vinyl artwork, chips at bottom right. Use rounded corners, larger square covers and larger type. Chips belong at the bottom right; do not print category descriptors such as “industry”, “skillsets” or “type of app”. The inner vinyl gently wiggles in and out on hover/focus/touch preview. LED always stays behind the loaded disc.
 
 | Case-study title | Industry chips | Skill chips | App chips |
 | --- | --- | --- | --- |

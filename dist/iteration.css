@@ -152,3 +152,36 @@
 .cabinet-record:is(:hover,:focus-visible,.touch-preview) .sleeve-vinyl{animation:vinyl-invitation 2.8s ease-in-out infinite}
 @keyframes vinyl-invitation{0%,100%{transform:translateX(25%) rotate(8deg)}50%{transform:translateX(38%) rotate(17deg)}}
 @media(prefers-reduced-motion:reduce){.cabinet-record:is(:hover,:focus-visible,.touch-preview) .sleeve-vinyl{animation:none}}
+/* The music queue: one visible layer per actual track, no empty-side controls. */
+.edge-disc[hidden]{display:none!important}.edge-disc{isolation:isolate}
+.queue-layer{pointer-events:none;background:repeating-radial-gradient(circle,#222a27 0 2px,#46504a 2px 3px);border-color:#73796e}
+.edge-disc-arrow{inset:auto;left:18%;bottom:-25px;width:64px;height:26px;color:var(--muted)}
+.edge-disc-arrow svg{width:100%;height:100%;fill:none;stroke:currentColor;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}
+.edge-disc-right .edge-disc-arrow{transform:scaleX(-1)}
+.edge-disc-face .edge-disc-arrow{transform:translateY(6px)}
+/* Exact sketch hierarchy, with readable unscaled type. */
+.cabinet-shelf{left:15%;right:15%}.cabinet-record{width:19%;transform:none!important}
+.cabinet-record:is(:hover,:focus-visible,.cover-preview){z-index:200!important}
+.expanded-cover{position:fixed;left:50%;top:50%;translate:-50% -50%;width:min(460px,calc(100vw - 32px));max-height:calc(100svh - 40px);aspect-ratio:1;box-sizing:border-box;padding:24px;display:flex;flex-direction:column;gap:12px;background:#f3e7c8;color:#253c32;border:1px solid #b9a986;border-radius:16px;box-shadow:3px 2px 0 #d3c5a5,7px 5px 0 #9d8d6d,0 24px 70px #0007;overflow:auto;visibility:hidden;opacity:0;pointer-events:none;text-align:left;z-index:1000;transition:opacity .18s}
+.cabinet-record:is(:hover,:focus-visible,.cover-preview) .expanded-cover{visibility:visible;opacity:1;pointer-events:auto}
+.cabinet-record:is(:hover,:focus-visible,.cover-preview)>.jacket-art{filter:brightness(1.08);transform:translateY(-8%)!important}
+.cover-heading{display:grid;gap:6px}.cover-heading strong{font:600 26px/1.15 'DM Sans',sans-serif!important}.cover-heading>span{font:500 22px/1.2 var(--hover-hand)!important}
+.cover-artwork{position:relative;display:block;width:40%;aspect-ratio:1;align-self:center;flex-shrink:0;isolation:isolate}
+.cover-artwork>.jacket-art{width:100%;height:100%;border:0;box-shadow:none;z-index:2;background:transparent;transform:none!important}
+.cover-artwork .jacket-orbit{inset:4%;width:92%;height:92%}
+.cover-peek-disc{position:absolute;inset:6%;border-radius:50%;background:repeating-radial-gradient(circle,#182621 0 2px,#52665b 2px 3px);z-index:0;animation:vinyl-invitation 2.8s ease-in-out infinite}
+.cover-chips{margin-top:auto;display:flex;flex-wrap:wrap;justify-content:flex-end;gap:6px;align-self:flex-end}
+.cover-chips>span{font:400 16px/1.25 'DM Sans',sans-serif!important;padding:5px 9px;border:1px solid #9b9c7e;border-radius:20px;background:#fffae855}
+.jacket-art.purple .jacket-orbit{filter:hue-rotate(70deg)}
+.refresh-overview{width:min(540px,90vw);padding:32px;border-radius:20px;background:var(--bg);color:var(--ink);border:1px solid var(--line)}.refresh-overview::backdrop{background:#0008}.refresh-overview p,.refresh-overview button{font-size:16px}.refresh-overview h2{font-size:28px}
+#home>.rail.balanced-menu>a>.menu-label{font:500 22px/1.25 var(--hover-hand)!important;background:none!important;backdrop-filter:none!important;border:0!important;box-shadow:none!important;color:var(--ink)!important}
+/* Nothing may shrink visible copy below 16px. Let content fit its component. */
+.now-playing-led span{font-size:16px!important;letter-spacing:-1px!important}.now-playing-led strong{font-size:18px!important}
+.now-playing-led{min-width:144px;min-height:60px;padding:7px!important}
+.cabinet-scene .live-label{font-size:16px!important}
+@media(max-width:600px){.expanded-cover{padding:18px;gap:10px;aspect-ratio:auto;min-height:340px}.cover-heading strong{font-size:24px!important}.cover-artwork{width:30%}.cover-chips>span{padding:4px 7px}.now-playing-led{right:-5%;bottom:-15%;z-index:5}.cabinet-scene .shared-table{height:52%}.scene-slot{margin-bottom:40px!important}}
+@media(prefers-reduced-motion:reduce){.cover-peek-disc{animation:none}.expanded-cover{transition:none}}
+.expanded-cover{position:absolute;translate:none}
+.jacket-art.purple{--jacket:#8575a8;--light:#bfadd8;--dark:#494162}.jacket-art.purple .jacket-orbit{filter:none}
+#home .hero-copy:has(.cabinet-record:is(:hover,:focus-visible,.cover-preview)){position:relative;z-index:200}
+@media(max-width:600px){.now-playing-led{bottom:-38%;right:-15%;min-height:54px}.cabinet-scene .shared-table{height:68%}#home .scene-slot{margin-bottom:64px!important}}

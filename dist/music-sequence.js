@@ -6,29 +6,37 @@ const disc=musicButton.querySelector('.live-record');
 const carrier=document.createElement('span');carrier.className='record-carrier';disc.before(carrier);carrier.append(disc);
 const trackStatus=document.createElement('span');trackStatus.className='audio-status';trackStatus.setAttribute('role','status');trackStatus.setAttribute('aria-live','polite');cabinetScene.append(trackStatus);
 const trackControls=document.createElement('div');trackControls.className='track-controls';trackControls.innerHTML='<button type="button" data-step="-1">previous track</button><button type="button" data-step="1">next track</button>';cabinetScene.append(trackControls);
-let changingRecord=false,historyTracks=[],historyCursor=-1,remainingTracks=[];
+let changingRecord=false,leftQueue=tracks.map((_,i)=>i),rightQueue=[],queueSource=-1,queueEpoch=0;
 const delay=ms=>new Promise(resolve=>setTimeout(resolve,ms));
-function nextTrackIndex(){if(historyCursor<historyTracks.length-1)return historyTracks[++historyCursor];if(!remainingTracks.length)remainingTracks=tracks.map((_,i)=>i).filter(i=>i!==trackIndex).sort(()=>Math.random()-.5);const index=remainingTracks.pop()??0;historyTracks.push(index);historyCursor=historyTracks.length-1;return index;}
-function selectLocalTrack(index){trackIndex=index;localAudio.src=tracks[index].src;trackStatus.textContent=tracks[index].title+(tracks[index].artist?' · '+tracks[index].artist:'');disc.querySelector('.live-label').textContent=tracks[index].title;nowPlaying.querySelector('strong').textContent=tracks[index].title;nowPlaying.classList.toggle('long-title',tracks[index].title.length>12);disc.querySelector('.live-label').style.backgroundColor=['#e0c9a5','#bdcdb7','#cfb8a2','#c3c1da'][index%4];}
-async function playLocal(){if(changingRecord)return;if(trackIndex<0)selectLocalTrack(nextTrackIndex());try{await localAudio.play();}catch{musicState(false);trackStatus.textContent='music could not start. tap the player to try again.';}}
-function toggleLocal(){if(changingRecord)return;if(localAudio.paused)playLocal();else localAudio.pause();}
-async function switchRecord(direction=1){
- if(changingRecord)return;changingRecord=true;trackControls.querySelectorAll('button').forEach(b=>b.disabled=true);
- const resume=!localAudio.paused||localAudio.ended;
- localAudio.pause();musicButton.classList.add('changing-record');musicState(false);
+function selectLocalTrack(index){trackIndex=index;localAudio.src=tracks[index].src;trackStatus.textContent=tracks[index].title+(tracks[index].artist?' · '+tracks[index].artist:'');disc.querySelector('.live-label').textContent=tracks[index].title;nowPlaying.querySelector('strong').textContent=tracks[index].title;nowPlaying.classList.toggle('long-title',tracks[index].title.length>12);}
+function renderQueue(){
+ carrier.style.visibility=trackIndex<0?'hidden':'visible';
+ for(const [side,list] of [[-1,leftQueue],[1,rightQueue]]){const button=trackControls.querySelector(`[data-step="${side}"]`);button.hidden=!list.length;button.disabled=changingRecord;button.setAttribute('aria-label',`load from ${side<0?'left':'right'} stack, ${list.length} songs`);button.querySelectorAll('.queue-layer').forEach(el=>el.remove());list.slice(1).forEach((_,i)=>{const layer=document.createElement('span');layer.className='edge-disc-face queue-layer';layer.style.translate=`${(i+1)*1.3}px ${-(i+1)*2}px`;layer.style.zIndex=String(-i-1);layer.setAttribute('aria-hidden','true');button.prepend(layer)});button.querySelector('.edge-disc-label').textContent=`${list.length} songs · load from ${side<0?'left':'right'}`;}
+}
+async function playLocal(){if(changingRecord)return;if(trackIndex<0){await switchRecord(queueSource,true);return}try{await localAudio.play()}catch{musicState(false);trackStatus.textContent='tap play to start the selected song.'}}
+function toggleLocal(){if(changingRecord)return;if(localAudio.paused)playLocal();else localAudio.pause()}
+async function switchRecord(side=queueSource,forcePlay=false){
+ if(changingRecord)return;
+ let incoming=side<0?leftQueue:rightQueue;
+ if(!incoming.length){side=-side;incoming=side<0?leftQueue:rightQueue}if(!incoming.length)return;
+ queueSource=side;const outgoing=side<0?rightQueue:leftQueue;
+ changingRecord=true;const epoch=queueEpoch;const resume=forcePlay||!localAudio.paused||localAudio.ended||trackIndex<0;
+ localAudio.pause();musicButton.classList.add('changing-record');musicState(false);renderQueue();
  const reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;
+ const platterBox=carrier.getBoundingClientRect(),stackBox=trackControls.querySelector(`[data-step="${side}"]`).getBoundingClientRect();
+ const dx=stackBox.left+stackBox.width/2-(platterBox.left+platterBox.width/2);
  try{
-  await delay(reduced?0:1100); // Lift and return the arm before touching the disc.
-  if(!reduced)await carrier.animate([{translate:'0 0',opacity:1},{translate:'0 -24px',opacity:1,offset:.22},{translate:'110vw -24px',opacity:0}],{duration:750,easing:'cubic-bezier(.45,0,.65,1)',fill:'forwards'}).finished;
-  const index=direction<0&&historyCursor>0?historyTracks[--historyCursor]:direction<0&&trackIndex>=0?trackIndex:nextTrackIndex();
-  selectLocalTrack(index);carrier.getAnimations().forEach(a=>a.cancel());
-  if(!reduced)await carrier.animate([{translate:'-110vw -24px',opacity:0},{translate:'0 -24px',opacity:1,offset:.78},{translate:'0 0',opacity:1}],{duration:850,easing:'cubic-bezier(.22,.6,.3,1)'}).finished;
- }finally{musicButton.classList.remove('changing-record');changingRecord=false;trackControls.querySelectorAll('button').forEach(b=>b.disabled=false);}
- if(resume)await playLocal();
+  await delay(reduced?0:900);if(epoch!==queueEpoch)return;
+  if(trackIndex>=0){if(!reduced)await carrier.animate([{translate:'0 0',opacity:1},{translate:'0 -20px',opacity:1,offset:.25},{translate:`${-dx}px 20px`,scale:.65,opacity:0}],{duration:650,fill:'forwards',easing:'ease-in-out'}).finished;if(epoch!==queueEpoch)return;outgoing.push(trackIndex)}
+  const index=incoming.shift();selectLocalTrack(index);carrier.getAnimations().forEach(a=>a.cancel());renderQueue();
+  if(!reduced)await carrier.animate([{translate:`${dx}px 20px`,scale:.65,opacity:0},{translate:'0 -20px',scale:1,opacity:1,offset:.75},{translate:'0 0',scale:1,opacity:1}],{duration:750,easing:'ease-in-out'}).finished;
+ }catch(error){if(epoch===queueEpoch)trackStatus.textContent='ready to play';}
+ finally{if(epoch===queueEpoch){changingRecord=false;musicButton.classList.remove('changing-record');renderQueue()}}
+ if(epoch===queueEpoch&&resume)await playLocal();
 }
 musicButton.onclick=toggleLocal;
 trackControls.addEventListener('click',event=>{const b=event.target.closest('button');if(b)switchRecord(Number(b.dataset.step));});
-localAudio.addEventListener('ended',()=>switchRecord(1));
+localAudio.addEventListener('ended',()=>switchRecord());
 localAudio.addEventListener('error',()=>{trackStatus.textContent='this track could not load. try the next track.';musicState(false)});
 localAudio.addEventListener('playing',()=>{musicNote.hidden=true;});
 // Step 4: each sleeve has its own inner vinyl and paper jacket.
@@ -67,3 +75,8 @@ shelf.querySelectorAll('[data-record]').forEach((link,i)=>{
  details.append(title,benefit);link.querySelector('.jacket-art').append(details);
  link.href=cabinetProjects[i].card.href;
 });
+
+function resetQueue(){queueEpoch++;localAudio.pause();carrier.getAnimations().forEach(a=>a.cancel());changingRecord=false;trackIndex=-1;leftQueue=tracks.map((_,i)=>i);rightQueue=[];queueSource=-1;musicButton.classList.remove('changing-record');musicState(false);nowPlaying.querySelector('strong').textContent='ready';nowPlaying.classList.remove('long-title');renderQueue()}
+resetQueue();
+addEventListener('hashchange',()=>{if(!location.hash||location.hash==='#home')resetQueue()});
+trackControls.querySelectorAll('.edge-disc-arrow').forEach(el=>{el.innerHTML='<svg viewBox="0 0 60 24" aria-hidden="true"><path d="M54 5 Q35 23 8 13 M8 13 L17 7 M8 13 L15 20"/></svg>'});
