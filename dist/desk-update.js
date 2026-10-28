@@ -16,7 +16,31 @@ requestAnimationFrame(fitWelcome);
 note.querySelector('.note-paper').append(note.querySelector('.desk-pen'));
 // A dimensionally consistent arm: pivot, counterweight, tube, headshell and stylus.
 const arm=document.querySelector('.live-arm');
-arm.innerHTML='<span class="arm-counterweight"></span><span class="arm-bearing"></span><span class="arm-tube"></span><span class="arm-cartridge"><span class="arm-stylus"></span></span>';
+arm.innerHTML=`<svg class="tonearm-model" viewBox="0 0 70 240" aria-hidden="true" xmlns="http://www.w3.org/2000/svg">
+<defs>
+<linearGradient id="arm-metal"><stop stop-color="#374347"/><stop offset=".25" stop-color="#a4afb1"/><stop offset=".46" stop-color="#f4f5ec"/><stop offset=".62" stop-color="#c0c8c7"/><stop offset="1" stop-color="#455459"/></linearGradient>
+<linearGradient id="arm-shell" x2=".8" y2="1"><stop stop-color="#626c6d"/><stop offset=".35" stop-color="#303b3d"/><stop offset="1" stop-color="#10191b"/></linearGradient>
+<linearGradient id="arm-weight" x2="0" y2="1"><stop stop-color="#283336"/><stop offset=".22" stop-color="#a1aaab"/><stop offset=".45" stop-color="#d5dad7"/><stop offset=".7" stop-color="#737f81"/><stop offset="1" stop-color="#283539"/></linearGradient>
+</defs>
+<!-- Continuous rigid arm: rear weight, bearing yoke, tube and offset headshell. -->
+<g stroke-linejoin="round">
+<path d="M35 18V172Q35 181 29 187L23 193" fill="none" stroke="#344145" stroke-width="7"/>
+<path d="M35 18V172Q35 181 29 187L23 193" fill="none" stroke="url(#arm-metal)" stroke-width="5"/>
+<rect x="22" y="9" width="26" height="25" rx="4" fill="url(#arm-weight)" stroke="#485659" stroke-width="1"/>
+<path d="M25 11V32M45 11V32" stroke="#eef0e1" opacity=".4"/>
+<rect x="25" y="43" width="20" height="18" rx="6" fill="#444f51" stroke="#b4bdb9" stroke-width="2"/>
+<circle cx="35" cy="52" r="5" fill="url(#arm-metal)"/><path d="M32 52h6" stroke="#596769"/>
+<path d="M25 184L39 191L28 222L13 216Z" fill="#101819" stroke="#7b8583" stroke-width="1"/>
+<path d="M23 183L37 190L26 216L12 210Z" fill="url(#arm-shell)" stroke="#909b96" stroke-width=".8"/>
+<path d="M19 190L28 194M16 198L25 202" stroke="#0a1011" stroke-width="2"/>
+<circle cx="23" cy="188" r="1.7" fill="#bbc3bc"/><circle cx="31" cy="192" r="1.7" fill="#bbc3bc"/>
+<path d="M36 194L49 197L53 188" fill="none" stroke="#29373a" stroke-width="3"/>
+<path d="M36 193L49 196L52 187" fill="none" stroke="#c5ceca" stroke-width="1"/>
+<path d="M15 214L26 218L22 227L12 223Z" fill="#758574" stroke="#34433b"/>
+<path d="M17 225L16 230" stroke="#d2cbb4" stroke-width="1.5"/>
+</g></svg>`;
+const armMount=document.createElement('span');armMount.className='tonearm-mount';arm.before(armMount);
+const armRest=document.createElement('span');armRest.className='tonearm-rest';arm.before(armRest);
 const themeSwitch=document.querySelector('.ambient-toggle');
 themeSwitch.setAttribute('role','switch');themeSwitch.setAttribute('aria-label','night mode');
 themeSwitch.innerHTML='<span class="theme-sun" aria-hidden="true">☀</span><span class="theme-moon" aria-hidden="true">☾</span><span class="theme-knob" aria-hidden="true"></span>';

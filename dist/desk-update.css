@@ -121,3 +121,9 @@
 .arm-cartridge:before{content:'';position:absolute;left:24%;top:14%;width:16%;aspect-ratio:1;border-radius:50%;background:#dce5df;box-shadow:7px 0 0 #dce5df}
 .arm-cartridge:after{content:'';position:absolute;right:-46%;top:0;width:50%;height:12%;border-radius:2px;background:linear-gradient(#e9f0e9,#657b7d);box-shadow:1px 2px 0 #33484b;transform:rotate(-22deg);transform-origin:left}
 .arm-stylus{left:35%;bottom:-32%;width:30%;height:32%;background:linear-gradient(#d4b16c 0 45%,#e6e5dc 50% 75%,#263234 76%);transform:translateZ(-3px);clip-path:polygon(0 0,100% 0,65% 100%,35% 100%)}
+/* One proportioned assembly in deck coordinates, with a stationary mount and rest. */
+.solo-player-scene .live-arm{left:72%;top:6%;width:14%;height:83%;transform-origin:50% 21.6667%;transform:translateZ(5px) rotate(-2deg);filter:drop-shadow(2px 4px 1.5px #18252255);transform-style:flat}
+.solo-player-scene .independent-player.playing .live-arm{transform:translateZ(3px) rotate(31deg);filter:drop-shadow(1px 2px 1px #18252255)}
+.tonearm-model{display:block;width:100%;height:100%;overflow:visible}
+.tonearm-mount{position:absolute;left:75.4%;top:18.6%;width:7.2%;aspect-ratio:1;border-radius:50%;background:radial-gradient(circle at 40% 32%,#c9cfca 0 26%,#344347 29% 44%,#9eaaa7 47% 61%,#576663 66% 76%,#d0d7cd 80%);box-shadow:0 2px 0 #657571,0 4px 0 #3c4a46,2px 7px 4px #27352b55;transform:translateZ(2px)}
+.tonearm-rest{position:absolute;left:78%;top:55%;width:3.2%;height:3%;border-radius:3px;background:linear-gradient(#b2beb6,#30433d);box-shadow:0 3px 0 #40534a,2px 5px 3px #27352b55;transform:translateZ(3px)}
