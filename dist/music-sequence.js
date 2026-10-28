@@ -1,17 +1,22 @@
 // Uploaded audio only: no iframe, external player, autoplay or layout-affecting status.
 const localAudio=audio;
 localAudio.preload='none';localAudio.volume=.35;
+const nextAudioBuffer=new Audio();nextAudioBuffer.preload='auto';
+function bufferNextTrack(){const list=queueSource<0?leftQueue:rightQueue,other=queueSource<0?rightQueue:leftQueue,index=list[0]??other[0];if(index!==undefined&&nextAudioBuffer.getAttribute('src')!==tracks[index].src){nextAudioBuffer.src=tracks[index].src;nextAudioBuffer.load()}}
+localAudio.addEventListener('playing',bufferNextTrack);
 musicNote.hidden=true;
 const disc=musicButton.querySelector('.live-record');
+const recordColors=['#568db6','#6a9d78','#9a83bd','#c76c65'];
+function tintRecord(el,index){el.style.setProperty('--record-color',recordColors[index%4])}
 const carrier=document.createElement('span');carrier.className='record-carrier';disc.before(carrier);carrier.append(disc);
 const trackStatus=document.createElement('span');trackStatus.className='audio-status';trackStatus.setAttribute('role','status');trackStatus.setAttribute('aria-live','polite');cabinetScene.append(trackStatus);
 const trackControls=document.createElement('div');trackControls.className='track-controls';trackControls.innerHTML='<button type="button" data-step="-1">previous track</button><button type="button" data-step="1">next track</button>';cabinetScene.append(trackControls);
 let changingRecord=false,leftQueue=tracks.map((_,i)=>i),rightQueue=[],queueSource=-1,queueEpoch=0;
 const delay=ms=>new Promise(resolve=>setTimeout(resolve,ms));
-function selectLocalTrack(index){trackIndex=index;localAudio.src=tracks[index].src;trackStatus.textContent=tracks[index].title+(tracks[index].artist?' · '+tracks[index].artist:'');disc.querySelector('.live-label').textContent=tracks[index].title;setLEDTitle(tracks[index].title);}
+function selectLocalTrack(index){trackIndex=index;localAudio.src=tracks[index].src;trackStatus.textContent=tracks[index].title+(tracks[index].artist?' · '+tracks[index].artist:'');disc.querySelector('.live-label').replaceChildren(Object.assign(document.createElement('span'),{textContent:tracks[index].title}));tintRecord(disc,index);setLEDTitle(tracks[index].title);}
 function renderQueue(){
  carrier.style.visibility=trackIndex<0?'hidden':'visible';musicButton.classList.toggle('empty-player',trackIndex<0);
- for(const [side,list] of [[-1,leftQueue],[1,rightQueue]]){const button=trackControls.querySelector(`[data-step="${side}"]`);button.hidden=!list.length;button.disabled=changingRecord;button.setAttribute('aria-label',`load from ${side<0?'left':'right'} stack, ${list.length} songs`);button.querySelectorAll('.queue-layer').forEach(el=>el.remove());list.slice(1).forEach((_,i)=>{const layer=document.createElement('span');layer.className='edge-disc-face queue-layer';layer.style.translate=`${(i+1)*1.3}px ${-(i+1)*2}px`;layer.style.zIndex=String(-i-1);layer.setAttribute('aria-hidden','true');button.prepend(layer)});button.querySelector('.edge-disc-label').textContent=side===queueSource?'next track':'previous track';}
+ for(const [side,list] of [[-1,leftQueue],[1,rightQueue]]){const button=trackControls.querySelector(`[data-step="${side}"]`);button.hidden=!list.length;if(list.length)tintRecord(button,list[0]);button.disabled=changingRecord;button.setAttribute('aria-label',`load from ${side<0?'left':'right'} stack, ${list.length} songs`);button.querySelectorAll('.queue-layer').forEach(el=>el.remove());list.slice(1).forEach((_,i)=>{const layer=document.createElement('span');layer.className='edge-disc-face queue-layer';layer.style.translate=`${(i+1)*1.3}px ${-(i+1)*2}px`;layer.style.zIndex=String(-i-1);layer.setAttribute('aria-hidden','true');tintRecord(layer,list[i+1]);button.prepend(layer)});button.querySelector('.edge-disc-label').textContent=side===queueSource?'next track':'previous track';}
 }
 async function playLocal(){if(changingRecord)return;if(trackIndex<0){await switchRecord(queueSource,true);return}try{await localAudio.play()}catch{musicState(false);trackStatus.textContent='tap play to start the selected song.'}}
 function toggleLocal(){if(changingRecord)return;if(localAudio.paused)playLocal();else localAudio.pause()}
@@ -26,10 +31,10 @@ async function switchRecord(side=queueSource,forcePlay=false){
  const platterBox=carrier.getBoundingClientRect(),stackBox=trackControls.querySelector(`[data-step="${side}"]`).getBoundingClientRect();
  const dx=stackBox.left+stackBox.width/2-(platterBox.left+platterBox.width/2);
  try{
-  await delay(reduced?0:900);if(epoch!==queueEpoch)return;
-  if(trackIndex>=0){if(!reduced)await carrier.animate([{translate:'0 0',opacity:1},{translate:'0 -20px',opacity:1,offset:.25},{translate:`${-dx}px 20px`,scale:.65,opacity:0}],{duration:650,fill:'forwards',easing:'ease-in-out'}).finished;if(epoch!==queueEpoch)return;outgoing.push(trackIndex)}
+  await delay(reduced?0:180);if(epoch!==queueEpoch)return;
+  if(trackIndex>=0){if(!reduced)await carrier.animate([{translate:'0 0',opacity:1},{translate:'0 -20px',opacity:1,offset:.25},{translate:`${-dx}px 20px`,scale:.65,opacity:0}],{duration:260,fill:'forwards',easing:'ease-in-out'}).finished;if(epoch!==queueEpoch)return;outgoing.push(trackIndex)}
   const index=incoming.shift();selectLocalTrack(index);carrier.getAnimations().forEach(a=>a.cancel());renderQueue();
-  if(!reduced)await carrier.animate([{translate:`${dx}px 20px`,scale:.65,opacity:0},{translate:'0 -20px',scale:1,opacity:1,offset:.75},{translate:'0 0',scale:1,opacity:1}],{duration:750,easing:'ease-in-out'}).finished;
+  if(!reduced)await carrier.animate([{translate:`${dx}px 20px`,scale:.65,opacity:0},{translate:'0 -20px',scale:1,opacity:1,offset:.75},{translate:'0 0',scale:1,opacity:1}],{duration:320,easing:'ease-in-out'}).finished;
  }catch(error){if(epoch===queueEpoch)trackStatus.textContent='ready to play';}
  finally{if(epoch===queueEpoch){changingRecord=false;musicButton.classList.remove('changing-record');renderQueue()}}
  if(epoch===queueEpoch&&resume)await playLocal();

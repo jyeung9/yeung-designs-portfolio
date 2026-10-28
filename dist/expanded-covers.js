@@ -24,3 +24,9 @@ addEventListener('resize',()=>shelf.querySelectorAll('.cabinet-record').forEach(
 // Enforce the user's minimum on actual text nodes, including legacy page styles.
 function enforceReadableText(){const walker=document.createTreeWalker(document.body,NodeFilter.SHOW_TEXT);let node;while(node=walker.nextNode()){const el=node.parentElement;if(!node.textContent.trim()||!el||el.closest('script,style,svg'))continue;if(parseFloat(getComputedStyle(el).fontSize)<16)el.style.setProperty('font-size','16px','important')}}
 enforceReadableText();addEventListener('resize',enforceReadableText);
+
+const headlineBottom=document.querySelector('.headline-bottom');document.querySelector('.headline-top').after(headlineBottom);headlineBottom.after(document.querySelector('.hero-copy>p'));requestAnimationFrame(fitWelcome);
+
+const sketchLayer=document.querySelector('.grid-studies');
+const extraSketches=[['2%','23%','M15 45 Q30 18 49 43 T90 41 M43 20l5 23 22-5'],['85%','31%','M12 17Q48 8 81 19L79 68Q46 77 13 66Z M19 31l51-2 M20 44l28 1'],['15%','78%','M9 57Q38 12 73 55 M9 61l74 2 M30 23l2 50 M59 21l-2 52'],['78%','83%','M12 40l55-3 M43 17l25 20-22 22 M21 73q22-12 49 0'],['19%','3%','M17 25l6 6-6 7 M37 26q13-9 23 0 M35 39q16 8 29-1'],['88%','69%','M14 18Q45 8 76 24L70 76 12 70Z M24 35l16 17 27-30']];
+extraSketches.forEach(([left,top,path])=>{const svg=document.createElementNS('http://www.w3.org/2000/svg','svg');svg.setAttribute('viewBox','0 0 100 90');svg.setAttribute('aria-hidden','true');svg.classList.add('extra-sketch');svg.style.left=left;svg.style.top=top;svg.innerHTML=`<path d="${path}" fill="none" stroke="currentColor"/>`;sketchLayer.append(svg)});

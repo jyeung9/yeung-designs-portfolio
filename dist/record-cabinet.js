@@ -65,7 +65,3 @@ document.addEventListener('pointerdown',event=>{if(!collectionMenu.contains(even
 requestAnimationFrame(fitWelcome);
 
 collectionMenu.querySelectorAll(':scope>a').forEach(link=>{if(!link.hasAttribute('aria-label'))link.setAttribute('aria-label',link.lastElementChild.textContent.trim());});
-let touchedPlayer=false;
-musicButton.addEventListener('pointerdown',event=>{if(event.pointerType==='touch'&&!touchedPlayer){touchedPlayer=true;musicButton.dataset.previewTap='true';musicButton.classList.add('touch-preview');}});
-musicButton.addEventListener('click',event=>{if(musicButton.dataset.previewTap){event.preventDefault();event.stopImmediatePropagation();delete musicButton.dataset.previewTap;}},true);
-document.addEventListener('pointerdown',event=>{if(!musicButton.contains(event.target)){touchedPlayer=false;musicButton.classList.remove('touch-preview');}});

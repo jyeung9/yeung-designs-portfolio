@@ -1,4 +1,4 @@
-## Current interaction contract — October 27, 2026
+## Current interaction contract — October 28, 2026
 
 This section is the current source of truth. Check it before implementation and during preview. Historical notes below do not override it. Product goals remain in product-intent.md.
 
@@ -11,6 +11,13 @@ This section is the current source of truth. Check it before implementation and 
 | View Record | Handwritten accent-colored link with the same fine squiggly underline as header links; no button border. |
 | Timezone | Clock hidden until opt-in; no explanatory fallback paragraph. Denial leaves the selector available. Time-based lighting starts only after selection. |
 | Motion and input | Check empty, playing, paused, switching; mouse, keyboard and phone widths. Reduced motion suppresses looping decoration. |
+
+- Keep “meaningful connection” immediately below “i design for,” followed by the role. The scene follows the complete headline group. Reserve space below the table for short hover labels, with no headline or menu overlap.
+- One deck overlay owns pointer/keyboard playback; decorative player layers cannot intercept taps. No inherited touch-preview interception on the player. Track transfer animation totals about 760ms; preload the next track only after opt-in playback.
+- Side records rock in depth toward/away from the viewer. The timezone selector has a pill border and a subtle keyboard-only focus indicator. The theme toggle wiggles on hover/focus and names the opposite action (“switch to light mode” / “switch to dark mode”).
+- Put LED text below the platter on the lower table face; keep its status bright enough to read in either theme.
+
+- Grid extends to every viewport edge, including behind the header. Larger dotted sketches use irregular placement and varied forms. The clock uses a readable dotted digital treatment. Music-record colors cycle blue, green, purple, red; each visible neighbor follows its actual track color. Center titles use a clear sans-serif and truncate instead of breaking into fragments; the full title remains on the LED.
 
 Before publication: verify direct record clicks, no extra timezone prose, matching sleeve artwork proportions, CTA underline, phone overflow and readable chips. Record what was actually checked, not assumed.
 
