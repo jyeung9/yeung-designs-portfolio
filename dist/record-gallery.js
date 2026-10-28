@@ -7,7 +7,7 @@ const galleryCards=[];
 shelf.querySelectorAll('.cabinet-record').forEach((original,index)=>{
  const project=expandedProjects[index],link=original.cloneNode(true);original.replaceWith(link);
  const card=document.createElement('a');card.className='gallery-card';card.href=localDestinations[project.href]||project.href;card.setAttribute('aria-label','View case study: '+project.name);
- const face=link.querySelector('.expanded-cover').cloneNode(true);face.removeAttribute('style');face.querySelector('.cover-heading strong').textContent='Case Study: '+project.name;card.append(face);galleryTrack.append(card);galleryCards.push(card);
+ const face=link.querySelector('.expanded-cover').cloneNode(true);face.removeAttribute('style');face.querySelector('.cover-heading strong').textContent='Case Study: '+project.name;const peek=face.querySelector('.cover-peek-disc');card.append(peek,face);galleryTrack.append(card);galleryCards.push(card);
  link.querySelector('.expanded-cover').remove();link.href=card.href;
  link.addEventListener('pointerenter',e=>{if(e.pointerType==='touch'||departing)return;clearTimeout(hoverTimer);hoverTimer=setTimeout(()=>openGallery(index),2000)});
  link.addEventListener('pointerleave',()=>clearTimeout(hoverTimer));

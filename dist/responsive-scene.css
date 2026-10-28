@@ -1,51 +1,20 @@
-/* Authoritative scene geometry. Do not add device-specific object geometry. */
-body[data-page=home]{overflow-y:auto}
-.afterglow #home{height:auto;min-height:calc(100svh - 72px);overflow:visible;display:flex;flex-direction:column;align-items:center;justify-content:flex-start;padding:24px 16px 32px;gap:24px}
-#home .hero-copy{width:100%;flex:none;overflow:visible}
-
-.connection-object .cabinet-scene{aspect-ratio:2!important;overflow:visible;--hardware-radius:12px}
-.cabinet-scene .cabinet-shelf{left:5%;right:5%;height:25%;gap:4%;align-items:end}
-.cabinet-shelf .cabinet-record{width:21%;min-width:44px;min-height:44px;aspect-ratio:1;flex:none;touch-action:manipulation}
-.cabinet-scene .independent-player{left:24%!important;top:29%!important;width:52%!important}
+/* Shared normalized scene. No breakpoint changes to these proportions. */
+.connection-object .cabinet-scene{--player-width:52%;--disc-width:22%;--hardware-radius:12px;position:relative;width:100%;aspect-ratio:2!important;height:auto;min-height:0;container-type:inline-size;overflow:visible;transform:none}
+.cabinet-scene .shared-table{inset:0!important;width:100%!important;height:100%!important;min-height:0;transform:none;border-radius:var(--hardware-radius)!important;mask-image:none!important;-webkit-mask-image:none!important;clip-path:polygon(3% 0,97% 0,100% 100%,0 100%)}
+.cabinet-scene .independent-player,.cabinet-scene .arm-control{left:50%!important;top:50%!important;width:var(--player-width)!important;height:auto!important;aspect-ratio:1.5;translate:-50% -50%;min-width:44px;min-height:44px}
 .cabinet-scene .independent-deck{border-radius:var(--hardware-radius)!important}
-.cabinet-scene .shared-table{left:0!important;top:57%!important;width:100%!important;height:78%!important;border-radius:var(--hardware-radius)!important;mask-image:none!important;-webkit-mask-image:none!important}
-.cabinet-scene .shared-table:after{border-radius:0 0 var(--hardware-radius) var(--hardware-radius)}
-.cabinet-scene .edge-disc{width:22%!important;top:60%!important;min-width:44px;min-height:44px;touch-action:manipulation}
+.cabinet-scene .edge-disc{width:var(--disc-width)!important;top:50%!important;translate:0 -50%;min-width:44px;min-height:44px;touch-action:manipulation}
 .cabinet-scene .edge-disc-left{left:2%!important}.cabinet-scene .edge-disc-right{right:2%!important}
-.edge-disc-arrow{color:#24333b!important;filter:drop-shadow(0 1px 0 #fff4);opacity:1!important}
-.edge-disc-arrow svg{stroke-width:2.5}
-.edge-disc>.edge-disc-label{top:calc(100% + 64px)!important;max-width:140px;white-space:normal;color:var(--ink)!important}
-.cabinet-scene>.now-playing-led{position:absolute;top:100%;bottom:auto!important;left:50%;right:auto!important;translate:-50% 0;width:clamp(164px,30%,228px);height:64px;min-width:164px;min-height:64px;max-width:none;padding:8px!important;transform:none!important;z-index:5;box-sizing:border-box;border-radius:10px;pointer-events:none}
-#home>.rail.balanced-menu{position:relative;inset:auto;transform:none;width:min(540px,100%);margin:0;min-height:142px;flex:none}
-#home>.rail.balanced-menu>a{min-width:44px;min-height:142px;touch-action:manipulation}
-#home>.rail.balanced-menu a>.menu-label{max-width:100%;top:80px;line-height:1.15!important}
-#home .hero-bottom{position:relative;inset:auto;width:100%;margin:16px 0 0;flex:none;min-height:64px}
-@media(max-width:600px){
- .afterglow #home{padding-top:24px;gap:24px}
- #home .headline-top{font-size:clamp(30px,8vw,42px)}
- #home .headline-bottom{font-size:clamp(28px,7.4vw,40px);white-space:normal}
-
- .hero-bottom .local-time{width:100%;max-width:360px;column-gap:16px;row-gap:24px}
- #home>.rail.balanced-menu .menu-label{font-size:20px!important;padding:4px 0 10px!important}
-}
-@media(hover:none){
- .cabinet-record .expanded-cover{display:none!important}
- #home>.rail.balanced-menu a>.menu-label{opacity:1!important;visibility:visible!important}
- .arm-control>.edge-disc-label,.edge-disc>.edge-disc-label{display:none!important}
-}
-@media(prefers-reduced-motion:reduce){.edge-disc-face{animation:none!important}}
-.cabinet-scene .shared-table{height:90%!important}
-
-/* One dot pitch for digital lettering on the clock, hero and hardware. */
-#home .greeting,#home .hero-copy>p,.clock{background-size:2.4px 2.4px!important;background-image:radial-gradient(circle,var(--ink) 0 42%,transparent 50%)!important}
-.now-playing-led .led-ribbon>span{background-size:2.4px 2.4px!important;background-image:radial-gradient(circle,#b4ffbd 0 42%,transparent 50%)!important}
-.now-playing-led .led-symbol{background-size:3.5px 3.5px!important;background-image:radial-gradient(circle,#b4ffbd 0 40%,transparent 49%)!important}
-/* Hints have their own clear space below the wood, never on its grain. */
-
-.edge-disc>.edge-disc-label{top:calc(200% + 20px)!important;text-shadow:none!important;color:var(--ink)!important}
-.edge-disc>.edge-disc-label:after{color:var(--ink)!important;opacity:1}
+.cabinet-shelf .cabinet-record{width:21%;min-width:44px;min-height:44px;aspect-ratio:1;flex:none;touch-action:manipulation}
+.scene-readout>.now-playing-led{position:relative;inset:auto!important;translate:none;width:min(100%,max(228px,14.25rem));height:auto;min-height:3.375rem;min-width:0;max-width:100%;padding:.375rem .5rem!important;transform:none!important;z-index:5;box-sizing:border-box;border-radius:10px;pointer-events:none}
+.scene-readout .now-playing-led>span{font-size:1rem!important}.scene-readout .now-playing-led strong,.scene-readout .led-ribbon>span{font-size:1.25rem!important;line-height:1.4!important}
 .edge-disc-arrow{color:#182936!important;filter:none!important}
-.cabinet-scene .shared-table{min-height:180px}
-
-#home .greeting,#home .hero-copy>p,.clock{background-image:radial-gradient(circle,var(--ink) 0 51%,transparent 58%)!important}
-.now-playing-led .led-ribbon>span{background-image:radial-gradient(circle,#b4ffbd 0 51%,transparent 58%)!important}
+.edge-disc-arrow svg{stroke-width:2.5}
+.edge-disc>.edge-disc-label{max-width:140px;white-space:normal;text-shadow:none!important;color:var(--ink)!important}
+.edge-disc>.edge-disc-label:after{color:var(--ink)!important;opacity:1}
+#home>.rail.balanced-menu{position:relative;inset:auto;transform:none;flex:none}
+#home>.rail.balanced-menu>a{min-width:44px;min-height:44px;touch-action:manipulation}
+#home>.rail.balanced-menu a>.menu-label{max-width:100%;line-height:1.15!important}
+#home .hero-bottom{position:relative;inset:auto;width:100%;flex:none}
+@media(hover:none){.cabinet-record .expanded-cover{display:none!important}#home>.rail.balanced-menu a>.menu-label{opacity:1!important;visibility:visible!important}.arm-control>.edge-disc-label,.edge-disc>.edge-disc-label{display:none!important}}
+@media(prefers-reduced-motion:reduce){.edge-disc-face{animation:none!important}}

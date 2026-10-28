@@ -21,7 +21,7 @@ function positionExpanded(link){const panel=link.querySelector('.expanded-cover'
 shelf.querySelectorAll('.cabinet-record').forEach(link=>['pointerenter','focus','pointerdown'].forEach(event=>link.addEventListener(event,()=>positionExpanded(link))));
 addEventListener('resize',()=>shelf.querySelectorAll('.cabinet-record').forEach(positionExpanded));
 // Enforce the user's minimum on actual text nodes, including legacy page styles.
-function enforceReadableText(){const walker=document.createTreeWalker(document.body,NodeFilter.SHOW_TEXT);let node;while(node=walker.nextNode()){const el=node.parentElement;if(!node.textContent.trim()||!el||el.closest('script,style,svg'))continue;if(parseFloat(getComputedStyle(el).fontSize)<16)el.style.setProperty('font-size','16px','important')}}
+function enforceReadableText(){const walker=document.createTreeWalker(document.body,NodeFilter.SHOW_TEXT);let node;while(node=walker.nextNode()){const el=node.parentElement;if(!node.textContent.trim()||!el||el.closest('script,style,svg'))continue;if(parseFloat(getComputedStyle(el).fontSize)<16)el.style.setProperty('font-size','1rem','important')}}
 enforceReadableText();addEventListener('resize',enforceReadableText);
 
 const headlineBottom=document.querySelector('.headline-bottom');document.querySelector('.headline-top').after(headlineBottom);headlineBottom.after(document.querySelector('.hero-copy>p'));requestAnimationFrame(fitWelcome);

@@ -11,8 +11,8 @@
 .cabinet-scene .independent-player.changing-record .live-arm{transform:translateZ(12px) rotate(-2deg)!important;transition:transform .8s ease}
 @media(max-width:600px){.track-controls{right:0;bottom:-16px;flex-direction:row;gap:8px}.track-controls button{font-size:16px}}
 /* Step 2: tabletop, front edge and contact shadow share the player's camera angle. */
-.cabinet-scene .shared-table{top:57%;height:43%;transform:perspective(1000px) rotateX(34deg);transform-style:preserve-3d;border-radius:.8cqw;background:url('assets/oak-grain.svg') center/cover,radial-gradient(ellipse at 30% 15%,#f4dfb480,transparent 60%),linear-gradient(110deg,#a47950,#d1ac7d 45%,#9d7047);box-shadow:0 .5cqw 0 #e0bd8c,0 1cqw 0 #a5774a,0 1.8cqw 0 #815734,0 3.6cqw 2.5cqw -1cqw #24180f55;overflow:visible}
-.cabinet-scene .shared-table:after{display:block;content:'';position:absolute;top:100%;left:0;right:0;height:2.6cqw;border-radius:0 0 .5cqw .5cqw;transform:none;mask-image:none;background:url('assets/oak-grain.svg') center/cover,linear-gradient(#a5774a,#6f492e);box-shadow:inset 0 .3cqw .3cqw #f2d3a030;z-index:-1}
+.cabinet-scene .shared-table{transform:perspective(1000px) rotateX(34deg);transform-style:preserve-3d;border-radius:.8cqw;background:url('assets/oak-grain.svg') center/cover,radial-gradient(ellipse at 30% 15%,#f4dfb480,transparent 60%),linear-gradient(110deg,#a47950,#d1ac7d 45%,#9d7047);box-shadow:0 .5cqw 0 #e0bd8c,0 1cqw 0 #a5774a,0 1.8cqw 0 #815734,0 3.6cqw 2.5cqw -1cqw #24180f55;overflow:visible}
+.cabinet-scene .shared-table:after{display:block;content:'';position:absolute;border-radius:0 0 .5cqw .5cqw;transform:none;mask-image:none;background:url('assets/oak-grain.svg') center/cover,linear-gradient(#a5774a,#6f492e);box-shadow:inset 0 .3cqw .3cqw #f2d3a030;z-index:-1}
 /* Step 3: matched transitions from text to objects above and below. */
 #home{--object-gap:24px}
 #home .scene-slot{margin-top:var(--object-gap)}
@@ -72,7 +72,7 @@
 .cabinet-record:after{content:"";position:absolute;inset:-6px;z-index:0}
 
 /* October 27: solid tabletop and integrated player feedback. */
-.cabinet-scene .shared-table{left:-20%;width:140%;top:51%;height:51%;mask-image:none!important;-webkit-mask-image:none!important}
+.cabinet-scene .shared-table{mask-image:none!important;-webkit-mask-image:none!important}
 .cabinet-scene .independent-player.tonearm-only{pointer-events:auto}
 .edge-disc-face{mask-image:none!important;-webkit-mask-image:none!important}
 .edge-disc-arrow{position:absolute;inset:0;display:grid;place-items:center;color:#24332b;font:500 28px/1 sans-serif;z-index:2}
@@ -83,7 +83,7 @@
 .cabinet-scene .independent-player.player-hover:not(.playing):not(.changing-record) .live-arm{animation:arm-curiosity 1.6s ease-in-out infinite}
 @keyframes arm-curiosity{0%,100%{rotate:-3deg}50%{rotate:4deg}}
 @media(prefers-reduced-motion:reduce){.cabinet-scene .independent-player.player-hover .live-arm{animation:none!important}}
-@media(max-width:600px){.cabinet-scene .shared-table{left:-6%;width:112%}.now-playing-led{right:3%;width:32%;padding:2%}}
+@media(max-width:600px){.cabinet-scene .shared-table{}.now-playing-led{right:3%;width:32%;padding:2%}}
 
 .cabinet-scene .live-platter{top:4%!important}
 .now-playing-led{right:2%;bottom:5%;width:36%;height:27%;padding:2%;}
@@ -105,7 +105,7 @@
 @media(max-width:600px){.arm-control>.edge-disc-label{left:60%;top:-18%}}
 .now-playing-led{width:40%;right:2%;height:28%}
 .now-playing-led span{font-family:Arial,sans-serif!important;letter-spacing:-.8px}
-@media(max-width:600px){.cabinet-scene .shared-table{left:0;width:100%}.edge-disc{width:25%}.edge-disc-left{left:-3%}.edge-disc-right{right:-3%}.now-playing-led{width:40%}}
+@media(max-width:600px){.cabinet-scene .shared-table{}.edge-disc{width:25%}.edge-disc-left{left:-3%}.edge-disc-right{right:-3%}.now-playing-led{width:40%}}
 
 /* Proportional inset dot-matrix display. Decorative lettering scales with hardware. */
 .now-playing-led{width:38%;right:3%;bottom:6%;height:25%;padding:2.5%;gap:.7cqw;border:2px solid #59645e;border-radius:.5cqw;background:radial-gradient(circle,#49624d45 .5px,transparent .8px) 0 0/3px 3px,linear-gradient(#080f0d,#142019);box-shadow:inset 0 .6cqw 1cqw #000,0 .3cqw 0 #f3e1b4}
@@ -114,10 +114,10 @@
 /* One composition at every breakpoint: positions and dimensions share scene units. */
 #home .scene-slot{width:min(880px,90vw);max-width:100%;margin:20px 0 16px}
 .connection-object .cabinet-scene{aspect-ratio:2!important}
-.connection-object .cabinet-scene .independent-player{width:52%;left:24%;top:29%}
-.cabinet-scene .shared-table{left:0;width:100%;top:57%;height:43%}
-.cabinet-scene .edge-disc{width:22%;top:60%}.cabinet-scene .edge-disc-left{left:2%}.cabinet-scene .edge-disc-right{right:2%}
-.cabinet-scene .arm-control{left:49%;top:34%;width:24%;height:48%}
+.connection-object .cabinet-scene .independent-player{}
+.cabinet-scene .shared-table{}
+.cabinet-scene .edge-disc{}.cabinet-scene .edge-disc-left{}.cabinet-scene .edge-disc-right{}
+.cabinet-scene .arm-control{}
 .cabinet-shelf{left:20%;right:20%;height:25%}
 #home>.rail.balanced-menu>a{min-height:94px}
 #home>.rail.balanced-menu{margin-top:20px}
@@ -179,12 +179,12 @@
 .now-playing-led span{font-size:16px!important;letter-spacing:-1px!important}.now-playing-led strong{font-size:18px!important}
 .now-playing-led{min-width:144px;min-height:60px;padding:7px!important}
 .cabinet-scene .live-label{font-size:16px!important}
-@media(max-width:600px){.expanded-cover{padding:18px;gap:10px;aspect-ratio:auto;min-height:340px}.cover-heading strong{font-size:24px!important}.cover-artwork{width:30%}.cover-chips>span{padding:4px 7px}.now-playing-led{right:-5%;bottom:-15%;z-index:5}.cabinet-scene .shared-table{height:52%}.scene-slot{margin-bottom:40px!important}}
+@media(max-width:600px){.expanded-cover{padding:18px;gap:10px;aspect-ratio:auto;min-height:340px}.cover-heading strong{font-size:24px!important}.cover-artwork{width:30%}.cover-chips>span{padding:4px 7px}.now-playing-led{right:-5%;bottom:-15%;z-index:5}.cabinet-scene .shared-table{}.scene-slot{margin-bottom:40px!important}}
 @media(prefers-reduced-motion:reduce){.cover-peek-disc{animation:none}.expanded-cover{transition:none}}
 .expanded-cover{position:absolute;translate:none}
 .jacket-art.purple{--jacket:#8575a8;--light:#bfadd8;--dark:#494162}.jacket-art.purple .jacket-orbit{filter:none}
 #home .hero-copy:has(.cabinet-record:is(:hover,:focus-visible,.cover-preview)){position:relative;z-index:200}
-@media(max-width:600px){.now-playing-led{bottom:-38%;right:-15%;min-height:54px}.cabinet-scene .shared-table{height:68%}#home .scene-slot{margin-bottom:64px!important}}
+@media(max-width:600px){.now-playing-led{bottom:-38%;right:-15%;min-height:54px}.cabinet-scene .shared-table{}#home .scene-slot{margin-bottom:64px!important}}
 /* Playback status and a seamless, measured title loop. */
 .now-playing-led>span{display:flex;align-items:center;justify-content:space-between;gap:8px;font-size:16px!important;font-weight:400!important;letter-spacing:-.7px!important}
 .now-playing-led>span i{font:normal 16px/1 sans-serif;color:#b8efb4}
@@ -249,7 +249,7 @@ body.time-lighting{transition:--ambient-top 3s linear,--ambient-bottom 3s linear
 .expanded-cover .cover-artwork{background:#f2e7c5}
 
 /* Current interaction contract: the whole deck is one immediate play/pause target. */
-.cabinet-scene .arm-control{left:24%;top:29%;width:52%;height:58%;border-radius:14px;z-index:20}
+.cabinet-scene .arm-control{border-radius:14px;z-index:20}
 .cabinet-scene .arm-control>.edge-disc-label{left:50%;top:-12%}
 .location-notice{display:none!important}
 /* Expand the same square sleeve and its 80%-diameter circular artwork. */
@@ -286,7 +286,7 @@ body.time-lighting{transition:--ambient-top 3s linear,--ambient-bottom 3s linear
 @media(prefers-reduced-motion:reduce){.ambient-toggle:is(:hover,:focus-visible){animation:none}}
 /* Reserve a lower face for the LED so all status text clears the platter. */
 .now-playing-led{bottom:-38%;right:-15%;min-height:54px}
-.cabinet-scene .shared-table{height:68%}
+.cabinet-scene .shared-table{}
 .now-playing-led>span{color:#b3e8b7!important;opacity:1;text-shadow:0 0 2px #5da76b}
 .city-select{width:240px;max-width:100%;min-width:220px}
 #home .scene-slot{margin-bottom:100px!important}
