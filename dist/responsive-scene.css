@@ -2,7 +2,7 @@
 body[data-page=home]{overflow-y:auto}
 .afterglow #home{height:auto;min-height:calc(100svh - 72px);overflow:visible;display:flex;flex-direction:column;align-items:center;justify-content:flex-start;padding:24px 16px 32px;gap:24px}
 #home .hero-copy{width:100%;flex:none;overflow:visible}
-#home .scene-slot{width:min(760px,100%)!important;max-width:100%;flex:none;margin:32px auto 130px!important}
+
 .connection-object .cabinet-scene{aspect-ratio:2!important;overflow:visible;--hardware-radius:12px}
 .cabinet-scene .cabinet-shelf{left:5%;right:5%;height:25%;gap:4%;align-items:end}
 .cabinet-shelf .cabinet-record{width:21%;min-width:44px;min-height:44px;aspect-ratio:1;flex:none;touch-action:manipulation}
@@ -24,7 +24,7 @@ body[data-page=home]{overflow-y:auto}
  .afterglow #home{padding-top:24px;gap:24px}
  #home .headline-top{font-size:clamp(30px,8vw,42px)}
  #home .headline-bottom{font-size:clamp(28px,7.4vw,40px);white-space:normal}
- #home .scene-slot{margin:32px auto 140px!important}
+
  .hero-bottom .local-time{width:100%;max-width:360px;column-gap:16px;row-gap:24px}
  #home>.rail.balanced-menu .menu-label{font-size:20px!important;padding:4px 0 10px!important}
 }
@@ -41,11 +41,11 @@ body[data-page=home]{overflow-y:auto}
 .now-playing-led .led-ribbon>span{background-size:2.4px 2.4px!important;background-image:radial-gradient(circle,#b4ffbd 0 42%,transparent 50%)!important}
 .now-playing-led .led-symbol{background-size:3.5px 3.5px!important;background-image:radial-gradient(circle,#b4ffbd 0 40%,transparent 49%)!important}
 /* Hints have their own clear space below the wood, never on its grain. */
-#home .scene-slot{margin-bottom:clamp(150px,25vw,254px)!important}
+
 .edge-disc>.edge-disc-label{top:calc(200% + 20px)!important;text-shadow:none!important;color:var(--ink)!important}
 .edge-disc>.edge-disc-label:after{color:var(--ink)!important;opacity:1}
 .edge-disc-arrow{color:#182936!important;filter:none!important}
 .cabinet-scene .shared-table{min-height:180px}
-#home .scene-slot{margin-bottom:clamp(180px,27vw,280px)!important}
+
 #home .greeting,#home .hero-copy>p,.clock{background-image:radial-gradient(circle,var(--ink) 0 51%,transparent 58%)!important}
 .now-playing-led .led-ribbon>span{background-image:radial-gradient(circle,#b4ffbd 0 51%,transparent 58%)!important}

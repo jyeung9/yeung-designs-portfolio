@@ -1,3 +1,10 @@
+## Current centering and constrained-height rule — October 28, 2026
+
+- Layout ownership is in frame-layout.css/js. Headline and role occupy the first row; the shelf gets its actual sleeve height; the visible player/table/LED assembly is centered in the row between shelf and navigation. Shared spacing values: frame gap 16px desktop / 12px phone, minimum scene clearance 28px / 24px.
+- Scene width responds to available width (maximum 760px). Height must never silently reduce that width. Preserve existing sleeve, player, tabletop and LED geometry, colors, typography and playback. When the content requires more height, allow vertical scrolling and report the conflict; the former one-screen rule is subordinate to these requirements.
+- Keep a single-column reading order at short landscape heights too. Remove the competing short-height two-column layout. Keep shelf annotation clear of the role line.
+- Vine reveal mask uses explicit generous bounds; controlled curves remain complete above and below the letters, and the final stem meets the final n. No text styling changes are required for this repair.
+
 ## Visual evidence accompanies component rules — October 28, 2026
 
 Open the [visual component reference library](references/visual-components.md) before changing a component. It contains durable screenshots, the current logo asset, scoped preservation rules, known mobile regressions and explicit evidence gaps. Text alone is not a sufficient visual specification. Capture matching before/after views and motion frames for affected components; do not treat an implementation screenshot as user approval.
