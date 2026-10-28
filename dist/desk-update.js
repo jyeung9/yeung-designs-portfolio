@@ -55,8 +55,8 @@ document.querySelector('.clock').after(clockSelect);
 const locationNotice=document.createElement('p');locationNotice.className='location-notice';locationNotice.setAttribute('role','status');locationNotice.hidden=true;
 document.querySelector('.hero-bottom').append(locationNotice);
 let chosenCity=null,clockRequest=0;
-window.renderWorldClock=()=>{const options={hour:'2-digit',minute:'2-digit',hour12:false};if(chosenCity)options.timeZone=chosenCity[1];document.querySelector('.clock').textContent=new Intl.DateTimeFormat([],options).format(new Date())};
-function useCity(city){chosenCity=city;window.renderWorldClock();const hour=Number(new Intl.DateTimeFormat('en-GB',{hour:'2-digit',hourCycle:'h23',...(city?{timeZone:city[1]}:{})}).format(new Date()));isNight=hour<7||hour>=19;sessionStorage.removeItem('julie-vinyl-theme');updateAppearance()}
+window.renderWorldClock=()=>{const clockEl=document.querySelector('.clock');clockEl.hidden=!chosenCity;if(!chosenCity){clockEl.textContent='';document.body.classList.remove('time-lighting');document.body.style.removeProperty('--bg');return}clockEl.textContent=new Intl.DateTimeFormat([],{hour:'2-digit',minute:'2-digit',hour12:false,timeZone:chosenCity[1]}).format(new Date());if(window.applyTimeLighting)window.applyTimeLighting(chosenCity[1])};
+function useCity(city){chosenCity=city;sessionStorage.removeItem('julie-vinyl-theme');window.renderWorldClock();}
 clockSelect.onchange=()=>{const request=++clockRequest;locationNotice.hidden=true;
  if(clockSelect.value!=='locate'){useCity(clockSelect.value==='local'?null:cityData[Number(clockSelect.value)]);return}
  clockSelect.value='local';useCity(null);
@@ -65,7 +65,7 @@ clockSelect.onchange=()=>{const request=++clockRequest;locationNotice.hidden=tru
   const rad=Math.PI/180,lat=position.coords.latitude*rad,lon=position.coords.longitude*rad;
   const nearest=cityData.reduce((best,c)=>{const distance=Math.acos(Math.min(1,Math.max(-1,Math.sin(lat)*Math.sin(c[2]*rad)+Math.cos(lat)*Math.cos(c[2]*rad)*Math.cos(lon-c[3]*rad))));return distance<best.distance?{city:c,distance}:best},{city:null,distance:Infinity}).city;
   clockSelect.value=String(cityData.indexOf(nearest));useCity(nearest);locationNotice.textContent='nearest listed city: '+nearest[0]+'. you can choose another.';locationNotice.hidden=false;
- },()=>{if(request!==clockRequest)return;clockSelect.value='local';useCity(null);locationNotice.textContent='using your device’s local time. you can choose a city.';locationNotice.hidden=false},{enableHighAccuracy:false,timeout:10000,maximumAge:300000});
+ },()=>{if(request!==clockRequest)return;clockSelect.value='local';useCity(null);locationNotice.textContent='time stays hidden. choose a timezone when you’re ready.';locationNotice.hidden=false},{enableHighAccuracy:false,timeout:10000,maximumAge:300000});
 };
 window.renderWorldClock();
 // Music is handled locally by music-sequence.js.

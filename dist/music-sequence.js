@@ -10,8 +10,8 @@ let changingRecord=false,leftQueue=tracks.map((_,i)=>i),rightQueue=[],queueSourc
 const delay=ms=>new Promise(resolve=>setTimeout(resolve,ms));
 function selectLocalTrack(index){trackIndex=index;localAudio.src=tracks[index].src;trackStatus.textContent=tracks[index].title+(tracks[index].artist?' · '+tracks[index].artist:'');disc.querySelector('.live-label').textContent=tracks[index].title;setLEDTitle(tracks[index].title);}
 function renderQueue(){
- carrier.style.visibility=trackIndex<0?'hidden':'visible';
- for(const [side,list] of [[-1,leftQueue],[1,rightQueue]]){const button=trackControls.querySelector(`[data-step="${side}"]`);button.hidden=!list.length;button.disabled=changingRecord;button.setAttribute('aria-label',`load from ${side<0?'left':'right'} stack, ${list.length} songs`);button.querySelectorAll('.queue-layer').forEach(el=>el.remove());list.slice(1).forEach((_,i)=>{const layer=document.createElement('span');layer.className='edge-disc-face queue-layer';layer.style.translate=`${(i+1)*1.3}px ${-(i+1)*2}px`;layer.style.zIndex=String(-i-1);layer.setAttribute('aria-hidden','true');button.prepend(layer)});button.querySelector('.edge-disc-label').textContent=`${list.length} songs · load from ${side<0?'left':'right'}`;}
+ carrier.style.visibility=trackIndex<0?'hidden':'visible';musicButton.classList.toggle('empty-player',trackIndex<0);
+ for(const [side,list] of [[-1,leftQueue],[1,rightQueue]]){const button=trackControls.querySelector(`[data-step="${side}"]`);button.hidden=!list.length;button.disabled=changingRecord;button.setAttribute('aria-label',`load from ${side<0?'left':'right'} stack, ${list.length} songs`);button.querySelectorAll('.queue-layer').forEach(el=>el.remove());list.slice(1).forEach((_,i)=>{const layer=document.createElement('span');layer.className='edge-disc-face queue-layer';layer.style.translate=`${(i+1)*1.3}px ${-(i+1)*2}px`;layer.style.zIndex=String(-i-1);layer.setAttribute('aria-hidden','true');button.prepend(layer)});button.querySelector('.edge-disc-label').textContent=side===queueSource?'next track':'previous track';}
 }
 async function playLocal(){if(changingRecord)return;if(trackIndex<0){await switchRecord(queueSource,true);return}try{await localAudio.play()}catch{musicState(false);trackStatus.textContent='tap play to start the selected song.'}}
 function toggleLocal(){if(changingRecord)return;if(localAudio.paused)playLocal();else localAudio.pause()}
@@ -86,7 +86,7 @@ function setLEDTitle(title){
  for(let i=0;i<2;i++){const copy=document.createElement('span');copy.textContent=title;if(i)copy.setAttribute('aria-hidden','true');ribbon.append(copy)}field.append(ribbon);field.setAttribute('aria-label',title);
  requestAnimationFrame(()=>{const overflow=ribbon.firstElementChild.getBoundingClientRect().width>field.clientWidth;nowPlaying.classList.toggle('scroll-title',overflow);ribbon.style.animationDuration=Math.max(12,title.length*.5)+'s'});
 }
-function syncLED(){const playing=!localAudio.paused&&!localAudio.ended;nowPlaying.classList.toggle('led-playing',playing);nowPlaying.firstElementChild.innerHTML=`${playing?'NOW PLAYING':trackIndex>=0?'PAUSED':'READY'} <i aria-hidden="true">${playing?'▶':trackIndex>=0?'Ⅱ':'▷'}</i>`;}
+function syncLED(){const playing=!localAudio.paused&&!localAudio.ended;nowPlaying.classList.toggle('led-playing',playing);nowPlaying.firstElementChild.innerHTML=`${playing?'NOW PLAYING':trackIndex>=0?'PAUSED':'READY'} <i aria-hidden="true" class="led-symbol ${playing||trackIndex<0?'symbol-play':'symbol-pause'}"></i>`;}
 ['playing','pause','ended','error'].forEach(event=>localAudio.addEventListener(event,syncLED));
 setLEDTitle(trackIndex>=0?tracks[trackIndex].title:'ready');syncLED();
 addEventListener('hashchange',syncLED);

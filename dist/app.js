@@ -35,9 +35,9 @@ const teDialog=document.getElementById('te-dialog');
 document.querySelector('[href="#titanic"]').addEventListener('click',e=>{e.preventDefault();teDialog.showModal()});
 teDialog.querySelector('button').onclick=()=>teDialog.close();
 teDialog.addEventListener('click',e=>{if(e.target===teDialog)teDialog.close()});
-const localHour=new Date().getHours();let isNight=localHour<7||localHour>=19;const savedGridTheme=sessionStorage.getItem("julie-vinyl-theme");if(savedGridTheme)isNight=savedGridTheme==="night";
+let isNight=false;const savedGridTheme=sessionStorage.getItem("julie-vinyl-theme");if(savedGridTheme)isNight=savedGridTheme==="night";
 function updateAppearance(){document.body.classList.toggle('nighttime',isNight);document.body.classList.toggle('daylight',!isNight);document.querySelector('.time-message').textContent=isNight?'a quiet evening, wherever you are.':'a little light, wherever you are.';document.querySelector('.ambient-toggle').setAttribute('aria-checked',String(isNight))}
-function clock(){if(window.renderWorldClock){window.renderWorldClock();return}document.querySelector('.clock').textContent=new Date().toLocaleTimeString([],{hour:'2-digit',minute:'2-digit',hour12:false})+' / your local time'}
+function clock(){if(window.renderWorldClock){window.renderWorldClock();return}document.querySelector('.clock').textContent='';document.querySelector('.clock').hidden=true}
 clock();updateAppearance();setInterval(clock,30000);document.querySelector('.ambient-toggle').onclick=()=>{isNight=!isNight;sessionStorage.setItem('julie-vinyl-theme',isNight?'night':'day');updateAppearance()};
 const observer=new IntersectionObserver(entries=>{entries.forEach(entry=>{if(entry.isIntersecting){document.querySelectorAll('.rail a').forEach(a=>a.classList.toggle('current',a.hash==='#'+entry.target.id))}})},{rootMargin:'-15% 0px -45% 0px',threshold:0});document.querySelectorAll('main>section').forEach(s=>observer.observe(s));
 

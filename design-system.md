@@ -260,3 +260,9 @@ The latest composition supersedes the cabinet body: retain only the tabletop, do
 
 ## spacious tabletop and touch disclosure
 Remove headphones and return play/pause activation to the record player. Extend the tabletop sideways with faded ends. Keep 24px above and 32px below the scene; put “product designer | AI systems thinker” close to “meaningful connection.” Bottom navigation labels are hidden at rest, revealed on hover/keyboard focus; touch uses first-tap preview, second-tap activation, with dismissal when tapping elsewhere. The timezone selector starts with “select your timezone”; clock, selector and theme control have separate touch targets and generous gaps, wrapping onto two rows on phones rather than squeezing.
+
+## October 27 — consistent LED and sleeve refinement
+- LED status indicators use green dot-matrix play/pause symbols matching the screen lettering and glow.
+- Hide the clock until a timezone is explicitly chosen. Selected timezone drives gradual clock-based dawn/day/dusk/night colors; manual theme selection overrides this. No automatic location lookup.
+- Expanded sleeves carry full-cover artwork beneath readable content, rounded corners, and three chip rows (industry, skills, app type). Preserve 16px minimum text; long rows scroll horizontally on small screens.
+- Side controls read “previous track” and “next track.” Vinyl and tonearm invitations are stronger; the empty metal platter catches a gentle highlight. Respect reduced motion.

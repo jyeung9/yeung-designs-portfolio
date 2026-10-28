@@ -212,3 +212,38 @@
 @media(max-height:600px){.expanded-cover{min-height:0;overflow:auto}.cover-artwork{width:28%}}
 @media(prefers-reduced-motion:reduce){.expanded-cover,.cabinet-record:is(:hover,:focus-visible,.cover-preview) .expanded-cover{transition:none;transform:none}.expanded-cover>.cover-peek-disc,.now-playing-led.led-playing>span,.now-playing-led.scroll-title .led-ribbon,.cabinet-record>.sleeve-vinyl{animation:none!important}.now-playing-led.scroll-title .led-ribbon{width:100%;white-space:normal}.now-playing-led.scroll-title .led-ribbon>span{white-space:normal;padding:0}.now-playing-led.scroll-title .led-ribbon>span+span{display:none}}
 .cover-artwork>.jacket-art:after{background:none!important;box-shadow:none!important}
+.clock[hidden]{display:none!important}
+body.time-lighting{background:linear-gradient(170deg,var(--ambient-top),var(--ambient-bottom)) fixed!important;transition:background-color 30s linear,color 2s}
+body.time-lighting #home{background-color:transparent!important}
+.hero-bottom .local-time:has(.clock[hidden]){grid-template-columns:minmax(200px,auto) auto}
+@media(max-width:600px){.hero-bottom .local-time:has(.clock[hidden]){grid-template-columns:1fr}.hero-bottom .local-time:has(.clock[hidden]) .ambient-toggle{grid-column:1}}
+.edge-disc>.edge-disc-label{top:calc(100% + 24px);font-size:22px!important;white-space:nowrap;max-width:none}
+.edge-disc-arrow{bottom:-20px}
+/* The whole sleeve carries its artwork; content sits over it. */
+.expanded-cover{width:min(540px,calc(100vw - 64px));min-height:540px;overflow:visible;gap:20px}
+.expanded-cover .cover-artwork{position:absolute!important;inset:0;width:100%;height:100%;margin:0;z-index:0!important;overflow:hidden;border-radius:inherit;pointer-events:none}
+.expanded-cover .cover-artwork>.jacket-art{width:100%;height:100%;opacity:.65;background:transparent!important;border-radius:inherit!important}
+.expanded-cover .cover-artwork .jacket-orbit{inset:0;width:100%;height:100%;border-radius:inherit;box-shadow:none}
+.expanded-cover:before{background:linear-gradient(#fff7dcf2 0%,#fff7dcbb 24%,#fff7dc33 50%,#fff7dcee 73%,#fff7dcf5);z-index:1}
+.cover-heading{padding-bottom:130px}
+.cover-chips{width:100%;display:flex;flex-direction:column;gap:7px;align-items:flex-end}
+.cover-chips>.chip-row{display:flex;flex-wrap:nowrap;justify-content:flex-end;gap:5px;max-width:100%;overflow-x:auto;border:0;background:none;border-radius:0;padding:0 0 3px;font-size:16px!important;scrollbar-width:thin}
+.chip-row>span{white-space:nowrap;flex:none;border:1px solid #7d8a6c88;border-radius:14px;padding:4px 8px;font:400 16px/1.25 'DM Sans';background:#fff9e8d9}
+.cover-cta{margin-top:4px}
+@keyframes expanded-disc-peek{0%,100%{transform:translateX(-2%) rotate(-9deg)}50%{transform:translateX(14%) rotate(13deg)}}
+@keyframes vinyl-invitation{0%,100%{transform:translateX(20%) rotate(-9deg)}50%{transform:translateX(48%) rotate(16deg)}}
+@keyframes arm-curiosity{0%,100%{rotate:-7deg}50%{rotate:9deg}}
+.empty-player .live-platter:before{content:'';position:absolute;inset:0;border-radius:50%;background:linear-gradient(115deg,transparent 20%,#ffffff88 45%,#ffffffbb 50%,transparent 70%);background-size:250% 100%;animation:metal-daylight 7s ease-in-out infinite;pointer-events:none}
+@keyframes metal-daylight{0%,100%{background-position:100% 0;opacity:.2}50%{background-position:0 0;opacity:.65}}
+@media(max-width:600px){.expanded-cover{min-height:450px;gap:14px}.cover-heading{padding-bottom:115px}.chip-row>span{padding:4px 7px}.cover-chips>.chip-row{justify-content:flex-start}.expanded-cover>.cover-peek-disc{width:60%;right:-6%}}
+@media(max-height:600px){.expanded-cover{min-height:0;overflow:auto}.cover-heading{padding-bottom:40px}}
+@media(prefers-reduced-motion:reduce){.empty-player .live-platter:before{animation:none;background-position:center;opacity:.3}}
+.now-playing-led .led-symbol{display:block;width:16px;height:16px;min-width:16px;background:radial-gradient(circle,#a3ffac 0 48%,transparent 58%) 0 0/3px 3px;filter:drop-shadow(0 0 2px #82d28b55)}
+.led-symbol.symbol-play{clip-path:polygon(14% 0,100% 50%,14% 100%)}
+.led-symbol.symbol-pause{clip-path:polygon(10% 0,38% 0,38% 100%,10% 100%,10% 0,62% 0,90% 0,90% 100%,62% 100%,62% 0)}
+
+@property --ambient-top{syntax:"<color>";inherits:true;initial-value:#f6f3e9}
+@property --ambient-bottom{syntax:"<color>";inherits:true;initial-value:#f6f3e9}
+body.time-lighting{transition:--ambient-top 3s linear,--ambient-bottom 3s linear,color 2s}
+
+.expanded-cover .cover-artwork{background:#f2e7c5}
