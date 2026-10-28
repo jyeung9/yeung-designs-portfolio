@@ -212,3 +212,8 @@ The laptop uses a dark graphite chassis, near-upright thin-bezel display, shallo
 - Headphones own play/pause input. Confirmed audio state still controls the record rotation, tonearm and green indicator. Spotify limitations remain unchanged.
 - Six gray peripheral sketches are decorative, noninteractive and behind all content. Reduce their prominence on small screens.
 - Preserve the three balanced bottom navigation objects and all existing contact/about behavior.
+
+## material realism and responsive proportions — October 27
+- Avoid toy-like thick outlines, oversized sleeve edges and bright flat furniture fills. Use restrained wood tones, paper grain, thin board edges, recessed shelf shading and contact shadows. Keep physical objects independently animatable.
+- Cabinet keeps the same 2.1:1 scene aspect ratio at every breakpoint. Object dimensions, placement, edge thickness and shadows scale with the scene; no mobile-only stretching. Sleeve artwork is square with no flex shrinking and no competing max-height constraint.
+- Live labels remain at least 16px and wrap outside the artwork. Never distort an object to make its label fit. Headphones keep the SVG's original proportions. Verify 320px, 390px and desktop layouts.
