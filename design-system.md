@@ -10,7 +10,7 @@ This section is the running source of truth; older sections below are historical
 - Gray background drawings use fine dotted strokes; the grid remains solid.
 - Sleeves lift forward on hover/focus or first touch; project name and intended benefit are printed on the enlarged square cover. A click or second touch opens the existing case-study destination. No detached tooltip below sleeves. Do not claim measured outcomes without evidence.
 - The scene uses one 2:1 coordinate system at all sizes: player 52% wide, side discs 22%, table 100%. Breakpoints change overall available size, never relative object proportions.
-- LED uses recessed dark glass and green dot-matrix lettering: smaller uppercase NOW PLAYING above a larger song title. Decorative hardware text scales with the scene; navigation and body text retain the 16px minimum.
+- LED uses recessed dark glass and green dot-matrix lettering: smaller uppercase NOW PLAYING above a larger song title. All rendered text must remain at least 16px, including hardware text and enlarged-cover chips. This supersedes the decorative-text exception; the display and cover layouts need sufficient physical space rather than shrinking their text.
 - Contact note and its annotation read “contact me”.
 - Table has a visible front edge, coherent perspective and contact shadows. All objects retain their proportions at every breakpoint.
 - Text-to-object gaps use the same spacing token above the sleeves and below the subtitle.
@@ -18,6 +18,19 @@ This section is the running source of truth; older sections below are historical
 - Polaroid tape stays anchored while the photo sways from its top edge; reduced motion disables sway.
 - Every hover annotation uses locally hosted **Caveat 500** (Portfolio Hand), 22px, with the same thin handdrawn underline, transparent background, no border and no box shadow. The yellow note uses the same face without an underline. Never render duplicate prompts.
 - Touch: tap to preview an object's label, tap again to activate, tap elsewhere to dismiss. Controls retain accessible names when labels are hidden.
+
+## Next expanded-cover layout — awaiting supplied sketch
+
+Image IMG_6246.jpg was unavailable on October 27. Do not infer its composition. Use rounded corners, larger square covers and larger type. Chips belong at the bottom right; do not print category descriptors such as “industry”, “skillsets” or “type of app”. The inner vinyl gently wiggles in and out on hover/focus/touch preview. LED always stays behind the loaded disc.
+
+| Case-study title | Industry chips | Skill chips | App chips |
+| --- | --- | --- | --- |
+| Titanic's End App | Consumer Social; Community Engagement | Design System; AI-Assisted Product Design | Mobile; Desktop |
+| CAPI | Consumer Social Media | Product Design; Design Leadership; Stakeholder Management | Mobile |
+| Design Portfolio Refresh | Consumer Web | Product Design; AI-Assisted Product Development | Mobile and Desktop Web |
+| ConnectMyHealth | Consumer Healthcare | Product Design; User Research; Stakeholder Management | Mobile |
+
+These are user-supplied labels, not evidence of measured project outcomes. Design Portfolio Refresh has no supplied case-study destination yet.
 
 # portfolio design system
 

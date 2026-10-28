@@ -142,3 +142,13 @@
 .now-playing-led.long-title strong{width:max-content;max-width:none;animation:led-long-title 12s linear infinite}
 @keyframes led-long-title{0%,20%{translate:0}80%,100%{translate:min(0px,calc(15cqw - 100%))}}
 @media(prefers-reduced-motion:reduce){.now-playing-led.long-title strong{animation:none;max-width:100%;text-overflow:ellipsis}}
+
+/* Gentle edges and a permanent platter-over-display stacking order. */
+.cabinet-scene .live-platter{z-index:10}
+.cabinet-scene .live-arm{z-index:15}
+.cabinet-scene .now-playing-led{z-index:5;border-radius:8px}
+.cabinet-record .jacket-art,.sleeve-details{border-radius:8px}
+.cabinet-shelf:before{border-radius:4px}
+.cabinet-record:is(:hover,:focus-visible,.touch-preview) .sleeve-vinyl{animation:vinyl-invitation 2.8s ease-in-out infinite}
+@keyframes vinyl-invitation{0%,100%{transform:translateX(25%) rotate(8deg)}50%{transform:translateX(38%) rotate(17deg)}}
+@media(prefers-reduced-motion:reduce){.cabinet-record:is(:hover,:focus-visible,.touch-preview) .sleeve-vinyl{animation:none}}
