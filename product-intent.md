@@ -88,3 +88,6 @@ Show the supplied CAPI overview on a separately rendered MacBook Pro-style lapto
 The current landing replaces the laptop with one record-cabinet shelf. Main product-design projects, in order: Titanic’s End (community and in-person connection); CAPI / First Intelligence (customized video creation from favorite viral content); CentralSquare / ConnectMyHealth (net-new mobile app for 4m+ patients and caregivers, connecting with providers and understanding test results). These are user-supplied scope statements, not verified adoption or outcome metrics.
 
 Other fun stuff includes Everyone Votes (voter platform), Neon Owl (business strategy), PayPal, and school / outside-work projects. Do not invent missing project roles, outcomes or links. Keep these separate from the main product-design lineup. Music is triggered through headphones.
+
+## Uploaded music and sequential refinement — October 27
+The user supplied ten MP3s for direct playback. Start silent; do not load Spotify or show an external player. Playback and track changes must not alter page geometry. The final interaction is tonearm play/pause plus separate fading edge discs for previous/next; park the arm before lifting/changing the center disc. The single current visual checklist is at the top of design-system.md. All seven requested steps were previewed in order before proceeding to the next.

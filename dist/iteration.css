@@ -1,0 +1,72 @@
+/* Step 1: audio state never participates in layout. */
+.spotify-inline,.music-note{display:none!important}
+.record-carrier{position:absolute;inset:4px;display:block;border-radius:50%;z-index:2;will-change:translate}
+.record-carrier .live-record{inset:0}
+.cabinet-scene .live-platter{overflow:visible}
+.audio-status{position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%);white-space:nowrap}
+.track-controls{position:absolute;right:-18%;bottom:5%;display:flex;flex-direction:column;gap:8px;z-index:20}
+.track-controls button{border:0;background:transparent;color:var(--ink);font:16px/1.4 'DM Sans';min-height:44px;padding:8px;cursor:pointer}
+.track-controls button:disabled{opacity:.4;cursor:wait}
+.cabinet-scene .independent-player.disk-hover .independent-deck{animation:none!important}
+.cabinet-scene .independent-player.changing-record .live-arm{transform:translateZ(12px) rotate(-2deg)!important;transition:transform .8s ease}
+@media(max-width:600px){.track-controls{right:0;bottom:-16px;flex-direction:row;gap:8px}.track-controls button{font-size:16px}}
+/* Step 2: tabletop, front edge and contact shadow share the player's camera angle. */
+.cabinet-scene .shared-table{top:57%;height:43%;transform:perspective(1000px) rotateX(34deg);transform-style:preserve-3d;border-radius:.8cqw;background:url('assets/oak-grain.svg') center/cover,radial-gradient(ellipse at 30% 15%,#f4dfb480,transparent 60%),linear-gradient(110deg,#a47950,#d1ac7d 45%,#9d7047);box-shadow:0 .5cqw 0 #e0bd8c,0 1cqw 0 #a5774a,0 1.8cqw 0 #815734,0 3.6cqw 2.5cqw -1cqw #24180f55;overflow:visible}
+.cabinet-scene .shared-table:after{display:block;content:'';position:absolute;top:100%;left:0;right:0;height:2.6cqw;border-radius:0 0 .5cqw .5cqw;transform:none;mask-image:none;background:url('assets/oak-grain.svg') center/cover,linear-gradient(#a5774a,#6f492e);box-shadow:inset 0 .3cqw .3cqw #f2d3a030;z-index:-1}
+/* Step 3: matched transitions from text to objects above and below. */
+#home{--object-gap:24px}
+#home .scene-slot{margin-top:var(--object-gap)}
+#home>.rail.balanced-menu{margin-top:var(--object-gap)}
+#home>.rail.balanced-menu>a{padding-top:0}
+/* Step 4: layered paper jacket and a separate inner vinyl. */
+.cabinet-record{transform-style:preserve-3d}
+.sleeve-vinyl{position:absolute;inset:7%;border-radius:50%;background:repeating-radial-gradient(circle,#131717 0 1px,#373b39 1px 1.5px,#171b1b 1.5px 3px);box-shadow:1px 1px 0 #737872,3px 5px 5px #0005;transform:translateX(12%) rotate(-12deg);transition:transform .5s cubic-bezier(.2,.7,.2,1)}
+.sleeve-vinyl:before{content:'';position:absolute;inset:0;border-radius:50%;background:conic-gradient(transparent,#ffffff30 15%,transparent 28% 60%,#ffffff1c 75%,transparent)}
+.sleeve-vinyl:after{content:'';position:absolute;inset:35%;border-radius:50%;background:radial-gradient(circle,#1b2422 0 5%,#ddc794 6%)}
+.cabinet-record .jacket-art{position:relative;z-index:2;border-radius:1px;box-shadow:inset 1px 1px 1px #fff8,inset -1px 0 1px #8a7b6655,1px 0 #ab9e86,2px 0 #e9dfc8,3px 1px #887960,4px 5px 7px #0c080c55;transition:transform .4s,filter .4s;background-size:auto,110px,auto}
+.cabinet-record .jacket-art:after{background:linear-gradient(105deg,#fff5 0,transparent 18% 80%,#00000010),linear-gradient(0deg,#ab9a7830,transparent 8%)}
+.cabinet-record:is(:hover,:focus-visible,.touch-preview) .jacket-art{animation:none;transform:translateY(-5%) rotateZ(-3deg);filter:brightness(1.04)}
+.cabinet-record:is(:hover,:focus-visible,.touch-preview) .sleeve-vinyl{transform:translateX(30%) rotate(14deg)}
+@media(prefers-reduced-motion:reduce){.sleeve-vinyl,.cabinet-record .jacket-art{transition:none}.cabinet-record:is(:hover,:focus-visible,.touch-preview) .jacket-art{transform:none}}
+.cabinet-record{transform-style:flat;isolation:isolate}.sleeve-vinyl{z-index:0}.cabinet-record .jacket-art{z-index:2}
+/* Step 5: the tape stays fixed while the photo moves around its top edge. */
+#home>.rail.balanced-menu .desk-polaroid .menu-object{overflow:visible;perspective:300px}
+#home>.rail.balanced-menu .desk-polaroid .menu-object:after{content:'';position:absolute;left:27%;top:-10%;width:46%;height:25%;background:linear-gradient(105deg,#c3b58d99,#eee1b8b8 55%,#c1b48c99);box-shadow:0 1px 1px #38302525;transform:rotate(-7deg);clip-path:polygon(2% 0,98% 4%,96% 96%,2% 100%,4% 74%,0 49%,4% 24%);z-index:10;pointer-events:none}
+#home>.rail.balanced-menu .desk-polaroid .polaroid-paper{transform-origin:50% 0;will-change:transform;backface-visibility:hidden}
+#home>.rail.balanced-menu .desk-polaroid:is(:hover,:focus-visible,.touch-preview) .polaroid-paper{animation:photo-breeze 2.2s ease-in-out infinite;box-shadow:0 12px 10px -6px #171b2755}
+@keyframes photo-breeze{0%,100%{transform:rotate(4deg) rotateX(0)}25%{transform:rotate(-7deg) rotateX(-12deg)}70%{transform:rotate(8deg) rotateX(-5deg)}}
+@media(prefers-reduced-motion:reduce){#home>.rail.balanced-menu .desk-polaroid:is(:hover,:focus-visible,.touch-preview) .polaroid-paper{animation:none}}
+/* Step 6: one local handwriting font and one annotation treatment. */
+@font-face{font-family:'Portfolio Hand';src:url('assets/fonts/caveat-500.ttf');font-weight:500;font-style:normal;font-display:swap}
+:root{--hover-hand:'Portfolio Hand','Bradley Hand',cursive}
+.desk-cursor-hint{display:none!important}
+.jacket-title,#home>.rail.balanced-menu .menu-label,.headphone-music-prompt,.edge-disc-label{font-family:var(--hover-hand)!important;font-weight:500!important;font-style:normal!important;font-size:22px!important;line-height:1.25!important;letter-spacing:0!important;background:var(--bg)!important;color:var(--ink)!important;border:1px solid var(--line);padding:10px 18px 19px!important;text-align:center;box-shadow:0 5px 16px #0002;border-radius:14px}
+.jacket-title:after,#home>.rail.balanced-menu .menu-label:after,.headphone-music-prompt:after,.edge-disc-label:after{content:''!important;position:absolute;left:18px!important;right:18px!important;bottom:9px!important;height:5px!important;width:auto!important;background:currentColor!important;clip-path:polygon(0 45%,12% 30%,28% 62%,46% 36%,64% 52%,82% 22%,100% 40%,100% 65%,82% 48%,64% 78%,46% 62%,28% 88%,12% 56%,0 71%)!important;opacity:.75;transform:none!important}
+#home>.rail.balanced-menu .menu-label{top:66px;z-index:50}
+#home>.rail.balanced-menu .desk-note .menu-label{display:none!important}
+#home>.rail.balanced-menu .note-paper .written-hello{font-family:var(--hover-hand)!important;font-style:normal!important;font-weight:500!important;font-size:18px!important;line-height:1.15!important;letter-spacing:-.5px!important;text-decoration:none!important;white-space:normal;width:100%;margin-top:8%;text-align:center}
+.written-hello:after{content:none!important}
+/* Step 7: the side discs are separate objects, not part of the table image. */
+.edge-track-controls{display:contents}
+.edge-disc{position:absolute;top:55%;width:32%;aspect-ratio:1;padding:0;border:0;background:transparent;z-index:3;cursor:pointer;overflow:visible;min-width:44px;min-height:44px}
+.edge-disc-left{left:-15%}.edge-disc-right{right:-15%}
+.edge-disc-face{display:block;position:absolute;inset:0;border-radius:50%;transform:perspective(1000px) rotateX(34deg);background:repeating-radial-gradient(circle,#121515 0 1px,#353c3a 1px 1.5px,#191d1b 1.5px 3px);border:1px solid #646a61;box-shadow:0 2px 0 #171e1a,0 5px 5px #22160f66;transition:filter .2s}
+.edge-disc-face:before{content:'';position:absolute;inset:0;border-radius:50%;background:conic-gradient(transparent,#fff2 15%,transparent 29% 58%,#fff1 76%,transparent)}
+.edge-disc-face i{position:absolute;inset:36%;border-radius:50%;background:radial-gradient(circle,#151c19 0 6%,#d3c7a5 7%);box-shadow:0 0 0 1px #0008}
+.edge-disc-left .edge-disc-face{mask-image:linear-gradient(90deg,transparent,#000 55%);-webkit-mask-image:linear-gradient(90deg,transparent,#000 55%)}
+.edge-disc-right .edge-disc-face{mask-image:linear-gradient(270deg,transparent,#000 55%);-webkit-mask-image:linear-gradient(270deg,transparent,#000 55%)}
+.edge-disc:is(:hover,:focus-visible,.audio-preview) .edge-disc-face{animation:edge-wobble 1.8s ease-in-out infinite;filter:brightness(1.15)}
+@keyframes edge-wobble{0%,100%{transform:perspective(1000px) rotateX(34deg) rotateZ(-4deg)}50%{transform:perspective(1000px) rotateX(34deg) rotateZ(5deg)}}
+.edge-disc-label{position:absolute;left:50%;top:72%;transform:translateX(-50%);width:max-content;max-width:190px;visibility:hidden;opacity:0;pointer-events:none;z-index:100}
+.edge-disc:is(:hover,:focus-visible,.audio-preview),.arm-control:is(:hover,:focus-visible,.audio-preview){z-index:40}
+:is(.edge-disc,.arm-control):is(:hover,:focus-visible,.audio-preview)>.edge-disc-label{visibility:visible;opacity:1}
+.cabinet-scene .independent-player.tonearm-only{pointer-events:none}
+.cabinet-scene .independent-player.tonearm-only .headphone-music-prompt{display:none!important}
+.arm-control{position:absolute;left:48%;top:36%;width:28%;height:51%;background:none;border:0;border-radius:12px;z-index:7;cursor:pointer;min-width:44px;min-height:44px}
+.arm-control>.edge-disc-label{top:75%;left:70%}
+.arm-control:focus-visible,.edge-disc:focus-visible{outline:2px solid var(--accent);outline-offset:5px}
+#home>.rail.balanced-menu>a{min-height:128px}
+@media(max-width:600px){.edge-disc-left{left:-9%}.edge-disc-right{right:-9%}.edge-disc{width:28%;top:58%}.edge-disc-left .edge-disc-label{left:0;transform:none}.edge-disc-right .edge-disc-label{left:auto;right:0;transform:none}.arm-control>.edge-disc-label{left:50%}}
+@media(prefers-reduced-motion:reduce){.edge-disc:is(:hover,:focus-visible,.audio-preview) .edge-disc-face{animation:none}}
+
+.cabinet-record:after{content:"";position:absolute;inset:-6px;z-index:0}

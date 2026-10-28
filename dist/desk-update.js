@@ -68,24 +68,7 @@ clockSelect.onchange=()=>{const request=++clockRequest;locationNotice.hidden=tru
  },()=>{if(request!==clockRequest)return;clockSelect.value='local';useCity(null);locationNotice.textContent='using your device’s local time. you can choose a city.';locationNotice.hidden=false},{enableHighAccuracy:false,timeout:10000,maximumAge:300000});
 };
 window.renderWorldClock();
-// Spotify stays inline. Never launch a separate page, window, or optimistic motor state.
-const spotifyPanel=document.createElement('div');spotifyPanel.className='spotify-inline';spotifyPanel.hidden=true;
-spotifyPanel.innerHTML='<div id="spotify-inline-host"></div>';
-intro.append(spotifyPanel);
-let spotifyController=null,spotifyLoading=false,spotifyWanted=false,spotifyReady=false,spotifyWatchdog;
-function spotifyMessage(text){musicNote.textContent=text;musicNote.hidden=!text;requestAnimationFrame(fitWelcome)}
-function startSpotify(){spotifyPanel.hidden=false;spotifyWanted=true;spotifyMessage('loading spotify…');
- spotifyWatchdog=setTimeout(()=>{if(!musicButton.classList.contains('playing'))spotifyMessage(spotifyReady?'press play in the Spotify player below if needed.':'Spotify isn’t available in this browser right now.')},12000);
- if(spotifyLoading)return;spotifyLoading=true;
- window.onSpotifyIframeApiReady=api=>api.createController(document.getElementById('spotify-inline-host'),{uri:'spotify:playlist:5GrWuliLODvT0KtZTDhYKT',width:'100%',height:80},controller=>{
- spotifyController=controller;
- controller.addListener('ready',()=>{spotifyReady=true;if(spotifyWanted)controller.play();requestAnimationFrame(fitWelcome)});
- controller.addListener('playback_update',e=>{const playing=!e.data.isPaused&&!e.data.isBuffering;musicState(playing);if(playing){clearTimeout(spotifyWatchdog);spotifyMessage('')}else if(e.data.isBuffering)spotifyMessage('buffering music…')});
- });
- const script=document.createElement('script');script.src='https://open.spotify.com/embed/iframe-api/v1';script.async=true;script.onerror=()=>{spotifyLoading=false;spotifyMessage('Spotify couldn’t load. try again later.');musicState(false)};document.head.append(script);
-}
-musicButton.onclick=()=>{audio.pause();if(!spotifyController){startSpotify();return}if(musicButton.classList.contains('playing')){spotifyWanted=false;spotifyController.pause()}else{spotifyWanted=true;spotifyController.play()}};
-new ResizeObserver(()=>requestAnimationFrame(fitWelcome)).observe(spotifyPanel);
+// Music is handled locally by music-sequence.js.
 themeSwitch.addEventListener('click',()=>{
  themeSwitch.classList.remove('bounce-left','bounce-right');
  void themeSwitch.offsetWidth;

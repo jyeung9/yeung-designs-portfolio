@@ -1,3 +1,17 @@
+## Current iteration checklist — October 27, 2026
+
+This section is the running source of truth; older sections below are historical when they conflict.
+
+- Tonearm toggles play/pause; faded left/right tabletop discs select previous/next song. These controls are separate objects, use the shared handwritten prompt and support keyboard/touch.
+- Uploaded local audio only; start silent, explicit play/pause. Never insert an external player or change page geometry during playback.
+- Disc change: pause and decelerate, lift/park arm, lift disc and slide right, bring replacement from left, settle, then resume and lower arm. Reduced motion skips travel.
+- Table has a visible front edge, coherent perspective and contact shadows. All objects retain their proportions at every breakpoint.
+- Text-to-object gaps use the same spacing token above the sleeves and below the subtitle.
+- Sleeves have separate paper jackets and inner vinyl, with focus/touch equivalents for hover.
+- Polaroid tape stays anchored while the photo sways from its top edge; reduced motion disables sway.
+- Every hover annotation uses locally hosted **Caveat 500** (Portfolio Hand), 22px, with the same thin handdrawn underline. The yellow note uses the same face without an underline. Never render duplicate prompts.
+- Touch: tap to preview an object's label, tap again to activate, tap elsewhere to dismiss. Controls retain accessible names when labels are hidden.
+
 # portfolio design system
 
 > current direction — return to the light off-white grid and centered interactive headphones. the realistic room, wall lighting, and glass-heavy interface are archived explorations, not requirements for the active design. preserve readable typography, consistent spacing and accessible controls. Cindy Ly remains the primary reference for restraint, personal interaction and compact navigation.

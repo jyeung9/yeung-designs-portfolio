@@ -51,7 +51,7 @@ function musicState(playing){musicButton.classList.toggle('playing',playing);con
 function loadTrack(){if(!tracks.length)return false;const choices=tracks.map((_,i)=>i).filter(i=>i!==trackIndex);trackIndex=choices.length?choices[Math.floor(Math.random()*choices.length)]:0;const t=tracks[trackIndex];audio.src=t.src;const label=document.querySelector('.live-label');label.replaceChildren();if(t.artwork){const img=document.createElement('img');img.src=t.artwork;img.alt='';label.append(img)}else label.textContent='j.';musicNote.textContent=t.title+(t.artist?' · '+t.artist:'');return true;}
 musicButton.onclick=async e=>{if(!audio.paused){audio.pause();return}if(!audio.src&&!loadTrack()){musicNote.hidden=false;musicNote.textContent='the listening room is getting ready. music coming soon.';return}try{await audio.play();musicNote.hidden=false}catch{musicNote.hidden=false;musicNote.textContent='couldn’t start music. tap the record to try again.'}};
 audio.addEventListener('playing',()=>musicState(true));['pause','waiting','ended','error'].forEach(event=>audio.addEventListener(event,()=>musicState(false)));
-audio.addEventListener('ended',()=>{if(loadTrack())audio.play().catch(()=>musicState(false))});
+// End-of-track sequencing is handled by music-sequence.js.
 musicButton.removeAttribute('aria-expanded');musicButton.removeAttribute('aria-controls');musicState(false);
 
 // Motor velocity is eased from confirmed playback; hover movement never starts audio.
@@ -60,7 +60,7 @@ musicButton.removeAttribute('aria-expanded');musicButton.removeAttribute('aria-c
  const reduced=matchMedia('(prefers-reduced-motion: reduce)');
  let hovered=false,focused=false,angle=0,speed=0,last=0,raf=0,wiggleTime=0,hoverStarted=0;
  function frame(now){const dt=last?Math.min((now-last)/1000,.05):0;last=now;const playing=player.classList.contains('playing');const target=playing?200:0;
- speed+=(target-speed)*(1-Math.exp(-dt/(playing?1.4:1.1)));if(Math.abs(speed-target)<.12)speed=target;
+ speed+=(target-speed)*(1-Math.exp(-dt/(playing?1.4:player.classList.contains('changing-record')?.22:1.1)));if(Math.abs(speed-target)<.12)speed=target;
  angle=(angle+speed*dt)%360;const wiggle=!playing&&speed<1&&(hovered||focused)&&!reduced.matches;
  wiggleTime=wiggle?wiggleTime+dt:0;const offset=wiggle?Math.sin(wiggleTime*4)*7:0;
  record.style.transform=`rotate(${reduced.matches?angle:angle+offset}deg)`;
@@ -146,7 +146,7 @@ form.addEventListener('submit',async e=>{e.preventDefault();if(sending||!form.re
 document.querySelector('.masthead nav a[href*="contact-me"]').href='#contact';
 placeNav();
 // Reserve the portrait's row before sizing the decorative desk into the viewport.
-function fitWelcome(){const hero=document.getElementById('home');if(hero.hidden)return;const slot=hero.querySelector('.scene-slot');slot.style.width='';const copy=hero.querySelector('.hero-copy'),rail=hero.querySelector('.rail'),bottom=hero.querySelector('.hero-bottom');const hs=getComputedStyle(hero);const used=copy.getBoundingClientRect().height+rail.getBoundingClientRect().height+bottom.getBoundingClientRect().height+parseFloat(hs.rowGap)*2+parseFloat(hs.paddingTop)+parseFloat(hs.paddingBottom);const extra=used-hero.clientHeight;if(extra>0){slot.style.width=Math.max(100,slot.getBoundingClientRect().width-extra*(slot.querySelector('.conversation-scene').clientWidth/slot.querySelector('.conversation-scene').clientHeight)-8)+'px'}}
+function fitWelcome(){const hero=document.getElementById('home');if(hero.hidden)return;const slot=hero.querySelector('.scene-slot');slot.style.width='';const copy=hero.querySelector('.hero-copy'),rail=hero.querySelector('.rail'),bottom=hero.querySelector('.hero-bottom');const hs=getComputedStyle(hero);const used=copy.getBoundingClientRect().height+rail.getBoundingClientRect().height+bottom.getBoundingClientRect().height+parseFloat(hs.rowGap)*2+parseFloat(hs.paddingTop)+parseFloat(hs.paddingBottom);const extra=used+parseFloat(getComputedStyle(rail).marginTop)+parseFloat(getComputedStyle(rail).marginBottom)-hero.clientHeight;if(extra>0){slot.style.width=Math.max(100,slot.getBoundingClientRect().width-extra*(slot.querySelector('.conversation-scene').clientWidth/slot.querySelector('.conversation-scene').clientHeight)-8)+'px'}}
 addEventListener('resize',fitWelcome);addEventListener('hashchange',()=>requestAnimationFrame(fitWelcome));document.fonts.ready.then(fitWelcome);new MutationObserver(fitWelcome).observe(musicNote,{attributes:true,attributeFilter:['hidden']});
 
 // Full-bleed source imagery replaces decorative sleeve typography.
