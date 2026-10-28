@@ -1,7 +1,15 @@
-// Keep collection navigation in the familiar bottom menu, not on the desk.
+// Three equal navigation objects; only the player remains on the table.
 sleeveLink.remove();
 const collectionMenu=document.querySelector('#home > .rail');
 collectionMenu.querySelectorAll('a:not([href="#work"])').forEach(link=>link.remove());
+for(const [link,label] of [[wallPhoto,'about me'],[note,'say hello']]){
+  link.classList.remove('wall-polaroid');
+  const art=document.createElement('span');art.className='menu-object';
+  while(link.firstChild)art.append(link.firstChild);
+  const caption=document.createElement('span');caption.className='menu-label';caption.textContent=label;
+  link.append(art,caption);collectionMenu.append(link);
+}
+collectionMenu.classList.add('balanced-menu');
 collectionMenu.hidden=false;
 requestAnimationFrame(fitWelcome);
 // Pen and writing share a coordinate system, so the nib follows the letter baseline.
