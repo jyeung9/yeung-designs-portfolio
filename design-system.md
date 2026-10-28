@@ -204,3 +204,11 @@ Show 2–4 short skill/focus chips per project with 8px gaps and 7px/11px paddin
 ## laptop perspective refinement
 The laptop uses a dark graphite chassis, near-upright thin-bezel display, shallow receding keyboard plane, thin front edge and central opening notch. The whole assembly rotates together toward the desk’s perspective; the contact shadow grounds the base. Screen artwork remains Julie’s supplied CAPI image and is independently replaceable.
 - Theme switch motion: a 620ms directional slide, wall-contact squash, small rebound and settle in both directions. State updates immediately; animation is decorative, resets on rapid clicks, and is disabled by reduced-motion preference.
+
+## record cabinet — October 27, 2026 (supersedes laptop composition)
+- Landing uses an independently rendered warm wooden cabinet, turntable, headphones and one open shelf. The laptop is removed.
+- Three square, independently clickable sleeve objects: blue Titanic’s End, green CAPI / First Intelligence, red CentralSquare / ConnectMyHealth. Cream paper and layered circular geometric art follow Julie’s supplied reference. Persistent project labels remain at least 16px; wrap at natural word boundaries rather than shrink.
+- A fourth stack acts as one link to other fun stuff. Each sleeve and stack jiggles immediately on hover or keyboard focus; reduced motion disables jiggle. Active objects stay above neighbors.
+- Headphones own play/pause input. Confirmed audio state still controls the record rotation, tonearm and green indicator. Spotify limitations remain unchanged.
+- Six gray peripheral sketches are decorative, noninteractive and behind all content. Reduce their prominence on small screens.
+- Preserve the three balanced bottom navigation objects and all existing contact/about behavior.

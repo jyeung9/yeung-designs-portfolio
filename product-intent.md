@@ -83,3 +83,8 @@ Never assume anything that has not been explicitly said to you. Please follow th
 
 ## current requested refinements
 Show the supplied CAPI overview on a separately rendered MacBook Pro-style laptop on the landing desk. Refine the writing pen and physical tonearm. Use a day/night switch and a major-city time dropdown; request location only after explicit visitor action, with local-time/manual-selection fallback. Temporarily use the previously supplied Spotify playlist inline without opening another window. Keep collection sleeves consistently square and dimensional. Spotify playback limitations remain explicit; the owned-audio implementation remains available for later.
+
+## confirmed project focus — October 27, 2026
+The current landing replaces the laptop with one record-cabinet shelf. Main product-design projects, in order: Titanic’s End (community and in-person connection); CAPI / First Intelligence (customized video creation from favorite viral content); CentralSquare / ConnectMyHealth (net-new mobile app for 4m+ patients and caregivers, connecting with providers and understanding test results). These are user-supplied scope statements, not verified adoption or outcome metrics.
+
+Other fun stuff includes Everyone Votes (voter platform), Neon Owl (business strategy), PayPal, and school / outside-work projects. Do not invent missing project roles, outcomes or links. Keep these separate from the main product-design lineup. Music is triggered through headphones.
