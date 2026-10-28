@@ -1,0 +1,11 @@
+/* [design-approved:record-brand] Keep the shared y. mark minimal; a separated outer ring suggests vinyl and the approved soft, flowing vector y. and dot keep the identity crisp without font dependencies. Home retains words; interior pages use the symbol. */
+/* Shared home/case-study brand: one responsive identity. */
+@import url('https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&display=swap');
+.masthead .brand,.case-brand .brand{display:inline-flex;align-items:center;gap:clamp(10px,1.04vw,20px);font:600 clamp(18px,1.25vw,24px)/1.2 'DM Sans',sans-serif;letter-spacing:-.6px;white-space:nowrap;color:var(--ink,#282d2f);text-decoration:none}
+.brand .brand-mark{display:block;flex:none;width:clamp(44px,3vw,52px);height:clamp(44px,3vw,52px)}
+.brand .brand-mark img{display:block;width:100%;height:100%;object-fit:contain}
+
+.case-brand{display:flex;align-items:center;justify-content:space-between;padding:8px 4%;min-height:60px}
+@media(max-width:600px){.masthead .brand,.case-brand .brand{font-size:16px}.case-brand{padding:10px 16px;min-height:52px}}
+
+body:not([data-page=home]) .masthead .brand-name{display:none}

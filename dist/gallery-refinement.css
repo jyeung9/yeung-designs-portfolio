@@ -1,3 +1,4 @@
+/* [design-checkpoint:flashcard] Content-sized lined note with rounded corners; never stretch to viewport height. View Record is black by default, colored and underlined on hover/focus. */
 /* Solid, readable type; retain the approved recessed screen housing. */
 #home .greeting,#home .hero-copy>p,.clock{background:none!important;color:var(--ink)!important;-webkit-text-fill-color:currentColor;font-family:'DM Sans',sans-serif!important;font-weight:400;letter-spacing:0}
 #home .headline-top,#home .headline-bottom{font-family:'DM Sans',sans-serif!important;font-size:clamp(30px,4.3vw,60px)!important;font-weight:600!important;line-height:1.12!important;letter-spacing:-.04em!important;margin:0!important}
@@ -15,25 +16,31 @@
 @keyframes greeting-scroll{to{transform:translateX(-50%)}}
 .shelf-annotation{position:absolute;right:0;top:-58px;font:500 24px/1.1 var(--hover-hand);color:var(--ink);pointer-events:none;rotate:5deg}
 .shelf-annotation svg{display:block;width:80px;height:36px;transform:rotate(65deg);margin-left:5px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
-.record-gallery{border:0;padding:56px 0 20px;width:100vw;max-width:none;max-height:100svh;height:100svh;background:transparent;color:var(--ink);overflow:hidden;--card-width:min(420px,calc(100vw - 48px),max(240px,calc(100svh - 360px)))}
-.record-gallery[open]{display:grid;grid-template-rows:auto minmax(0,1fr) auto;gap:.5rem;padding:1rem 0;box-sizing:border-box}
+.record-gallery{border:0;padding:56px 0 20px;width:100vw;max-width:none;max-height:100svh;height:100svh;background:transparent;color:var(--ink);overflow:hidden;--card-width:min(600px,calc(100vw - 40px))}
+.record-gallery[open]{display:grid;grid-template-rows:auto minmax(0,1fr) auto;gap:.25rem;padding:.5rem 0;box-sizing:border-box}
 .record-gallery::backdrop{background:#101827c9;backdrop-filter:blur(5px)}
 .gallery-close{position:relative;right:auto;top:auto;justify-self:end;margin-right:1rem;min-width:64px;min-height:44px;border-radius:24px;background:#f6f1e4;color:#182936;font:500 1rem 'DM Sans'}
-.gallery-track{position:relative;display:block;padding:12px 24px 24px;overflow:auto;min-height:0;scrollbar-width:thin;scrollbar-color:#e6d9b8 transparent}
+.gallery-track{position:relative;display:block;padding:16px 20px 12px;overflow:auto;min-height:0;scrollbar-width:thin;scrollbar-color:#e6d9b8 transparent}
 .gallery-card{display:block;position:relative;width:var(--card-width);margin-inline:auto;color:#253c32;isolation:isolate;text-decoration:none}
 .gallery-card[hidden]{display:none}
-.gallery-sleeve{display:block;aspect-ratio:1;width:100%}
-.gallery-sleeve>.jacket-art{width:100%;height:auto;aspect-ratio:1;box-sizing:border-box;transform:none;animation:none}
-.gallery-card>.expanded-cover{display:grid!important;grid-template-columns:minmax(0,1fr);grid-template-rows:none!important;grid-auto-rows:max-content;align-content:start;align-items:start;gap:1rem;position:relative!important;inset:auto!important;translate:none!important;transform:none!important;opacity:1!important;visibility:visible!important;pointer-events:auto!important;width:100%!important;min-height:0;max-height:none;height:auto;aspect-ratio:auto;overflow:visible;transform-style:flat!important;isolation:isolate;transition:none!important;padding:1.5rem;box-sizing:border-box;margin-top:1rem;background:#f3e7c8;border:0;border-radius:12px;box-shadow:none}
+/* [design-checkpoint:sleeve-summary] Place project text inside the sleeve, and chips/action outside. Reserve a text row so the artwork never overlaps the summary. */
+.gallery-sleeve{display:grid;grid-template-rows:auto minmax(140px,1fr);aspect-ratio:1;width:100%;position:relative;border-radius:24px;overflow:hidden;background:linear-gradient(115deg,#fff8e96b,#a99a8033),url('assets/paper-grain.svg'),#e7dcc4;border:1px solid #b8ab92;box-shadow:0 5px 14px #17201d25;padding:24px;gap:16px}
+.gallery-sleeve>.jacket-art{width:100%;height:100%;min-height:140px;aspect-ratio:auto;box-sizing:border-box;transform:none;animation:none;border:0;background:none;box-shadow:none;border-radius:0}
+.gallery-sleeve>.jacket-art:after{display:none}
+.gallery-sleeve .jacket-orbit{inset:auto;height:100%;width:auto;aspect-ratio:1;left:50%;transform:translateX(-50%)}
+.gallery-card>.expanded-cover{display:grid!important;grid-template-columns:minmax(0,1fr);grid-template-rows:auto auto!important;align-content:start;gap:16px;position:relative!important;inset:auto!important;translate:none!important;transform:none!important;opacity:1!important;visibility:visible!important;pointer-events:auto!important;width:100%!important;min-height:0;max-height:none;height:auto;aspect-ratio:auto;overflow:visible;transition:none!important;padding:16px 0 0;box-sizing:border-box;margin:0;background:none;border:0;border-radius:0;box-shadow:none}
+.gallery-card>.expanded-cover:before{content:none}
 .gallery-card .cover-heading{position:relative!important;inset:auto!important;width:100%;z-index:3;background:none!important;text-shadow:none!important}
-.gallery-card .cover-heading strong{font:600 1.625rem/1.15 'DM Sans',sans-serif!important;text-shadow:none!important}
+.gallery-card .cover-heading strong{font:600 16px/24px 'DM Sans',sans-serif!important;text-transform:uppercase;letter-spacing:.02em;white-space:nowrap;text-shadow:none!important}
 .gallery-card .cover-heading>span{font:400 1.125rem/1.45 'DM Sans',sans-serif!important;text-shadow:none!important;margin-top:.25rem}
-.gallery-card .cover-chips{position:relative!important;inset:auto!important;width:100%!important;max-width:100%;display:flex;flex-direction:row;flex-wrap:wrap;gap:.5rem}
+.gallery-card .cover-chips{position:relative!important;inset:auto!important;width:100%!important;max-width:100%;display:flex;flex-direction:row;flex-wrap:wrap;justify-content:flex-start;align-content:flex-start;gap:4px}
 .gallery-card .chip-row{display:contents}
-.gallery-card .chip-row>span{font-size:1rem!important;max-width:100%;white-space:normal;overflow-wrap:anywhere}
-.gallery-card .cover-cta{position:relative!important;inset:auto!important;justify-self:end;color:#8b4825;background:none;border-radius:0;font-size:1.5rem!important}
+.gallery-card .chip-row>span{font-size:16px!important;line-height:20px!important;padding:1px 4px!important;border-radius:8px;background:transparent;border:1px solid #e8e1cf99;color:#fff9e9;max-width:100%;white-space:normal;overflow-wrap:anywhere}
+.gallery-card .cover-cta{position:relative!important;inset:auto!important;justify-self:end;align-self:end;color:#171b1a;background:#fff9e9;border:1px solid #e8e1cf;border-radius:999px;padding:10px 20px;min-height:44px;font-size:1.25rem!important;transition:color .18s}
 .gallery-controls{display:flex;justify-content:center;gap:.5rem;flex-wrap:nowrap;padding-inline:1rem}
 .gallery-controls button{background:#f6f1e4;color:#182936;border-radius:24px;min-height:44px;padding:.625rem .75rem;font-size:1rem;min-width:0;flex:0 1 auto;white-space:normal}
 .gallery-controls button:disabled{opacity:.4;cursor:default}
-@media(max-width:600px){.gallery-card .chip-row>span{padding:.2rem .2rem}.gallery-card .cover-heading{order:0}.gallery-card .cover-chips{order:1;flex-direction:row;flex-wrap:wrap;justify-content:flex-start;gap:.4rem}.gallery-card .chip-row{display:contents}.gallery-card .cover-cta{order:3}.gallery-card>.expanded-cover{padding:1rem}.gallery-card .cover-heading strong{font-size:1.375rem!important}.gallery-card .cover-heading>span{font-size:1rem!important}}
+@media(max-width:600px){.gallery-card .chip-row>span{padding:.2rem .2rem}.gallery-card .cover-heading{order:0}.gallery-card .cover-chips{order:1;flex-direction:row;flex-wrap:wrap;justify-content:flex-start;gap:4px}.gallery-card .chip-row{display:contents}.gallery-card .cover-cta{order:3}.gallery-sleeve{padding:20px;gap:12px}.gallery-card>.expanded-cover{padding:16px 0 0}.gallery-card .cover-heading strong{font-size:16px!important}.gallery-card .cover-heading>span{font-size:1rem!important}}
 @media(prefers-reduced-motion:reduce){.greeting-ribbon{animation:none}.greeting-ribbon>span+span{display:none}}
+
+.gallery-card .cover-cta:after{opacity:0;transition:opacity .18s}.gallery-card .cover-cta:hover,.gallery-card:focus-visible .cover-cta{color:var(--accent)}.gallery-card .cover-cta:hover:after,.gallery-card:focus-visible .cover-cta:after{opacity:.8}

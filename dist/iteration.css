@@ -55,11 +55,11 @@
 .edge-disc-face i{position:absolute;inset:36%;border-radius:50%;background:radial-gradient(circle,#151c19 0 6%,#d3c7a5 7%);box-shadow:0 0 0 1px #0008}
 .edge-disc-left .edge-disc-face{mask-image:linear-gradient(90deg,transparent,#000 55%);-webkit-mask-image:linear-gradient(90deg,transparent,#000 55%)}
 .edge-disc-right .edge-disc-face{mask-image:linear-gradient(270deg,transparent,#000 55%);-webkit-mask-image:linear-gradient(270deg,transparent,#000 55%)}
-.edge-disc:is(:hover,:focus-visible,.audio-preview) .edge-disc-face{animation:edge-wobble 1.8s ease-in-out infinite;filter:brightness(1.15)}
+.edge-disc:enabled:is(:hover,:focus-visible,.audio-preview) .edge-disc-face{animation:edge-wobble 1.8s ease-in-out infinite;filter:brightness(1.15)}
 @keyframes edge-wobble{0%,100%{transform:perspective(1000px) rotateX(34deg) rotateZ(-4deg)}50%{transform:perspective(1000px) rotateX(34deg) rotateZ(5deg)}}
 .edge-disc-label{position:absolute;left:50%;top:72%;transform:translateX(-50%);width:max-content;max-width:190px;visibility:hidden;opacity:0;pointer-events:none;z-index:100}
-.edge-disc:is(:hover,:focus-visible,.audio-preview),.arm-control:is(:hover,:focus-visible,.audio-preview){z-index:40}
-:is(.edge-disc,.arm-control):is(:hover,:focus-visible,.audio-preview)>.edge-disc-label{visibility:visible;opacity:1}
+.edge-disc:enabled:is(:hover,:focus-visible,.audio-preview),.arm-control:is(:hover,:focus-visible,.audio-preview){z-index:40}
+:is(.edge-disc:enabled,.arm-control):is(:hover,:focus-visible,.audio-preview)>.edge-disc-label{visibility:visible;opacity:1}
 .cabinet-scene .independent-player.tonearm-only{pointer-events:none}
 .cabinet-scene .independent-player.tonearm-only .headphone-music-prompt{display:none!important}
 .arm-control{position:absolute;left:48%;top:36%;width:28%;height:51%;background:none;border:0;border-radius:12px;z-index:7;cursor:pointer;min-width:44px;min-height:44px}
@@ -67,7 +67,7 @@
 .arm-control:focus-visible,.edge-disc:focus-visible{outline:2px solid var(--accent);outline-offset:5px}
 #home>.rail.balanced-menu>a{min-height:128px}
 @media(max-width:600px){.edge-disc-left{left:-9%}.edge-disc-right{right:-9%}.edge-disc{width:28%;top:58%}.edge-disc-left .edge-disc-label{left:0;transform:none}.edge-disc-right .edge-disc-label{left:auto;right:0;transform:none}.arm-control>.edge-disc-label{left:50%}}
-@media(prefers-reduced-motion:reduce){.edge-disc:is(:hover,:focus-visible,.audio-preview) .edge-disc-face{animation:none}}
+@media(prefers-reduced-motion:reduce){.edge-disc:enabled:is(:hover,:focus-visible,.audio-preview) .edge-disc-face{animation:none}}
 
 .cabinet-record:after{content:"";position:absolute;inset:-6px;z-index:0}
 

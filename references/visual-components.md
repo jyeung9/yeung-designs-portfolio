@@ -1,3 +1,19 @@
+## Preserved records-upfront checkpoint — October 28, 2026
+
+![Current landing page with upfront case-study records, 1440×960](records-upfront-checkpoint.png)
+
+Preserved at Julie's request before exploring collection-only discovery. This captures the active local composition and soft vector logo. GitHub checkpoint only; no public deployment requested. Earlier visual explorations remain historical unless specifically retained in the current contract.
+
+## Approved current LED — October 28, 2026
+
+Preserve the LED, floating skip controls and their spacing according to [the sizing contract](../design-system.md). Approval covers this component only; other elements visible in these screenshots remain pending previews. Earlier LED sizing references below are historical.
+
+![Phone: 390×844, empty state, light theme](led-approved-phone.png)
+
+![Desktop: 1440×960, empty state, light theme](led-approved-desktop.png)
+
+![Narrow phone: 320×568, empty state, light theme](led-approved-narrow.png)
+
 ## Approved responsive typography — October 28, 2026
 
 ![Approved wide-screen text and header scaling, 1920×1080, light theme](responsive-type-approved.png)

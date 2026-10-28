@@ -1,3 +1,28 @@
+## Preserved checkpoint: records/case studies upfront — October 28, 2026
+
+Julie requested preserving the complete current local version and pushing it to GitHub before exploring a quieter home page. **This is the version with records/case studies upfront on the landing page.** The four sleeves remain directly visible above the record player; selecting one opens a preview and then an on-site case study.
+
+Julie noted that the upfront records feel distracting and is considering showing them only inside the collection. That alternative is not implemented in this checkpoint. This checkpoint authorizes GitHub preservation, not a new public-site deployment.
+
+The snapshot includes the approved soft vector y. logo (full name on home, symbol only inside), sprout heart, compact rounded desktop menu island, responsive attached LED and floating skip controls without a progress bar, and sticky case-study section titles. Expanded sleeves carry the case name and impact at top left, with unfilled outlined chips below and a rounded View Record action aligned right. These current forms supersede the earlier stretched/taped-note and numbered-section proposals. Case-study artwork shares shelf colors and geometry and appears below intro chips.
+
+The `.local-previews/` folder preserves comparison assets and earlier explorations for context; those alternatives are not the active site. Source comments marked `[design-checkpoint:records-upfront]` identify the preserved composition. See [checkpoint screenshot](references/records-upfront-checkpoint.png).
+
+## Approved LED and skip controls — October 28, 2026, 4:06 AM
+
+Julie approved the current LED appearance, size and spacing for preservation in text and visual documentation. This supersedes older fixed 114px / half-scale LED descriptions below. This approval does not authorize a new deployment or approve other pending components.
+
+- LED width is **31.2% of scene width**, exactly **60% of the player's 52% width**. Height is `clamp(32px, 9.5% of scene width, 44px)`; corner radius 6px. Center at 50% of scene width. Top is `84.6667% of scene height - 0.364 × LED height`, overlapping the player's front edge.
+- Preserve recessed dark green-black glass, subtle pixel texture and inset shadow. Readout uses DM Mono, at least 16px, 22px line height, bright green. Padding: 3px vertically, 7px left, 24px right. Long titles scroll within the display. Status symbol occupies 16px at right, vertically centered. **No progress bar.**
+- Previous is left, next is right. Circular visuals are `min(9.5% of scene width,44px)` with a gap of `min(1.73% of scene width,8px)` from the panel. Dark circles #0b2118; available icons #b3ffba; disabled icons #76a780 at full opacity. Invisible tap areas remain 44×44px. Icons scale to `min(4.32% of scene width,20px)`.
+- The LED is read-only; the record table is the sole play/pause control. Skip buttons do not toggle play/pause. Keep all controls vertically centered together.
+- Shared page spacing stays tied to the fitted scene: 6% between landing groups, half that for internal navigation spacing. Preserve geometry rather than applying breakpoint-specific offsets.
+- Explicit constraint: below a roughly 337px scene width, the 32px LED height floor takes priority over exact height scaling to retain readable 16px text. Skip visuals continue scaling; tap areas do not shrink. Allow vertical page scrolling when readable content cannot fit.
+
+Measured empty-state light-theme preview: 390×844 viewport → 342px scene, 106.70×32.48px LED, 32.48px circles; 1440×960 → 461px scene, 143.83×43.79px LED, 43.79px circles; 320×568 → 272px scene, 84.86×32px LED, 25.84px circles. All retained 44px targets and had no horizontal overflow. These captures are not a full all-theme/all-state regression test.
+
+Authority: `dist/responsive-scene.css` (appearance and dimensions), `dist/frame-layout.css` (attachment and shared spacing), `dist/music-sequence.js` (behavior). See [approved visual references](references/visual-components.md).
+
 ## Approved responsive typography — October 28, 2026, 3:27 AM
 
 Julie approved the responsive text scaling for publication. At 1920 CSS px wide: the logo is 56px, brand name 36px, header links 32px, greeting 32px and role line 32px. Sizes taper responsively: brand 18–36px (16px phone override), mark 28–56px, links/greeting/role 16–32px. The greeting window scales with its text (15em), and larger readable rows participate in the existing layout budget.
