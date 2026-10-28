@@ -309,3 +309,13 @@ body:before{content:'';position:fixed;inset:0;z-index:0;pointer-events:none;back
 .cabinet-scene .live-label{inset:24%;z-index:2;padding:3px;overflow:hidden}
 .live-label>span{display:block;max-width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font:600 16px/1.2 'DM Sans',sans-serif}
 .clock{font-size:22px!important;background-size:1.5px 1.5px;background-image:radial-gradient(circle,var(--ink) 0 60%,transparent 68%)}
+
+.arm-control.cursor-hint>.edge-disc-label{transform:none!important;padding:0 0 8px!important;pointer-events:none;white-space:nowrap}
+.cover-heading{background:none;border-radius:0;padding:0}
+.cover-heading strong,.cover-heading>span{text-shadow:0 1px 2px #fff3d8,0 0 5px #fff3d8}
+.cover-chips>.chip-row{width:100%;min-width:0;max-width:100%;flex-wrap:wrap;justify-content:flex-end;overflow:visible}
+.chip-row>span{max-width:100%;white-space:normal;overflow-wrap:anywhere;flex:0 1 auto}
+.expanded-cover{min-height:540px;height:auto;aspect-ratio:auto}
+@media(max-width:600px){.expanded-cover{min-height:440px;max-height:calc(100svh - 32px)}.cover-chips>.chip-row{justify-content:flex-start}.chip-row>span{font-size:16px!important}}
+#home .greeting,#home .hero-copy>p{font-family:monospace!important;font-weight:700;letter-spacing:.2px;color:transparent!important;background:radial-gradient(circle,var(--ink) 0 60%,transparent 68%) 0 0/1.5px 1.5px;background-clip:text;-webkit-background-clip:text}
+.expanded-cover .cover-artwork .jacket-orbit{height:auto;aspect-ratio:1;top:50%;bottom:auto;translate:0 -50%}

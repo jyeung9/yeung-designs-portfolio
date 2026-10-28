@@ -90,3 +90,7 @@ function syncLED(){const playing=!localAudio.paused&&!localAudio.ended;nowPlayin
 setLEDTitle(trackIndex>=0?tracks[trackIndex].title:'ready');syncLED();
 addEventListener('hashchange',syncLED);
 addEventListener('resize',()=>setLEDTitle(trackIndex>=0?tracks[trackIndex].title:'ready'));
+
+// Cursor-local hint belongs to the actual hit target, not the decorative deck.
+armControl.addEventListener('pointermove',event=>{if(event.pointerType==='touch')return;const r=armControl.getBoundingClientRect(),hint=armControl.querySelector('.edge-disc-label');hint.style.left=Math.max(0,Math.min(event.clientX-r.left+12,innerWidth-r.left-hint.offsetWidth-12))+'px';hint.style.top=(event.clientY-r.top+14)+'px';armControl.classList.add('cursor-hint')});
+armControl.addEventListener('pointerleave',()=>{armControl.classList.remove('cursor-hint');const hint=armControl.querySelector('.edge-disc-label');hint.style.left='';hint.style.top=''});

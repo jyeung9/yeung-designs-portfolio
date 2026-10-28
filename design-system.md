@@ -7,7 +7,7 @@ This section is the current source of truth. Check it before implementation and 
 | Player and loaded record | One click/tap anywhere on the deck loads and plays when empty, pauses when playing, and resumes when paused. Keyboard Enter/Space does the same. No first-tap interception for music. No autoplay. |
 | Side stacks | One click/tap changes track with the existing physical transfer animation. Only “previous track” / “next track” appears beneath the curved arrow on hover/focus. |
 | Shelf sleeves | Vinyl slips out first, then details expand after 1.1 seconds. Touch previews the sleeve before navigation. |
-| Expanded sleeve | Same saturated circular artwork as the small sleeve: circle diameter 80% of square. Rounded jacket, separate vinyl visibly sliding and rocking at right. Title/impact above, three chip-category rows below, all text at least 16px. |
+| Expanded sleeve | Same saturated circular artwork as the small sleeve: circle diameter 80% of square. Rounded jacket, separate vinyl visibly sliding and rocking at right. Title/impact above, three chip-category groups below, all text at least 16px. |
 | View Record | Handwritten accent-colored link with the same fine squiggly underline as header links; no button border. |
 | Timezone | Clock hidden until opt-in; no explanatory fallback paragraph. Denial leaves the selector available. Time-based lighting starts only after selection. |
 | Motion and input | Check empty, playing, paused, switching; mouse, keyboard and phone widths. Reduced motion suppresses looping decoration. |
@@ -18,6 +18,8 @@ This section is the current source of truth. Check it before implementation and 
 - Put LED text below the platter on the lower table face; keep its status bright enough to read in either theme.
 
 - Grid extends to every viewport edge, including behind the header. Larger dotted sketches use irregular placement and varied forms. The clock uses a readable dotted digital treatment. Music-record colors cycle blue, green, purple, red; each visible neighbor follows its actual track color. Center titles use a clear sans-serif and truncate instead of breaking into fragments; the full title remains on the LED.
+
+- Player hover hint follows the cursor with a 12px horizontal / 14px vertical offset and disappears on exit. Keyboard hint remains anchored. Expanded heading has no box; chip groups wrap within the frame rather than clipping. Allow sleeve height to grow when needed for readable chips. Greeting and role line share the digital dotted text treatment.
 
 Before publication: verify direct record clicks, no extra timezone prose, matching sleeve artwork proportions, CTA underline, phone overflow and readable chips. Record what was actually checked, not assumed.
 
