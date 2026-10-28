@@ -83,7 +83,7 @@
 .cabinet-scene .independent-player:is(:hover,:focus-visible) .headphone-music-prompt{visibility:visible;opacity:1!important}
 .afterglow #home .hero-copy>p{margin:0;margin-top:-4px;line-height:1.4;text-align:center}
 #home .rail.balanced-menu>a{min-height:94px;gap:0}
-#home .rail.balanced-menu a>span:last-child{position:absolute;top:76px;left:50%;transform:translateX(-50%);width:max-content;max-width:150px;padding:8px 12px 16px;visibility:hidden;opacity:0;pointer-events:none;background:#f8f5ede8;backdrop-filter:blur(12px);border-radius:14px;color:#29302f;line-height:1.4;z-index:50;transition:opacity .15s}
+#home .rail.balanced-menu a>span:last-child{position:absolute;top:76px;left:50%;transform:translateX(-50%);width:max-content;max-width:150px;padding:8px 12px 16px;visibility:hidden;opacity:0;pointer-events:none;background:none;backdrop-filter:none;border-radius:0;color:#29302f;line-height:1.4;z-index:50;transition:opacity .15s}
 #home .rail.balanced-menu a:is(:hover,:focus-visible,.touch-preview)>span:last-child{visibility:visible;opacity:1}
 #home .rail.balanced-menu .desk-note.touch-preview .written-hello{animation:ink-reveal 1.8s linear forwards}
 #home .rail.balanced-menu .desk-note.touch-preview .note-paper>.desk-pen{animation:nib-write 1.8s linear forwards}

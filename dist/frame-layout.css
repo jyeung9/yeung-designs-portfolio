@@ -2,7 +2,7 @@
 /* Shared frame spacing. Reserve readable rows first, then fit the proportional artwork into remaining space. */
 body[data-page=home]{overflow-y:auto}
 body[data-page=home] .masthead{padding:8px 4%;min-height:60px!important;height:auto!important;box-sizing:border-box}
-.afterglow #home{--frame-gap:calc(var(--fit-scene-width,760px)*.06);--scene-width:min(var(--fit-scene-width,760px),100%);--dock-art-size:clamp(44px,calc(var(--fit-scene-width,760px)*.14),62px);min-height:calc(100svh - var(--header-height,60px))!important;height:auto;display:grid!important;grid-template-columns:minmax(0,1fr);grid-template-rows:repeat(4,auto);gap:var(--frame-gap);padding:.5rem 1.5rem;box-sizing:border-box;overflow:visible;justify-content:stretch;align-items:stretch;align-content:center}
+.afterglow #home{--frame-gap:calc(var(--fit-scene-width,760px)*.06);--scene-width:min(var(--fit-scene-width,760px),100%);--dock-art-size:clamp(44px,calc(var(--fit-scene-width,760px)*.14),62px);min-height:calc(100svh / var(--wide-scale,1) - var(--header-height,60px))!important;height:auto;display:grid!important;grid-template-columns:minmax(0,1fr);grid-template-rows:repeat(3,auto);gap:var(--frame-gap);padding:.5rem 1.5rem;box-sizing:border-box;overflow:visible;justify-content:stretch;align-items:stretch;align-content:center}
 
 #home .hero-copy{display:flex!important;flex-direction:column;gap:.75rem;align-items:center;width:100%;max-width:none;grid-column:1;margin:0;padding:0!important}
 #home .greeting{margin:0 auto 4px;font-size:clamp(16px,1.15vw,22px);line-height:1.4;min-height:1.4em;width:15em;max-width:90%}
@@ -15,16 +15,16 @@ body[data-page=home] .masthead{padding:8px 4%;min-height:60px!important;height:a
 .shelf-stage .shelf-annotation{position:relative;inset:auto;justify-self:end;order:-1;min-height:3.5rem;width:10rem;margin:0 3% .5rem 0;padding:0 0 1.25rem 1.5rem;box-sizing:border-box}
 .shelf-stage .cabinet-shelf{position:relative;inset:auto;width:90%;height:auto;min-height:0;gap:4%;align-items:end;margin:0 auto 14px}
 .scene-readout{position:absolute;display:block;width:31.2%;min-height:0;padding:0;left:50%;top:calc(84.6667% - var(--led-height)*.364);transform:translateX(-50%);z-index:50;pointer-events:none}
-.landing-navigation{display:grid;justify-items:center;gap:calc(var(--frame-gap)*.5);padding-top:.5rem}
+.landing-navigation{display:grid;justify-items:center;gap:calc(var(--frame-gap)*.5);padding-top:0}
 .shelf-annotation{font-size:1.25rem;line-height:1.4;rotate:0deg}
 .shelf-annotation svg{position:absolute;width:100%;height:2rem;right:0;bottom:0;top:auto;transform:none;overflow:visible}
-#home .rail.balanced-menu{min-height:calc(var(--dock-art-size) + 2.5rem);height:auto;width:clamp(360px,calc(var(--fit-scene-width,760px)*.8),430px);max-width:100%;margin:0 auto;padding:14px 16px 10px;gap:8px;border:1px solid var(--line);border-radius:26px;background:color-mix(in srgb,var(--bg) 92%,var(--ink) 8%);box-shadow:0 8px 24px #18293612,inset 0 1px 0 #ffffff40}
+#home .rail.balanced-menu{min-height:calc(var(--dock-art-size) + 2.5rem);height:auto;grid-template-columns:repeat(4,minmax(0,1fr));width:clamp(400px,calc(var(--fit-scene-width,760px)*.8),560px);max-width:100%;margin:0 auto;padding:14px 16px 10px;gap:8px;border:1px solid var(--line);border-radius:26px;background:color-mix(in srgb,var(--bg) 92%,var(--ink) 8%);box-shadow:0 8px 24px #18293612,inset 0 1px 0 #ffffff40}
 #home .rail.balanced-menu>a{min-height:calc(var(--dock-art-size) + 2.5rem);height:auto;padding:0;gap:10px}
-#home .rail.balanced-menu a>.menu-label{position:relative;inset:auto;top:auto;font-size:16px!important;padding:0 0 12px!important;line-height:1.3!important;opacity:1!important;visibility:visible!important;transform:none}
+#home .rail.balanced-menu a>.menu-label{position:relative;inset:auto;top:auto;font-size:clamp(16px,1.25vw,20px)!important;padding:0 0 12px!important;line-height:1.3!important;opacity:1!important;visibility:visible!important;transform:none}
 #home .rail.balanced-menu .menu-object,#home .rail.balanced-menu .dock-art{width:var(--dock-art-size);height:var(--dock-art-size)}
 #home .hero-bottom{min-height:3.25rem;height:auto;margin:0!important;display:flex;justify-content:center}
 .hero-bottom .local-time,.hero-bottom .local-time:has(.clock[hidden]){display:flex!important;align-items:center;justify-content:center;gap:16px;width:auto;max-width:100%;flex-wrap:wrap}
-.hero-bottom .city-select{width:220px;min-width:0;max-width:52vw;min-height:44px}
+.hero-bottom .city-select{width:240px;min-width:220px;max-width:100%;height:44px;min-height:44px;box-sizing:border-box;font-size:16px}
 .hero-bottom .ambient-toggle{margin:0!important;flex:none}
 #home .headline-bottom.vine-heading{position:relative;isolation:isolate;overflow:visible;margin-block:16px 12px!important}
 .connection-vine{position:absolute;inset:-5px -8px;width:calc(100% + 16px);height:calc(100% + 10px);overflow:visible;pointer-events:none;z-index:-1}
@@ -34,7 +34,39 @@ body[data-page=home] .masthead{padding:8px 4%;min-height:60px!important;height:a
 @keyframes heart-bloom{from{opacity:0;transform:scale(.05)}to{opacity:1;transform:scale(1)}}
 @keyframes grow-vine{to{stroke-dashoffset:0}}
 @keyframes sprout-grow{from{opacity:0;transform:scale(.05)}to{opacity:1;transform:scale(1)}}
-@media(max-width:600px){.landing-navigation{display:none}body[data-page=home] .masthead{height:auto!important;min-height:52px!important;padding:10px 16px}.afterglow #home{padding:4px 12px;--frame-gap:calc(var(--fit-scene-width,760px)*.06);grid-template-rows:repeat(3,auto)}#home .headline-top,#home .headline-bottom{font-size:clamp(1.5625rem,6.8vw,2.125rem)!important}#home .scene-slot{margin:0 auto!important}#home .hero-copy>p{max-width:100%;font-size:1rem!important}.hero-bottom .local-time{gap:10px}.hero-bottom .city-select{width:190px;max-width:55vw}.clock{font-size:1rem!important;letter-spacing:0}#home .rail.balanced-menu .menu-label{font-size:1rem!important}.shelf-annotation{font-size:1.125rem}}
+@media(max-width:600px){.landing-navigation{display:none}body[data-page=home] .masthead{height:auto!important;min-height:52px!important;padding:10px 16px}.afterglow #home{padding:4px 12px;--frame-gap:calc(var(--fit-scene-width,760px)*.06);grid-template-rows:repeat(2,auto)}#home .headline-top,#home .headline-bottom{font-size:clamp(1.5625rem,6.8vw,2.125rem)!important}#home .scene-slot{margin:0 auto!important}#home .hero-copy>p{max-width:100%;font-size:1rem!important}.hero-bottom .local-time{gap:10px}.hero-bottom .city-select{width:240px;min-width:0;max-width:100%}.clock{font-size:1rem!important;letter-spacing:0}#home .rail.balanced-menu .menu-label{font-size:1rem!important}.shelf-annotation{font-size:1.125rem}}
 @media(prefers-reduced-motion:reduce){.vine-reveal{animation:none;stroke-dashoffset:0}.final-sprout,.connection-heart{animation:none;opacity:1}}
 
 #home .rail.balanced-menu a>.menu-label:after{bottom:0;left:4%;right:4%}
+
+/* [design-approved:player-first] The collection owns the shelf; it is no longer a home-page row. */
+#work .projects[hidden]{display:none!important}
+#work .shelf-stage{position:relative;width:min(1040px,100%);margin:40px auto;container-type:inline-size}
+#work .shelf-annotation{display:none}
+#work .cabinet-shelf{position:relative;inset:auto;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));width:100%;height:auto;gap:clamp(24px,4vw,56px);align-items:stretch;margin:0;padding:0}
+#work .cabinet-record{display:flex;flex-direction:column;gap:20px;width:100%;min-width:0;height:auto;aspect-ratio:auto;flex:none;padding:clamp(16px,2vw,28px);border:1px solid var(--line);border-radius:24px;background:color-mix(in srgb,var(--bg) 96%,var(--ink) 4%)}
+#work .cabinet-shelf:before,#work .cabinet-shelf:after{display:none}
+.b-side-menu .sleeve-art{background:linear-gradient(135deg,#c7b8da,#78658a)}
+
+#work .record-controls[hidden]{display:none!important}
+
+/* [design-approved:a-side-grid] Equal cards with persistent names/tags; no hover reveal. Pill radius derives from chip height. */
+#work .cabinet-record>.sleeve-vinyl{display:none}
+#work .cabinet-record>.jacket-art,#work .cabinet-record:is(:hover,:focus-visible)>.jacket-art{width:100%;aspect-ratio:1;height:auto;transform:none!important;filter:none;border-radius:18px;box-shadow:0 3px 7px #0002}
+.collection-summary{display:flex;flex-direction:column;gap:12px;width:100%;text-align:left;color:var(--ink)}
+.collection-summary>strong{font-size:clamp(18px,1.7vw,24px);line-height:1.3}
+.collection-chips{display:flex;flex-wrap:wrap;gap:8px;align-content:start}
+.collection-chips>span{font-size:16px;line-height:1.35;padding:4px 10px;border:1px solid color-mix(in srgb,var(--ink) 24%,transparent);border-radius:999px;background:none;color:var(--ink)}
+/* [design-approved:tableless] Keep scene geometry intact so only the wooden tabletop disappears. */
+.tableless-preview .shared-table{visibility:hidden}
+@media(max-width:600px){#work .cabinet-shelf{grid-template-columns:1fr}#work .shelf-stage{margin:24px auto}}
+
+/* [design-approved:visible-scene-spacing] A table-free scene reserves only the visible player/LED height. The top inset follows centered 52%-width, 1.5-aspect player geometry. */
+#home.tableless-preview .scene-slot{height:var(--visible-scene-height)}
+#home.tableless-preview .connection-object{position:absolute;top:calc(var(--visible-scene-top)*-1);left:0;width:100%}
+
+/* [design-approved:wide-scale] One composition scale enlarges text, vector art and controls together on spacious desktops. Measured fitting normalizes coordinates by this factor. */
+body{--wide-scale:1}
+@media(min-width:1800px) and (min-height:900px){body[data-page=home]{--wide-scale:1.25;zoom:var(--wide-scale)}}
+.local-time .city-select,.mobile-menu-settings .city-select{height:44px;min-height:44px;line-height:22px;box-sizing:border-box}
+.local-time .ambient-toggle,.mobile-menu-settings .ambient-toggle{height:44px;min-height:44px;box-sizing:border-box;border:1px solid #959da180}

@@ -9,9 +9,14 @@ shelf.querySelectorAll('.cabinet-record').forEach((original,index)=>{
  const card=document.createElement('a');card.className='gallery-card';card.href=localDestinations[project.href]||project.href;card.setAttribute('aria-label','View case study: '+project.name);
  const face=link.querySelector('.expanded-cover').cloneNode(true);face.removeAttribute('style');face.querySelector('.cover-heading strong').textContent=project.name;face.querySelector('.cover-peek-disc').remove();face.querySelector('.cover-artwork').remove();const sleeve=document.createElement('span');sleeve.className='gallery-sleeve';sleeve.append(face.querySelector('.cover-heading'),link.querySelector(':scope > .jacket-art').cloneNode(true));card.append(sleeve,face);galleryTrack.append(card);galleryCards.push(card);
  link.querySelector('.expanded-cover').remove();link.href=card.href;
- link.addEventListener('pointerenter',e=>{if(e.pointerType==='touch'||departing)return;clearTimeout(hoverTimer);hoverTimer=setTimeout(()=>openGallery(index),2000)});
+
  link.addEventListener('pointerleave',()=>clearTimeout(hoverTimer));
- link.addEventListener('click',e=>{e.preventDefault();clearTimeout(hoverTimer);openGallery(index)});
+ // [design-approved:a-side-grid] Names and chips are always visible; selection opens the case study directly.
+ const summary=document.createElement('span');summary.className='collection-summary';
+ const name=document.createElement('strong');name.textContent=project.name;summary.append(name);
+ const tags=document.createElement('span');tags.className='collection-chips';
+ project.chips.flat().forEach(text=>{const chip=document.createElement('span');chip.textContent=text;tags.append(chip)});
+ summary.append(tags);link.append(summary);link.setAttribute('aria-label','Open case study: '+project.name);
  card.addEventListener('click',async e=>{e.preventDefault();if(departing)return;departing=true;clearTimeout(hoverTimer);if(!matchMedia('(prefers-reduced-motion: reduce)').matches)await card.animate([{transform:'scale(1)',opacity:1},{transform:'scale(1.14)',opacity:0}],{duration:420,easing:'ease-in',fill:'forwards'}).finished;location.assign(card.href)});
 });
 function centerGallery(index){galleryIndex=Math.max(0,Math.min(galleryCards.length-1,index));galleryCards.forEach((card,i)=>{card.hidden=i!==galleryIndex});galleryTrack.scrollTop=0;updateGalleryButtons();requestAnimationFrame(fitGalleryCard)}

@@ -1,4 +1,4 @@
-// Three equal navigation objects; only the player remains on the table.
+// [design-approved:player-first] Four destinations share one island: A-Side, B-Side, about, contact.
 sleeveLink.remove();
 const collectionMenu=document.querySelector('#home > .rail');
 collectionMenu.querySelectorAll('a:not([href="#work"])').forEach(link=>link.remove());
@@ -9,6 +9,10 @@ for(const [link,label] of [[wallPhoto,'about me'],[note,'say hello']]){
   const caption=document.createElement('span');caption.className='menu-label';caption.textContent=label;
   link.append(art,caption);collectionMenu.append(link);
 }
+const aSide=collectionMenu.querySelector('a[href="#work"]');
+const aLabel=aSide.querySelector('span:last-child');aLabel.textContent='A-Side';aLabel.classList.add('menu-label');aSide.setAttribute('aria-label','A-Side — main design case studies');
+const bSide=aSide.cloneNode(true);bSide.href='#explorations';bSide.setAttribute('aria-label','B-Side — explorations and side projects');bSide.querySelector('.menu-label').textContent='B-Side';bSide.classList.add('b-side-menu');aSide.after(bSide);
+collectionMenu.querySelector('a[href="#contact"] .menu-label').textContent='contact me';
 collectionMenu.classList.add('balanced-menu');
 collectionMenu.hidden=false;
 requestAnimationFrame(fitWelcome);

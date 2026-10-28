@@ -1,3 +1,9 @@
+## Approved player-first release — October 28, 2026
+
+![Approved player-first home, 1920×1080](player-first-approved-desktop.png)
+
+Current visual authority: table-free player, three equally spaced groups, larger wide-screen composition, single menu island, full timezone label and matching settings controls. See [the current sizing contract](../design-system.md). Earlier captures below are historical where they differ. Mobile bottom-menu restoration and the consolidated design-system website are queued separately and not included in this approval.
+
 ## Preserved records-upfront checkpoint — October 28, 2026
 
 ![Current landing page with upfront case-study records, 1440×960](records-upfront-checkpoint.png)

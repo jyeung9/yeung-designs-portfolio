@@ -46,8 +46,8 @@ phones.remove();
 musicButton.classList.remove('display-only-player');musicButton.removeAttribute('aria-hidden');musicButton.tabIndex=0;musicButton.onclick=()=>playFromHeadphones();
 document.getElementById('headphone-hint').textContent='click or press enter on the record player to play or pause music.';
 document.querySelector('#home .hero-copy>p').textContent='product designer | AI systems thinker';
-clockSelect.options[0].textContent='select your timezone';
-clockSelect.setAttribute('aria-label','select your timezone');
+clockSelect.options[0].textContent='select timezone';
+clockSelect.setAttribute('aria-label','select timezone');
 // Navigation activates on the first tap.
 requestAnimationFrame(fitWelcome);
 

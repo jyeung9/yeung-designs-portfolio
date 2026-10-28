@@ -1,3 +1,17 @@
+## Approved player-first release — October 28, 2026
+
+Julie approved the reviewed local version and requested documentation and live publication. This is the current contract; earlier entries below are historical when they conflict.
+
+- Home has three groups: intro text/heart, table-free player with attached LED and skip controls, and the four-destination island (A-Side, B-Side, about me, contact me). Mobile currently uses the hamburger; a mobile bottom island is queued for a separate preview, not part of this release.
+- A-Side contains four equal case-study cards in a two-column grid, collapsing to one column at 600px. Names and light-outline pill chips remain visible; selection opens the case study directly. No hover is required.
+- Scene maximum is 1140px, constrained by available width and height. Player width is 52% and side discs 22% of the common scene. The existing LED ratio and 16px base text floor are retained.
+- Equal inter-group spacing is 6% of fitted scene width, measured against the visible player/LED bounds rather than invisible tabletop padding. Navigation settings use half this gap. Menu labels have no individual white backgrounds.
+- At viewport width ≥1800px and height ≥900px, the home composition has a 1.25 scale. This scales text, logo, artwork and controls together; scene fitting still respects available height. Other viewports retain their responsive sizing.
+- Timezone placeholder is “select timezone.” Selector and theme toggle share a 44px base height and a 1px translucent slate border (#959da180). At 1.25 scale both render 55px tall. Desktop selector width is 240px; mobile fills available settings width.
+- Verified: 1920×1080 has equal 54.59px section gaps and matching 55px controls; 390×844 has matching 44px controls and full placeholder. Neither has horizontal overflow. This is targeted responsive verification, not a complete accessibility certification.
+
+The records-upfront variant remains preserved in commit `586cd58b1edd15e5a64cd5ce13a0e59ac90e2d26`. See the [current visual reference](references/visual-components.md).
+
 ## Preserved checkpoint: records/case studies upfront — October 28, 2026
 
 Julie requested preserving the complete current local version and pushing it to GitHub before exploring a quieter home page. **This is the version with records/case studies upfront on the landing page.** The four sleeves remain directly visible above the record player; selecting one opens a preview and then an on-site case study.

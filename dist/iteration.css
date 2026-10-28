@@ -277,7 +277,7 @@ body.time-lighting{transition:--ambient-top 3s linear,--ambient-bottom 3s linear
 @media(max-width:600px){#home .scene-slot{margin-bottom:100px!important}}
 .edge-disc>.edge-disc-label{top:calc(100% + 24px);color:var(--ink)!important;text-shadow:0 1px var(--bg)}
 @keyframes edge-wobble{0%,100%{transform:perspective(700px) translateZ(-14px) rotateX(38deg) rotateZ(-5deg) scale(.96)}50%{transform:perspective(700px) translateZ(24px) rotateX(23deg) rotateZ(6deg) scale(1.05)}}
-.city-select{border:1px solid var(--muted)!important;border-radius:22px!important;padding:10px 32px 10px 16px!important;outline:none!important;box-shadow:none!important;background:var(--bg)!important;color:var(--ink)!important}
+.city-select{border:1px solid #959da180!important;border-radius:22px!important;padding:10px 32px 10px 16px!important;outline:none!important;box-shadow:none!important;background:var(--bg)!important;color:var(--ink)!important}
 .city-select:focus-visible{border-color:var(--ink)!important;box-shadow:0 0 0 2px var(--bg),0 0 0 3px var(--muted)!important}
 .ambient-toggle:before{content:attr(data-hint);position:absolute;right:0;bottom:calc(100% + 12px);width:max-content;max-width:240px;font:500 22px/1.25 var(--hover-hand);color:var(--ink);background:var(--bg);padding:3px 6px;border-radius:6px;opacity:0;visibility:hidden;pointer-events:none}
 .ambient-toggle:is(:hover,:focus-visible):before{opacity:1;visibility:visible}
