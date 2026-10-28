@@ -1,3 +1,7 @@
+## Brand mark and digital lettering — October 28, 2026
+- Favicon uses the header’s circular “y.” identity with fine concentric record rings, replacing the unrelated square “j.” tile.
+- Digital greeting, role, clock and LED titles share a 2.4px dot pitch with clear gaps between dots. LED icons use the same treatment at 3.5px pitch. Preserve minimum type sizes and inspect both themes; do not blur the dots with text shadows.
+
 ## Current interaction contract — October 28, 2026
 
 This section is the current source of truth. Check it before implementation and during preview. Historical notes below do not override it. Product goals remain in product-intent.md.
@@ -45,7 +49,7 @@ This section is the running source of truth; older sections below are historical
 - Sleeves have separate paper jackets and inner vinyl, with focus/touch equivalents for hover.
 - Polaroid tape stays anchored while the photo sways from its top edge; reduced motion disables sway.
 - Every hover annotation uses locally hosted **Caveat 500** (Portfolio Hand), 22px, with the same thin handdrawn underline, transparent background, no border and no box shadow. The yellow note uses the same face without an underline. Never render duplicate prompts.
-- Touch: tap to preview an object's label, tap again to activate, tap elsewhere to dismiss. Controls retain accessible names when labels are hidden.
+- Historical touch pattern (superseded): first-tap preview is removed; all action links and music controls now activate on the first tap. Controls retain accessible names when labels are hidden.
 
 ## Expanded-cover layout — supplied sketch implemented
 
@@ -291,3 +295,6 @@ Remove headphones and return play/pause activation to the record player. Extend 
 - Hide the clock until a timezone is explicitly chosen. Selected timezone drives gradual clock-based dawn/day/dusk/night colors; manual theme selection overrides this. No automatic location lookup.
 - Expanded sleeves carry full-cover artwork beneath readable content, rounded corners, and three chip rows (industry, skills, app type). Preserve 16px minimum text; long rows scroll horizontally on small screens.
 - Side controls read “previous track” and “next track.” Vinyl and tonearm invitations are stronger; the empty metal platter catches a gentle highlight. Respect reduced motion.
+
+### Verified responsive checks
+October 28: shelf hit targets measured approximately 60px square at 390px viewport and 47px square at 320px; no horizontal page overflow in either check. One-click Titanic overview, bottom collection navigation, and player pause were verified in the browser. Physical iPhone Safari remains unverified. Track hints are positioned 20px below the rendered tabletop edge with no text shadow.

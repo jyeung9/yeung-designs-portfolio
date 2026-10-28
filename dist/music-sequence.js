@@ -57,7 +57,7 @@ armControl.addEventListener('keydown',event=>{if(event.key==='ArrowRight'||event
 document.getElementById('headphone-hint').textContent='click the record player to play or pause. use the left and right discs to change songs.';
 requestAnimationFrame(fitWelcome);
 
-const nowPlaying=document.createElement('span');nowPlaying.className='now-playing-led';nowPlaying.innerHTML='<span>NOW PLAYING</span><strong>ready</strong>';musicButton.querySelector('.independent-deck').append(nowPlaying);
+const nowPlaying=document.createElement('span');nowPlaying.className='now-playing-led';nowPlaying.innerHTML='<span>NOW PLAYING</span><strong>ready</strong>';cabinetScene.append(nowPlaying);
 function syncPlayerHover(){musicButton.classList.toggle('player-hover',musicButton.matches(':hover')||armControl.matches(':hover,:focus-visible')||armControl.classList.contains('audio-preview'));}
 [musicButton,armControl].forEach(el=>['pointerenter','pointerleave','focus','blur'].forEach(name=>el.addEventListener(name,()=>requestAnimationFrame(syncPlayerHover))));
 new MutationObserver(syncPlayerHover).observe(armControl,{attributes:true,attributeFilter:['class']});
@@ -94,3 +94,5 @@ addEventListener('resize',()=>setLEDTitle(trackIndex>=0?tracks[trackIndex].title
 // Cursor-local hint belongs to the actual hit target, not the decorative deck.
 armControl.addEventListener('pointermove',event=>{if(event.pointerType==='touch')return;const r=armControl.getBoundingClientRect(),hint=armControl.querySelector('.edge-disc-label');hint.style.left=Math.max(0,Math.min(event.clientX-r.left+12,innerWidth-r.left-hint.offsetWidth-12))+'px';hint.style.top=(event.clientY-r.top+14)+'px';armControl.classList.add('cursor-hint')});
 armControl.addEventListener('pointerleave',()=>{armControl.classList.remove('cursor-hint');const hint=armControl.querySelector('.edge-disc-label');hint.style.left='';hint.style.top=''});
+function placeTrackHints(){const tableBottom=cabinetScene.querySelector('.shared-table').getBoundingClientRect().bottom;trackControls.querySelectorAll('.edge-disc').forEach(button=>{button.querySelector('.edge-disc-label').style.setProperty('top',Math.max(0,tableBottom-button.getBoundingClientRect().top+20)+'px','important')})}
+addEventListener('resize',()=>requestAnimationFrame(placeTrackHints));document.fonts.ready.then(placeTrackHints);trackControls.querySelectorAll('.edge-disc').forEach(button=>{button.addEventListener('pointerenter',placeTrackHints);button.addEventListener('focus',placeTrackHints)});requestAnimationFrame(placeTrackHints);

@@ -1,3 +1,6 @@
+## Current responsive product intent — October 28, 2026
+Visitors must be able to act on the first tap, read every label without overlap, and recognize the same record-player composition on desktop and phone. Readability and usable touch targets take priority over fitting the entire landing page into one viewport. Use the current responsive rules at the top of design-system.md; earlier conflicting proposals are historical.
+
 > Current implementation and interaction decisions: see the **Current interaction contract** at the top of design-system.md. Earlier directions below are historical where they conflict with that contract.
 
 # design portfolio product intent

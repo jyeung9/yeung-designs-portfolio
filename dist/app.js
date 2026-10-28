@@ -146,7 +146,8 @@ form.addEventListener('submit',async e=>{e.preventDefault();if(sending||!form.re
 document.querySelector('.masthead nav a[href*="contact-me"]').href='#contact';
 placeNav();
 // Reserve the portrait's row before sizing the decorative desk into the viewport.
-function fitWelcome(){const hero=document.getElementById('home');if(hero.hidden)return;const slot=hero.querySelector('.scene-slot');slot.style.width='';const copy=hero.querySelector('.hero-copy'),rail=hero.querySelector('.rail'),bottom=hero.querySelector('.hero-bottom');const hs=getComputedStyle(hero);const used=copy.getBoundingClientRect().height+rail.getBoundingClientRect().height+bottom.getBoundingClientRect().height+parseFloat(hs.rowGap)*2+parseFloat(hs.paddingTop)+parseFloat(hs.paddingBottom);const extra=used+parseFloat(getComputedStyle(rail).marginTop)+parseFloat(getComputedStyle(rail).marginBottom)-hero.clientHeight;if(extra>0){slot.style.width=Math.max(100,slot.getBoundingClientRect().width-extra*(slot.querySelector('.conversation-scene').clientWidth/slot.querySelector('.conversation-scene').clientHeight)-8)+'px'}}
+function fitWelcome(){const slot=document.querySelector('#home .scene-slot');if(slot)slot.style.width='';}
+
 addEventListener('resize',fitWelcome);addEventListener('hashchange',()=>requestAnimationFrame(fitWelcome));document.fonts.ready.then(fitWelcome);new MutationObserver(fitWelcome).observe(musicNote,{attributes:true,attributeFilter:['hidden']});
 
 // Full-bleed source imagery replaces decorative sleeve typography.

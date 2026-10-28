@@ -41,13 +41,6 @@ requestAnimationFrame(fitWelcome);
 cabinetScene.querySelector('.cabinet-body').remove();
 shelf.querySelector('.extras-stack').remove();
 shelf.setAttribute('aria-label','featured case studies');
-let touchedSleeve=null;
-shelf.querySelectorAll('.cabinet-record').forEach(link=>{
- link.addEventListener('pointerdown',event=>{if(event.pointerType==='touch' && touchedSleeve!==link){touchedSleeve=link;link.dataset.previewTap='true';shelf.querySelectorAll('.cabinet-record').forEach(other=>other.classList.toggle('touch-preview',other===link));}});
- link.addEventListener('click',event=>{if(link.dataset.previewTap){event.preventDefault();event.stopImmediatePropagation();delete link.dataset.previewTap;}},true);
-});
-document.addEventListener('pointerdown',event=>{if(!shelf.contains(event.target)){touchedSleeve=null;shelf.querySelectorAll('.touch-preview').forEach(link=>link.classList.remove('touch-preview'));}});
-
 // Return playback to the record player now that the headphones are removed.
 phones.remove();
 musicButton.classList.remove('display-only-player');musicButton.removeAttribute('aria-hidden');musicButton.tabIndex=0;musicButton.onclick=()=>playFromHeadphones();
@@ -55,13 +48,7 @@ document.getElementById('headphone-hint').textContent='click or press enter on t
 document.querySelector('#home .hero-copy>p').textContent='product designer | AI systems thinker';
 clockSelect.options[0].textContent='select your timezone';
 clockSelect.setAttribute('aria-label','select your timezone');
-// Touch disclosure is shared by the bottom navigation, including the peeling note.
-let touchedMenu=null;
-collectionMenu.querySelectorAll(':scope>a').forEach(link=>{
- link.addEventListener('pointerdown',event=>{if(event.pointerType==='touch' && touchedMenu!==link){touchedMenu=link;link.dataset.menuPreviewTap='true';collectionMenu.querySelectorAll(':scope>a').forEach(other=>other.classList.toggle('touch-preview',other===link));}});
- link.addEventListener('click',event=>{if(link.dataset.menuPreviewTap){event.preventDefault();event.stopImmediatePropagation();delete link.dataset.menuPreviewTap;}},true);
-});
-document.addEventListener('pointerdown',event=>{if(!collectionMenu.contains(event.target)){touchedMenu=null;collectionMenu.querySelectorAll('.touch-preview').forEach(link=>link.classList.remove('touch-preview'));}});
+// Navigation activates on the first tap.
 requestAnimationFrame(fitWelcome);
 
 collectionMenu.querySelectorAll(':scope>a').forEach(link=>{if(!link.hasAttribute('aria-label'))link.setAttribute('aria-label',link.lastElementChild.textContent.trim());});
