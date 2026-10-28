@@ -1,3 +1,15 @@
+## Approved landing rhythm and front-edge LED — October 28, 2026
+
+**Approved:** Julie reviewed the local preview and authorized publication at 2:55 AM. Preserve equal inter-group gaps of 6% of scene width and the half-size LED attached over the player’s front edge. See [the current sizing contract](../design-system.md).
+
+![Approved desktop layout, light theme, empty state, 1440×900](landing-spacing-desktop.png)
+
+![Approved phone layout, light theme, empty state, 390×844](landing-spacing-phone.png)
+
+![User-approved close-up of the half-size front-edge LED](front-edge-led-approved.png)
+
+The full-page captures are implementation evidence from the reviewed preview; the close-up is Julie’s supplied approval screenshot. Approval covers spacing and LED placement, not unrelated pending gallery/playback experiments. Short landscape retains scrolling rather than reducing minimum control sizes. Earlier full-size separate LED-row references below are historical for placement; their material treatment remains relevant.
+
 ## Approved update: rounded wooden table — October 28, 2026
 
 **Status:** reviewed in the local preview; Julie explicitly approved publication and documentation updates. This supersedes sharp tabletop corners in earlier captures.

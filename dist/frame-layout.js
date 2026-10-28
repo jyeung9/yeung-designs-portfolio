@@ -4,7 +4,10 @@ const shelfStage=document.createElement('div');shelfStage.className='shelf-stage
 homeFrame.querySelector('.hero-copy').after(shelfStage,sceneSlot);
 shelfStage.append(shelf,cabinetScene.querySelector('.shelf-annotation'));
 const sceneReadout=document.createElement('div');sceneReadout.className='scene-readout';
-sceneReadout.append(nowPlaying);cabinetScene.after(sceneReadout);
+sceneReadout.append(nowPlaying);musicButton.append(sceneReadout);
+const landingNavigation=document.createElement('div');landingNavigation.className='landing-navigation';
+homeFrame.append(landingNavigation);
+landingNavigation.append(homeFrame.querySelector('.rail'),homeFrame.querySelector('.hero-bottom'));
 requestAnimationFrame(placeTrackHints);
 // Decorative linework grows from left to right; its final sprout meets the last n.
 const vineHost=document.querySelector('.headline-bottom');vineHost.classList.add('vine-heading');
@@ -17,25 +20,24 @@ function fitHomeFrame(){
  homeFrame.style.setProperty('--header-height',`${document.querySelector('.masthead').getBoundingClientRect().height}px`);
  const frameStyle=getComputedStyle(homeFrame);
  const sceneWidth=cabinetScene.getBoundingClientRect().width;
- const sceneBody=homeFrame.querySelector('.connection-object');
  const height=el=>el?.getBoundingClientRect().height||0;
  const n=v=>parseFloat(v)||0;
+ const mobile=matchMedia('(max-width:600px)').matches;
+ const gapCount=mobile?2:3;
  const fixed=height(document.querySelector('.masthead'))+height(homeFrame.querySelector('.hero-copy'))
-   +height(shelfStage)-sceneWidth*.189
-   +height(sceneBody)-sceneWidth*.5
-   +n(getComputedStyle(sceneSlot).paddingTop)+n(getComputedStyle(sceneSlot).paddingBottom)
-   +height(homeFrame.querySelector(':scope > .rail'))+height(homeFrame.querySelector(':scope > .hero-bottom'))
-   +n(frameStyle.paddingTop)+n(frameStyle.paddingBottom)+(Array.from(homeFrame.children).filter(el=>getComputedStyle(el).display!=='none'&&getComputedStyle(el).position!=='absolute').length-1)*n(frameStyle.rowGap);
- const available=window.innerHeight-fixed;
+   +height(shelfStage)-sceneWidth*.189+height(landingNavigation)
+   +n(frameStyle.paddingTop)+n(frameStyle.paddingBottom);
+ const available=innerHeight-fixed;
  const minimum=Math.ceil(44/.189);
- const width=Math.min(760,Math.max(minimum,available/.689));
+ const contentWidth=homeFrame.clientWidth-n(frameStyle.paddingLeft)-n(frameStyle.paddingRight);
+ const width=Math.min(760,contentWidth,Math.max(minimum,available/(.689+gapCount*.06)));
  homeFrame.style.setProperty('--fit-scene-width',`${Math.floor(width)}px`);
- homeFrame.dataset.fit=available<minimum*.689?'scroll-required':'viewport';
+ homeFrame.dataset.fit=available<minimum*(.689+gapCount*.06)?'scroll-required':'viewport';
 }
 let frameFitPending=false;
 function queueFrameFit(){if(frameFitPending)return;frameFitPending=true;requestAnimationFrame(()=>{frameFitPending=false;fitHomeFrame()});}
 const frameObserver=new ResizeObserver(queueFrameFit);
-[document.querySelector('.masthead'),homeFrame.querySelector('.hero-copy'),sceneReadout,homeFrame.querySelector(':scope > .rail'),homeFrame.querySelector(':scope > .hero-bottom')].filter(Boolean).forEach(el=>frameObserver.observe(el));
+[document.querySelector('.masthead'),homeFrame.querySelector('.hero-copy'),sceneReadout,landingNavigation].filter(Boolean).forEach(el=>frameObserver.observe(el));
 window.addEventListener('resize',queueFrameFit);
 window.addEventListener('hashchange',queueFrameFit);
 document.fonts.ready.then(queueFrameFit);

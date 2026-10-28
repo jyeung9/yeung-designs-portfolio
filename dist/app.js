@@ -88,7 +88,7 @@ const chooser=document.createElement('nav');chooser.className='finish-picker';ch
 const covers=[null,'https://framerusercontent.com/images/M0dMpmpZOWbSsqpyVMpiC9zoYc.png?width=542&height=1125','https://framerusercontent.com/images/6pTcIh1jIKEQl0RiVaCh5H4fcMo.png?width=271&height=563'];
 document.querySelectorAll('.project').forEach((card,i)=>{card.style.setProperty('--sleeve-index',i);const art=card.querySelector('.project-art');if(covers[i]){art.replaceChildren();const img=document.createElement('img');img.src=covers[i];img.alt=projects[i].name+' product screen from existing portfolio';art.append(img)}else{art.querySelector('.project-tag').textContent='hero artwork to come'};});
 // Navigation is in flow: it never covers text at small sizes or large text zoom.
-function placeNav(){const home=document.getElementById('home'),rail=document.querySelector('.rail');home.appendChild(rail);home.appendChild(document.querySelector('.hero-bottom'));rail.hidden=true;}
+function placeNav(){const home=document.getElementById('home'),rail=document.querySelector('.rail');(home.querySelector('.landing-navigation')||home).appendChild(rail);(home.querySelector('.landing-navigation')||home).appendChild(document.querySelector('.hero-bottom'));rail.hidden=true;}
 window.addEventListener('hashchange',placeNav);placeNav();
 
 // The sleeves are separate physical objects, not part of a flattened scene image.

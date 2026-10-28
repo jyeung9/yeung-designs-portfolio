@@ -12,9 +12,9 @@
 .edge-disc-arrow svg{stroke-width:2.5}
 .edge-disc>.edge-disc-label{max-width:140px;white-space:normal;text-shadow:none!important;color:var(--ink)!important}
 .edge-disc>.edge-disc-label:after{color:var(--ink)!important;opacity:1}
-#home>.rail.balanced-menu{position:relative;inset:auto;transform:none;flex:none}
-#home>.rail.balanced-menu>a{min-width:44px;min-height:44px;touch-action:manipulation}
-#home>.rail.balanced-menu a>.menu-label{max-width:100%;line-height:1.15!important}
+#home .rail.balanced-menu{position:relative;inset:auto;transform:none;flex:none}
+#home .rail.balanced-menu>a{min-width:44px;min-height:44px;touch-action:manipulation}
+#home .rail.balanced-menu a>.menu-label{max-width:100%;line-height:1.15!important}
 #home .hero-bottom{position:relative;inset:auto;width:100%;flex:none}
-@media(hover:none){.cabinet-record .expanded-cover{display:none!important}#home>.rail.balanced-menu a>.menu-label{opacity:1!important;visibility:visible!important}.arm-control>.edge-disc-label,.edge-disc>.edge-disc-label{display:none!important}}
+@media(hover:none){.cabinet-record .expanded-cover{display:none!important}#home .rail.balanced-menu a>.menu-label{opacity:1!important;visibility:visible!important}.arm-control>.edge-disc-label,.edge-disc>.edge-disc-label{display:none!important}}
 @media(prefers-reduced-motion:reduce){.edge-disc-face{animation:none!important}}
