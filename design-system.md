@@ -1,3 +1,18 @@
+## Approved emotional-design release — October 28, 2026
+
+Julie approved GitHub and public publication with this exact note:
+
+> added more delightful and emotional design, interactive heart with cursor. matcha because i love it
+
+- Bottom navigation is present on mobile and desktop, labeled `a-side`, `b-side`, `about`, `contact` in one lowercase line. Mobile labels remain 16px. The island follows scene proportions, with a 280px readability floor capped by available width; artwork follows 14% of scene width (32–62px). Three groups retain equal gaps of 6% of fitted scene width.
+- Mobile hamburger contains only linkedin and résumé links, without diagonal arrows, plus timezone/appearance settings when available. Settings share one horizontal row, an 8px gap and 44px heights.
+- Contact uses a layered iced matcha SVG with a reusable straw, three clearly highlighted ice cubes, and a glass aligned with neighboring icons. The image is 150% of its artwork box so the cup body matches their height; straw extends above. Hover/focus produces a gentle 0.8s wobble around the base.
+- Heart is 1.95× its original petal size. A 2.8s breeze rotates −14° to +18°. Pointer proximity within 90px adds up to 28° of springy rotation. Heart and connecting stem share the fixed base (690,3); sprout and bloom origins also preserve attachment. No free translation detaches the heart.
+- Reduced-motion preferences disable heart wind, pointer movement and cup wobble. Touch pointers do not push the heart.
+- Player wood is warm medium oak with darker edges, varied fine grain and a subtle knot; dimensions and playback controls are unchanged.
+
+Verified local phone layouts at 320×568 and 390×844, desktop at 1440×960, one-line labels, visible settings alignment, SVG parsing, JavaScript syntax and whitespace. These are targeted checks rather than a complete accessibility audit. The previous two-line bottom-label proposal is superseded.
+
 ## Consolidated design-system website — October 28, 2026
 
 Julie approved publishing the consolidated guide and adding it to B-Side. The living reference is at `/design-system/`, linked by the “design system” exploration card. Short topic summaries lead; expandable Details preserve the full specifications. The responsive inspector shows the selected component in a focused visual crop, with a Full page toggle, six viewport presets, computed geometry/type/spacing, relative parent width, visible-element inventory and declared min/max rules.

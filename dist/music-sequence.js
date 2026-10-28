@@ -67,7 +67,7 @@ new MutationObserver(syncPlayerHover).observe(armControl,{attributes:true,attrib
 
 const impactPrompts=['designed for more connection & IRL hangouts','make custom videos from viral favorites','designed for 4m+ patients & caregivers'];
 shelf.querySelectorAll('[data-record]').forEach((link,i)=>{const label=link.querySelector('.jacket-title');label.replaceChildren();const impact=document.createElement('span');impact.textContent=impactPrompts[i];const project=document.createElement('small');project.textContent=cabinetProjects[i].title;label.append(impact,project);link.setAttribute('aria-label',cabinetProjects[i].title+' — '+impactPrompts[i]);});
-const contactNote=document.querySelector('#home .rail .desk-note');contactNote.setAttribute('aria-label','contact me');contactNote.querySelector('.menu-label').textContent='contact me';contactNote.querySelector('.written-hello').innerHTML='contact<br>me';
+const contactNote=document.querySelector('#home .rail .desk-note');contactNote.setAttribute('aria-label','contact me');contactNote.querySelector('.menu-label').textContent='contact';const contactWriting=contactNote.querySelector('.written-hello');if(contactWriting)contactWriting.innerHTML='contact<br>me';
 
 // Sleeve details are printed on the cover; activation opens its existing case-study destination.
 shelf.querySelectorAll('[data-record]').forEach((link,i)=>{

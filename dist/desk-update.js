@@ -2,7 +2,7 @@
 sleeveLink.remove();
 const collectionMenu=document.querySelector('#home > .rail');
 collectionMenu.querySelectorAll('a:not([href="#work"])').forEach(link=>link.remove());
-for(const [link,label] of [[wallPhoto,'about me'],[note,'say hello']]){
+for(const [link,label] of [[wallPhoto,'about'],[note,'contact']]){
   link.classList.remove('wall-polaroid');
   const art=document.createElement('span');art.className='menu-object';
   while(link.firstChild)art.append(link.firstChild);
@@ -10,9 +10,10 @@ for(const [link,label] of [[wallPhoto,'about me'],[note,'say hello']]){
   link.append(art,caption);collectionMenu.append(link);
 }
 const aSide=collectionMenu.querySelector('a[href="#work"]');
-const aLabel=aSide.querySelector('span:last-child');aLabel.textContent='A-Side';aLabel.classList.add('menu-label');aSide.setAttribute('aria-label','A-Side — main design case studies');
-const bSide=aSide.cloneNode(true);bSide.href='#explorations';bSide.setAttribute('aria-label','B-Side — explorations and side projects');bSide.querySelector('.menu-label').textContent='B-Side';bSide.classList.add('b-side-menu');aSide.after(bSide);
-collectionMenu.querySelector('a[href="#contact"] .menu-label').textContent='contact me';
+const aLabel=aSide.querySelector('span:last-child');aLabel.textContent='a-side';aLabel.classList.add('menu-label');aSide.setAttribute('aria-label','A-Side — main design case studies');
+const bSide=aSide.cloneNode(true);bSide.href='#explorations';bSide.setAttribute('aria-label','B-Side — explorations and side projects');bSide.querySelector('.menu-label').textContent='b-side';bSide.classList.add('b-side-menu');aSide.after(bSide);
+collectionMenu.querySelector('a[href="#contact"] .menu-label').textContent='contact';
+// [design-approved:compact-menu-labels] One lowercase line per destination at every bottom-island size.
 collectionMenu.classList.add('balanced-menu');
 collectionMenu.hidden=false;
 requestAnimationFrame(fitWelcome);
@@ -79,3 +80,7 @@ themeSwitch.addEventListener('click',()=>{
  themeSwitch.classList.add(isNight?'bounce-right':'bounce-left');
 });
 themeSwitch.addEventListener('animationend',()=>themeSwitch.classList.remove('bounce-left','bounce-right'));
+
+// [design-approved:contact-matcha] A layered iced matcha with a reusable straw replaces the note; preserve the existing link and caption.
+const contactArt=document.querySelector('#home .rail a[href="#contact"] .menu-object');
+if(contactArt)contactArt.innerHTML='<img class="contact-matcha" src="assets/contact-matcha.svg?v=clear-ice-2" alt="" aria-hidden="true">';

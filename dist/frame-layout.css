@@ -29,12 +29,12 @@ body[data-page=home] .masthead{padding:8px 4%;min-height:60px!important;height:a
 #home .headline-bottom.vine-heading{position:relative;isolation:isolate;overflow:visible;margin-block:16px 12px!important}
 .connection-vine{position:absolute;inset:-5px -8px;width:calc(100% + 16px);height:calc(100% + 10px);overflow:visible;pointer-events:none;z-index:-1}
 .vine-reveal{stroke-dasharray:1;stroke-dashoffset:1;animation:grow-vine 4s .5s ease-in-out forwards}
-.final-sprout{opacity:0;transform-origin:690px 28px;animation:sprout-grow .8s 4.4s ease-out forwards}
-.connection-heart{opacity:0;transform-box:view-box;transform-origin:696px -10px;animation:heart-bloom .9s 5.2s cubic-bezier(.2,.8,.2,1) forwards}
+.final-sprout{opacity:0;transform-origin:682px 34px;animation:sprout-grow .8s 4.4s ease-out forwards}
+.connection-heart{opacity:0;transform-box:view-box;transform-origin:690px 3px;animation:heart-bloom .9s 5.2s cubic-bezier(.2,.8,.2,1) forwards}
 @keyframes heart-bloom{from{opacity:0;transform:scale(.05)}to{opacity:1;transform:scale(1)}}
 @keyframes grow-vine{to{stroke-dashoffset:0}}
 @keyframes sprout-grow{from{opacity:0;transform:scale(.05)}to{opacity:1;transform:scale(1)}}
-@media(max-width:600px){.landing-navigation{display:none}body[data-page=home] .masthead{height:auto!important;min-height:52px!important;padding:10px 16px}.afterglow #home{padding:4px 12px;--frame-gap:calc(var(--fit-scene-width,760px)*.06);grid-template-rows:repeat(2,auto)}#home .headline-top,#home .headline-bottom{font-size:clamp(1.5625rem,6.8vw,2.125rem)!important}#home .scene-slot{margin:0 auto!important}#home .hero-copy>p{max-width:100%;font-size:1rem!important}.hero-bottom .local-time{gap:10px}.hero-bottom .city-select{width:240px;min-width:0;max-width:100%}.clock{font-size:1rem!important;letter-spacing:0}#home .rail.balanced-menu .menu-label{font-size:1rem!important}.shelf-annotation{font-size:1.125rem}}
+@media(max-width:600px){.landing-navigation{display:grid}body[data-page=home] .masthead{height:auto!important;min-height:52px!important;padding:10px 16px}.afterglow #home{padding:4px 12px;--frame-gap:calc(var(--fit-scene-width,760px)*.06);grid-template-rows:repeat(3,auto)}#home .headline-top,#home .headline-bottom{font-size:clamp(1.5625rem,6.8vw,2.125rem)!important}#home .scene-slot{margin:0 auto!important}#home .hero-copy>p{max-width:100%;font-size:1rem!important}.hero-bottom .local-time{gap:10px}.hero-bottom .city-select{width:240px;min-width:0;max-width:100%}.clock{font-size:1rem!important;letter-spacing:0}#home .rail.balanced-menu .menu-label{font-size:1rem!important}.shelf-annotation{font-size:1.125rem}}
 @media(prefers-reduced-motion:reduce){.vine-reveal{animation:none;stroke-dashoffset:0}.final-sprout,.connection-heart{animation:none;opacity:1}}
 
 #home .rail.balanced-menu a>.menu-label:after{bottom:0;left:4%;right:4%}
@@ -70,3 +70,13 @@ body{--wide-scale:1}
 @media(min-width:1800px) and (min-height:900px){body[data-page=home]{--wide-scale:1.25;zoom:var(--wide-scale)}}
 .local-time .city-select,.mobile-menu-settings .city-select{height:44px;min-height:44px;line-height:22px;box-sizing:border-box}
 .local-time .ambient-toggle,.mobile-menu-settings .ambient-toggle{height:44px;min-height:44px;box-sizing:border-box;border:1px solid #959da180}
+
+/* [design-approved:playful-heart] A larger heart catches a light breeze and yields gently to nearby pointers. */
+.heart-petal{transform-box:view-box;transform-origin:696px -16px;transform:scale(1.95)}
+.heart-wind,.heart-push{transform-box:view-box;transform-origin:690px 3px}
+.heart-wind{animation:heart-breeze 2.8s 5.2s ease-in-out infinite}
+.heart-push{transform:rotate(var(--heart-tilt,0deg));transition:transform .6s cubic-bezier(.22,1.4,.35,1)}
+@keyframes heart-breeze{0%,100%{transform:rotate(-14deg)}30%{transform:rotate(18deg)}65%{transform:rotate(-8deg)}82%{transform:rotate(7deg)}}
+@media(prefers-reduced-motion:reduce){.heart-wind{animation:none}.heart-push{transform:none;transition:none}}
+
+/* [design-approved:rooted-heart] Both motion layers pivot at the stem base (690,3); no translations can detach it from the sprout. */

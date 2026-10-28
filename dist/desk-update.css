@@ -127,3 +127,12 @@
 .tonearm-model{display:block;width:100%;height:100%;overflow:visible}
 .tonearm-mount{position:absolute;left:75.4%;top:18.6%;width:7.2%;aspect-ratio:1;border-radius:50%;background:radial-gradient(circle at 40% 32%,#c9cfca 0 26%,#344347 29% 44%,#9eaaa7 47% 61%,#576663 66% 76%,#d0d7cd 80%);box-shadow:0 2px 0 #657571,0 4px 0 #3c4a46,2px 7px 4px #27352b55;transform:translateZ(2px)}
 .tonearm-rest{position:absolute;left:78%;top:55%;width:3.2%;height:3%;border-radius:3px;background:linear-gradient(#b2beb6,#30433d);box-shadow:0 3px 0 #40534a,2px 5px 3px #27352b55;transform:translateZ(3px)}
+
+/* [design-approved:contact-matcha] Shared vector scales with the menu artwork box. */
+.menu-object .contact-matcha{position:absolute;display:block;width:150%;height:150%;max-width:none;left:-25%;bottom:-12%;object-fit:contain;transform:rotate(4deg);transform-origin:50% 90%;filter:none}
+/* [design-approved:playful-matcha] Cup body matches neighboring artwork; the straw rises above it. */
+@media(hover:hover) and (prefers-reduced-motion:no-preference){
+ #home .rail a[href="#contact"]:hover .contact-matcha,#home .rail a[href="#contact"]:focus-visible .contact-matcha{animation:matcha-wobble .8s ease-in-out infinite}
+}
+@keyframes matcha-wobble{0%,100%{transform:rotate(4deg)}30%{transform:rotate(-5deg)}65%{transform:rotate(7deg)}}
+@media(prefers-reduced-motion:reduce){.menu-object .contact-matcha{animation:none!important}}

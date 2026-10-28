@@ -21,6 +21,31 @@ requestAnimationFrame(placeTrackHints);
 // Decorative linework grows from left to right; its final sprout meets the last n.
 const vineHost=document.querySelector('.headline-bottom');vineHost.classList.add('vine-heading');
 const vine=document.createElementNS('http://www.w3.org/2000/svg','svg');vine.classList.add('connection-vine');vine.setAttribute('viewBox','0 0 700 90');vine.setAttribute('preserveAspectRatio','none');vine.setAttribute('aria-hidden','true');vine.innerHTML='<defs><linearGradient id="leaf-green"><stop stop-color="#9ab451"/><stop offset="1" stop-color="#3d6e39"/></linearGradient><mask id="vine-reveal" maskUnits="userSpaceOnUse" x="-30" y="-50" width="770" height="200"><path class="vine-reveal" d="M0 45H710" stroke="white" stroke-width="200" pathLength="1"/></mask></defs><g mask="url(#vine-reveal)"><path d="M2 66 C30 -16 65 -16 90 49 S150 115 180 49 S240 -16 270 49 S330 115 360 49 S420 -16 450 49 S510 115 540 49 S600 -16 630 34 Q655 22 682 34" fill="none" stroke="#567c45" stroke-width="2.3"/><g fill="url(#leaf-green)"><path d="M45 5q-16-19-22-8 5 14 22 8M135 92q15-22 22-11-5 14-22 11M225 0q-16-19-22-8 5 14 22 8M315 98q15-22 22-11-5 14-22 11M405 0q-16-19-22-8 5 14 22 8M495 98q15-22 22-11-5 14-22 11M585 0q-16-19-22-8 5 14 22 8"/></g></g><g class="final-sprout"><path d="M682 34Q683 18 690 3" fill="none" stroke="#527d35" stroke-width="2"/><path d="M690 10Q670 1 679-10Q693-4 690 10M690 4Q691-14 705-13Q706 1 690 4" fill="url(#leaf-green)"/><g class="connection-heart"><path d="M690 3 Q695 -4 696 -16" fill="none" stroke="#527d35" stroke-width="2"/><path d="M696 -16 C690 -23 680 -27 683 -35 C686 -42 693 -40 696 -34 C700 -42 709 -40 711 -34 C714 -26 703 -20 696 -16Z" fill="#bf4d3c" stroke="#a84536" stroke-width="1"/></g></g>';vineHost.prepend(vine);
+// [design-approved:playful-heart] Layer bloom, wind and pointer response so motion never shifts the headline layout.
+const heart=vine.querySelector('.connection-heart');
+const wind=document.createElementNS('http://www.w3.org/2000/svg','g');wind.classList.add('heart-wind');
+const push=document.createElementNS('http://www.w3.org/2000/svg','g');push.classList.add('heart-push');
+while(heart.firstChild)push.append(heart.firstChild);
+wind.append(push);heart.append(wind);
+push.lastElementChild.classList.add('heart-petal');
+const calmHeart=matchMedia('(prefers-reduced-motion:reduce)');
+let heartFrame=0;
+function settleHeart(){push.style.setProperty('--heart-tilt','0deg');}
+document.addEventListener('pointermove',event=>{
+ if(event.pointerType==='touch'||calmHeart.matches)return;
+ cancelAnimationFrame(heartFrame);
+ heartFrame=requestAnimationFrame(()=>{
+  if(document.body.dataset.page!=='home')return;
+  const r=heart.getBoundingClientRect(),matrix=vine.getScreenCTM();if(!r.width||!matrix)return;
+  const dx=event.clientX-(r.left+r.width/2),dy=event.clientY-(r.top+r.height/2),distance=Math.hypot(dx,dy);
+  if(distance>90){settleHeart();return;}
+  const strength=1-distance/90;
+  push.style.setProperty('--heart-tilt',`${-Math.sign(dx||1)*28*strength}deg`);
+ });
+},{passive:true});
+document.documentElement.addEventListener('pointerleave',settleHeart);
+calmHeart.addEventListener('change',settleHeart);
+
 
 // Fit artwork into measured remaining space; the wide-desktop composition scales text and controls together.
 // The minimum scene width is derived from 44px sleeve targets (18.9% of scene).
@@ -33,7 +58,8 @@ function fitHomeFrame(){
  const height=el=>(el?.getBoundingClientRect().height||0)/uiScale;
  const n=v=>parseFloat(v)||0;
  const mobile=matchMedia('(max-width:600px)').matches;
- const gapCount=mobile?1:2;
+ // [design-approved:mobile-island] Three landing groups keep two equal 6%-of-scene gaps on phones too.
+ const gapCount=2;
  const fixed=height(document.querySelector('.masthead'))+height(homeFrame.querySelector('.hero-copy'))
    +height(landingNavigation)
    +n(frameStyle.paddingTop)+n(frameStyle.paddingBottom)+n(getComputedStyle(sceneSlot).paddingBottom);

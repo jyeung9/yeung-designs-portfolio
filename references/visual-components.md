@@ -1,3 +1,11 @@
+## Approved emotional-design release — October 28, 2026
+
+Julie's supplied approval references preserve the mobile bottom island, matcha contact artwork, larger attached heart and paired settings. Theme colors respond to the selected time/location; these screenshots are not a new fixed palette. See [the release contract](../design-system.md).
+
+![Approved mobile composition](emotional-design-approved-mobile.png)
+
+![Approved settings alignment](utility-settings-approved.png)
+
 ## Living visual reference — October 28, 2026
 
 The consolidated guide at `/design-system/` combines words and live component visuals, accessible through B-Side. Selecting a component focuses its actual visual; Full page restores context. Six viewport presets expose real responsive measurements rather than screenshot estimates. Short summaries and expandable specifications preserve detail without putting every rule on screen at once.
