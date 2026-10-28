@@ -8,7 +8,7 @@ const trackStatus=document.createElement('span');trackStatus.className='audio-st
 const trackControls=document.createElement('div');trackControls.className='track-controls';trackControls.innerHTML='<button type="button" data-step="-1">previous track</button><button type="button" data-step="1">next track</button>';cabinetScene.append(trackControls);
 let changingRecord=false,leftQueue=tracks.map((_,i)=>i),rightQueue=[],queueSource=-1,queueEpoch=0;
 const delay=ms=>new Promise(resolve=>setTimeout(resolve,ms));
-function selectLocalTrack(index){trackIndex=index;localAudio.src=tracks[index].src;trackStatus.textContent=tracks[index].title+(tracks[index].artist?' · '+tracks[index].artist:'');disc.querySelector('.live-label').textContent=tracks[index].title;nowPlaying.querySelector('strong').textContent=tracks[index].title;nowPlaying.classList.toggle('long-title',tracks[index].title.length>12);}
+function selectLocalTrack(index){trackIndex=index;localAudio.src=tracks[index].src;trackStatus.textContent=tracks[index].title+(tracks[index].artist?' · '+tracks[index].artist:'');disc.querySelector('.live-label').textContent=tracks[index].title;setLEDTitle(tracks[index].title);}
 function renderQueue(){
  carrier.style.visibility=trackIndex<0?'hidden':'visible';
  for(const [side,list] of [[-1,leftQueue],[1,rightQueue]]){const button=trackControls.querySelector(`[data-step="${side}"]`);button.hidden=!list.length;button.disabled=changingRecord;button.setAttribute('aria-label',`load from ${side<0?'left':'right'} stack, ${list.length} songs`);button.querySelectorAll('.queue-layer').forEach(el=>el.remove());list.slice(1).forEach((_,i)=>{const layer=document.createElement('span');layer.className='edge-disc-face queue-layer';layer.style.translate=`${(i+1)*1.3}px ${-(i+1)*2}px`;layer.style.zIndex=String(-i-1);layer.setAttribute('aria-hidden','true');button.prepend(layer)});button.querySelector('.edge-disc-label').textContent=`${list.length} songs · load from ${side<0?'left':'right'}`;}
@@ -76,7 +76,18 @@ shelf.querySelectorAll('[data-record]').forEach((link,i)=>{
  link.href=cabinetProjects[i].card.href;
 });
 
-function resetQueue(){queueEpoch++;localAudio.pause();carrier.getAnimations().forEach(a=>a.cancel());changingRecord=false;trackIndex=-1;leftQueue=tracks.map((_,i)=>i);rightQueue=[];queueSource=-1;musicButton.classList.remove('changing-record');musicState(false);nowPlaying.querySelector('strong').textContent='ready';nowPlaying.classList.remove('long-title');renderQueue()}
+function resetQueue(){queueEpoch++;localAudio.pause();carrier.getAnimations().forEach(a=>a.cancel());changingRecord=false;trackIndex=-1;leftQueue=tracks.map((_,i)=>i);rightQueue=[];queueSource=-1;musicButton.classList.remove('changing-record');musicState(false);setLEDTitle('ready');renderQueue()}
 resetQueue();
 addEventListener('hashchange',()=>{if(!location.hash||location.hash==='#home')resetQueue()});
 trackControls.querySelectorAll('.edge-disc-arrow').forEach(el=>{el.innerHTML='<svg viewBox="0 0 60 24" aria-hidden="true"><path d="M54 5 Q35 23 8 13 M8 13 L17 7 M8 13 L15 20"/></svg>'});
+
+function setLEDTitle(title){
+ const field=nowPlaying.querySelector('strong');field.replaceChildren();const ribbon=document.createElement('span');ribbon.className='led-ribbon';
+ for(let i=0;i<2;i++){const copy=document.createElement('span');copy.textContent=title;if(i)copy.setAttribute('aria-hidden','true');ribbon.append(copy)}field.append(ribbon);field.setAttribute('aria-label',title);
+ requestAnimationFrame(()=>{const overflow=ribbon.firstElementChild.getBoundingClientRect().width>field.clientWidth;nowPlaying.classList.toggle('scroll-title',overflow);ribbon.style.animationDuration=Math.max(12,title.length*.5)+'s'});
+}
+function syncLED(){const playing=!localAudio.paused&&!localAudio.ended;nowPlaying.classList.toggle('led-playing',playing);nowPlaying.firstElementChild.innerHTML=`${playing?'NOW PLAYING':trackIndex>=0?'PAUSED':'READY'} <i aria-hidden="true">${playing?'▶':trackIndex>=0?'Ⅱ':'▷'}</i>`;}
+['playing','pause','ended','error'].forEach(event=>localAudio.addEventListener(event,syncLED));
+setLEDTitle(trackIndex>=0?tracks[trackIndex].title:'ready');syncLED();
+addEventListener('hashchange',syncLED);
+addEventListener('resize',()=>setLEDTitle(trackIndex>=0?tracks[trackIndex].title:'ready'));

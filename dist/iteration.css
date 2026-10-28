@@ -185,3 +185,30 @@
 .jacket-art.purple{--jacket:#8575a8;--light:#bfadd8;--dark:#494162}.jacket-art.purple .jacket-orbit{filter:none}
 #home .hero-copy:has(.cabinet-record:is(:hover,:focus-visible,.cover-preview)){position:relative;z-index:200}
 @media(max-width:600px){.now-playing-led{bottom:-38%;right:-15%;min-height:54px}.cabinet-scene .shared-table{height:68%}#home .scene-slot{margin-bottom:64px!important}}
+/* Playback status and a seamless, measured title loop. */
+.now-playing-led>span{display:flex;align-items:center;justify-content:space-between;gap:8px;font-size:16px!important;font-weight:400!important;letter-spacing:-.7px!important}
+.now-playing-led>span i{font:normal 16px/1 sans-serif;color:#b8efb4}
+.now-playing-led.led-playing>span{animation:led-status-breathe 3.2s ease-in-out infinite}
+@keyframes led-status-breathe{0%,100%{opacity:1}50%{opacity:.4}}
+.now-playing-led strong,.now-playing-led.long-title strong{width:100%;max-width:100%;animation:none!important;overflow:hidden;font-size:20px!important;background:none;color:#9df4a3;filter:none;text-overflow:clip}
+.now-playing-led .led-ribbon{display:flex;width:max-content;max-width:none;white-space:nowrap;font:inherit!important;letter-spacing:0!important;opacity:1;overflow:visible;gap:0}
+.now-playing-led .led-ribbon>span{flex:none;display:block;font:inherit!important;letter-spacing:0!important;color:transparent;background:radial-gradient(circle,#a3ffac 0 55%,#62a46a 60%,transparent 68%) 0 0/1.5px 1.5px;background-clip:text;-webkit-background-clip:text}
+.now-playing-led:not(.scroll-title) .led-ribbon>span+span{display:none}
+.now-playing-led.scroll-title .led-ribbon>span{padding-right:32px}
+.now-playing-led.scroll-title .led-ribbon{animation:led-continuous linear infinite}
+@keyframes led-continuous{to{transform:translateX(-50%)}}
+/* Give the shelf vinyl a full beat before fading up its larger sleeve. */
+.expanded-cover{opacity:0;visibility:hidden;transform:scale(.96);transition:opacity .35s ease,transform .45s ease,visibility 0s .35s;overflow:visible;isolation:isolate;aspect-ratio:auto;min-height:520px;gap:14px}
+.cabinet-record:is(:hover,:focus-visible,.cover-preview) .expanded-cover{transition-delay:1.1s,1.1s,1.1s;transform:scale(1);opacity:1;visibility:visible}
+.cabinet-record:is(:hover,:focus-visible,.cover-preview)>.sleeve-vinyl{animation:vinyl-invitation 2.8s ease-in-out infinite;transform:translateX(30%)}
+.expanded-cover:before{content:'';position:absolute;inset:0;background:#f3e7c8;border-radius:inherit;z-index:0;pointer-events:none}
+.expanded-cover>.cover-heading,.expanded-cover>.cover-artwork,.expanded-cover>.cover-chips,.expanded-cover>.cover-cta{position:relative;z-index:2}
+.cover-artwork{width:52%;margin:0 auto;align-self:center}
+.cover-artwork>.jacket-art{background:transparent!important;border-radius:0!important;box-shadow:none!important}
+.expanded-cover>.cover-peek-disc{position:absolute;inset:auto;right:-9%;top:20%;width:68%;aspect-ratio:1;z-index:-1;animation:expanded-disc-peek 3s ease-in-out infinite;box-shadow:3px 5px 8px #0005}
+@keyframes expanded-disc-peek{0%,100%{transform:translateX(0) rotate(-4deg)}50%{transform:translateX(5%) rotate(7deg)}}
+.cover-cta{align-self:flex-end;font:500 22px/1.25 var(--hover-hand);padding:8px 4px 12px;border-bottom:2px solid #526a51;border-radius:0 0 40% 30%;color:#253c32}
+@media(max-width:600px){.expanded-cover{width:calc(100vw - 64px);min-height:0;padding:18px;gap:12px}.cover-artwork{width:45%}.cover-heading strong{font-size:24px!important}.cover-heading>span{font-size:20px!important}.cover-chips{gap:5px}.cover-chips>span{padding:4px 6px}}
+@media(max-height:600px){.expanded-cover{min-height:0;overflow:auto}.cover-artwork{width:28%}}
+@media(prefers-reduced-motion:reduce){.expanded-cover,.cabinet-record:is(:hover,:focus-visible,.cover-preview) .expanded-cover{transition:none;transform:none}.expanded-cover>.cover-peek-disc,.now-playing-led.led-playing>span,.now-playing-led.scroll-title .led-ribbon,.cabinet-record>.sleeve-vinyl{animation:none!important}.now-playing-led.scroll-title .led-ribbon{width:100%;white-space:normal}.now-playing-led.scroll-title .led-ribbon>span{white-space:normal;padding:0}.now-playing-led.scroll-title .led-ribbon>span+span{display:none}}
+.cover-artwork>.jacket-art:after{background:none!important;box-shadow:none!important}
