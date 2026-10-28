@@ -1,3 +1,27 @@
+## Single proportional record scene — October 28, 2026
+
+This is the current sizing contract. It supersedes the measured-offset centering and older fixed-height rules below. `responsive-scene.css` owns artwork geometry; `frame-layout.css` owns page rows and spacing; `frame-layout.js` only assembles the structure. Do not add device-specific object coordinates or height-driven shrink routines.
+
+| Element | Proportional sizing / placement | Independent readability / interaction rule |
+| --- | --- | --- |
+| Overall scene | Width min(760px, available content width); 2:1 aspect ratio at every viewport | Height shortage creates page scrolling, never a smaller ratio or hidden overflow |
+| Tabletop | Same 100% width and height as the scene; shallow trapezoid with 3% top-edge inset | Center is the scene center; no measured or arbitrary vertical translation |
+| Player | 52% of scene width, 3:2 bounds, center at 50% / 50% | Actual hit area shares those exact coordinates; at least 44×44px |
+| Platter, tonearm and deck details | Existing local percentages inside the player; move and scale as one unit | Playback, queued transfer and pause state remain authoritative |
+| Side records | 22% of scene width, square; left/right inset 2%, center y=50% | At least 44×44px; actual queue count and track color are preserved |
+| Shelf | 90% of the shared scene width | Separate normal-flow row after role; annotation occupies its own row |
+| Sleeve | 21% of shelf width = 18.9% of scene width, square | At least 44×44px; no first-tap interception |
+| Sleeve artwork | Circular art 80% of its artwork square; center label remains part of the same artwork | Preserve aspect ratio; no object-fit cropping |
+| LED | Approved recessed housing, width min(available, max(228px, 14.25rem)); height grows with text | Separate row below tabletop: 1rem status, 1.25rem song title, minimum 3.375rem housing height. Explicit tradeoff: this row is not proportionally shrunk with artwork |
+| Expanded card | Width min(540px, 80vw); bounded by available dialog height | Normal-flow title, impact, artwork, chips and action. Card scrolls vertically, controls remain outside it |
+| Expanded artwork | Square width min(100%, 280px), circular art at 80% | Maintains aspect ratio and scrolls with the card instead of being clipped by an overlap |
+| Mobile chips | Horizontal flex-wrap directly below impact; 0.4rem gaps, compact 0.2rem padding | Text stays 1rem minimum. More rows at narrow widths / 200% text are intentional |
+| Main headline / role | Existing DM Sans hierarchy: headline 1.75–3rem desktop / 1.5625–2.125rem phone; role 1rem | Text wraps with enlargement, independent of artwork size |
+| Navigation objects | Existing 48px artwork; own normal-flow section | Controls at least 44px; phone navigation folds into hamburger |
+| Section spacing | 1rem gaps / 1.75rem scene clearance; phone 0.75rem / 1.5rem | Content determines row height. No offsets used to repair overlap |
+
+Validation and captures: [responsive comparison gallery](references/shared-scene-qa/index.html). Tested 320×568, 390×844, 768×1024, 1440×900 and 844×390, both themes and empty/playing/expanded states; 200% text on phone. A 72-step width sweep (320–1440px and back) and 22-step height sweep (1024–352px) retained a 2:1 scene and centered player. Normal minimum sleeve target measured about 51px. Some pages require vertical scrolling, particularly short landscape and enlarged text. This is the documented tradeoff, not a claim that every screen can contain all content at once.
+
 ## Current centering and constrained-height rule — October 28, 2026
 
 - Layout ownership is in frame-layout.css/js. Headline and role occupy the first row; the shelf gets its actual sleeve height; the visible player/table/LED assembly is centered in the row between shelf and navigation. Shared spacing values: frame gap 16px desktop / 12px phone, minimum scene clearance 28px / 24px.
