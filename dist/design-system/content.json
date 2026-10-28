@@ -7,7 +7,7 @@
     [
       [
         "Current portfolio",
-        "Approved navigation and legibility release · October 28, 2026. Balanced scroll weight, readable night-menu labels and centered city names. Collection chips wrap at 16px; headings share DM Sans with DM Mono supporting text. Record grids gather on exit and unfold on entry, with reduced-motion support."
+        "Approved corner-settings release · October 28, 2026. Full-size navigation island sits one grid tile lower. Desktop timezone and theme controls stay at bottom right across sections; dropdown and header links share 20 CSS px type (25px on the wide home layout). Dropdown and toggle share a 52px height. Previous/next buttons are removed; section links and full-frame scrolling remain. Earlier navigation, typography and chip-containment improvements are retained."
       ],
       [
         "Explore visually",

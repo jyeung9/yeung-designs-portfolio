@@ -24,3 +24,8 @@
 for(const id of ['about','contact']){const old=document.querySelector('#'+id+' h2');if(old){const title=document.createElement('h1');title.innerHTML=id==='contact'?'say hi':old.innerHTML;old.replaceWith(title)}}
 document.querySelector('#work h1').textContent='a-side';
 for(const [href,label] of [['#work','a-side'],['#explorations','b-side']]){const link=document.querySelector('.section-menu a[href="'+href+'"]');if(link)link.textContent=label;}
+
+// [design-approved:corner-utilities] Desktop utilities persist between routes without occupying the navigation island.
+(()=>{const footer=document.querySelector('.hero-bottom');const original=document.createComment('desktop utilities return point');footer.before(original);footer.classList.add('corner-utilities');
+function place(){if(innerWidth>900)document.body.append(footer);else if(innerWidth>600)original.after(footer)}
+addEventListener('resize',()=>requestAnimationFrame(place));place();})();

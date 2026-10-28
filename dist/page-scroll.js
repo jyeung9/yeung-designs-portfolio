@@ -38,11 +38,7 @@
   total+=delta;if(Math.abs(total)>=42){advance(Math.sign(total));readyAt=now+300;total=0}
  },{passive:false});
  addEventListener('keydown',e=>{if(!enabled(e.target)||e.altKey||e.ctrlKey||e.metaKey)return;const direction=e.key==='PageDown'?1:e.key==='PageUp'?-1:0;if(direction&&advance(direction))e.preventDefault()});
- // [design-approved:section-pager] Explicit back/next destinations complement scrolling on every page.
- const pager=document.createElement('nav');pager.className='section-pager';pager.setAttribute('aria-label','Previous and next page');
- document.querySelector('main').append(pager);
- function updatePager(){const index=order.indexOf(document.body.dataset.page);pager.replaceChildren();for(const direction of [-1,1]){const next=order[index+direction];const button=document.createElement('button');button.type='button';button.disabled=!next;button.textContent=direction<0?'← previous':'next →';button.setAttribute('aria-label',next?`${direction<0?'Previous':'Next'} page: ${{home:'home',work:'A-side',explorations:'B-side',about:'about',contact:'contact'}[next]}`:direction<0?'First page':'Last page');button.onclick=()=>move(direction);pager.append(button)}}
- addEventListener('hashchange',updatePager);updatePager();
+ // [design-approved:no-pager] Section links and scroll gestures replace previous/next controls.
  let touchStart=null;
  addEventListener('touchstart',e=>{touchStart=e.touches.length===1&&enabled(e.target)?{x:e.touches[0].clientX,y:e.touches[0].clientY}:null},{passive:true});
  addEventListener('touchmove',e=>{if(touchStart&&Math.abs(e.touches[0].clientY-touchStart.y)>Math.abs(e.touches[0].clientX-touchStart.x))e.preventDefault()},{passive:false});

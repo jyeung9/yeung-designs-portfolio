@@ -1,3 +1,9 @@
+## Approved corner settings and restored menu — October 28, 2026
+
+Full-size island, one grid tile lower; persistent desktop corner settings with dropdown text matching the header links. This supersedes the rejected half-size menu preview.
+
+![Approved menu and settings](../.local-previews/restored-menu-settings-preview.png)
+
 ## Approved navigation and legibility release — October 28, 2026
 
 ![Night menu labels and centered city](../.local-previews/night-menu-preview.png)

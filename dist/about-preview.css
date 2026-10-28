@@ -126,3 +126,24 @@ body[data-page=home] .section-pager{max-width:560px}
 body.nighttime #home .rail.balanced-menu a,body.nighttime #home .rail.balanced-menu .menu-label{color:#f1f3f7!important;-webkit-text-fill-color:#f1f3f7!important}
 .city-select{text-align:center!important;text-align-last:center!important;padding-left:44px!important;padding-right:44px!important}
 .city-select option{text-align:left}
+/* [design-approved:restored-island] Restore approved menu sizing; keep the requested one-grid-square lower placement. */
+#home .rail.balanced-menu{translate:0 32px}
+#home .landing-navigation{padding-bottom:32px}
+/* [design-approved:corner-settings-type] Pair desktop settings in the corner and use the same text size as header links, without shrinking text through transforms. */
+@media(min-width:901px){
+ body>.corner-utilities{display:flex!important;position:fixed;inset:auto 24px 24px auto!important;z-index:85;width:max-content;max-width:calc(100vw - 48px);margin:0!important;min-height:44px;transform:none}
+ body>.corner-utilities .local-time{flex-wrap:nowrap;gap:12px}
+ body>.corner-utilities .city-select{width:240px;min-width:220px;height:44px;font-size:16px}
+ body>.corner-utilities .ambient-toggle{margin:0!important}
+}
+@media(min-width:1800px) and (min-height:900px){body[data-page=home]>.corner-utilities{right:calc(24px / 1.25)!important;bottom:calc(24px / 1.25)!important;transform:none;transform-origin:bottom right}}
+@media(min-width:901px){body>.hero-bottom.corner-utilities{position:fixed!important;width:max-content!important;justify-content:flex-end!important;height:auto!important;min-height:44px!important;padding:0!important;left:auto!important;top:auto!important}}
+@media(min-width:901px){
+ body{--utility-menu-font:20px}
+ body .masthead nav a,body>.corner-utilities .city-select{font-size:var(--utility-menu-font)!important}
+ body>.corner-utilities .city-select{width:300px;min-width:300px;max-width:100%;height:52px;min-height:52px!important;border-radius:999px!important;padding-block:10px!important;line-height:1.4}
+ body>.corner-utilities .ambient-toggle{height:52px;min-height:52px;width:80px;min-width:80px;border-radius:999px}
+ body>.corner-utilities .theme-knob{width:36px;height:36px;top:7px}
+ body>.corner-utilities .theme-sun,body>.corner-utilities .theme-moon{top:13px}
+ body>.corner-utilities .ambient-toggle[aria-checked=true] .theme-knob{transform:translateX(35px)}
+}

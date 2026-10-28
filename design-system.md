@@ -1,3 +1,14 @@
+## Approved corner settings and restored menu — October 28, 2026
+
+Julie approved the restored menu size and matching dropdown/header typography for GitHub and public release. The half-size island experiment was rejected.
+
+- Preserve the full-size responsive navigation island; move it one background-grid tile lower (32 CSS px, 40 rendered px on the 1.25× wide home layout).
+- Remove previous/next page buttons; retain section navigation and full-frame scroll gestures.
+- Above 900px, keep timezone and appearance controls together at the viewport bottom-right with 24px rendered insets, including interior sections. Mobile settings retain their existing placement.
+- Desktop dropdown and header links share 20 CSS px text. At the wide home scale, both render at 25px (18.75pt). Dropdown: 300×52 CSS px; toggle: 80×52 CSS px. Preserve centered city text, balanced chevron padding, and matching control heights. The earlier 15% settings reduction is superseded.
+
+Verified local 1920×1080 preview, matching computed fonts, corner placement, restored 700px rendered island width, JavaScript syntax and whitespace. No claim of a full cross-browser audit.
+
 ## Approved navigation and legibility release — October 28, 2026
 
 Julie authorized GitHub and public publication with these notes:
