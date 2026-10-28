@@ -1,6 +1,6 @@
 /* Site minimum: never shrink text to fit a layout. Headings retain their larger scale. */
 body{font-size:16px}
-.masthead nav a,.status,.edition,.deck-signature,.headphone-music-prompt,
+.status,.edition,.deck-signature,.headphone-music-prompt,
 .pending-cover,.sleeves-prompt,.note-paper .written-hello,#headphone-hint,
 .finish-picker button,.text-link,.rail a,.rail a>span,.local-time,.local-time strong,
 .time-message,.ambient-toggle,.eyebrow,.project-tag,.project small,.skill-chips li,

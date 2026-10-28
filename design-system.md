@@ -1,3 +1,11 @@
+## Approved responsive typography — October 28, 2026, 3:27 AM
+
+Julie approved the responsive text scaling for publication. At 1920 CSS px wide: the logo is 56px, brand name 36px, header links 32px, greeting 32px and role line 32px. Sizes taper responsively: brand 18–36px (16px phone override), mark 28–56px, links/greeting/role 16–32px. The greeting window scales with its text (15em), and larger readable rows participate in the existing layout budget.
+
+Fixed text declarations below 16px in active site styles were raised to 16px; headings retain their larger scale. This is a text-only release. The proposed LED proportions/controls, table perspective and gallery styling remain local, pending approval; the earlier approved half-scale decorative LED remains on production until its replacement is approved.
+
+[Approved typography screenshot](references/responsive-type-approved.png): light theme, 1920×1080. Approval covers typography only; the unapproved player/gallery experiments visible in this local capture are not released by this decision.
+
 ## Approved proportional landing groups and front-edge LED — October 28, 2026
 
 Julie approved the spacing and LED preview at 2:55 AM and authorized documentation, GitHub and public publication. This contract supersedes earlier separate LED-row and fixed-gap descriptions below.

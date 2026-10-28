@@ -4,9 +4,9 @@ body[data-page=home] .masthead{padding:8px 4%;min-height:60px!important;height:a
 .afterglow #home{--frame-gap:calc(var(--fit-scene-width,760px)*.06);--scene-width:min(var(--fit-scene-width,760px),100%);--dock-art-size:clamp(72px,min(7vw,calc((100svh - 600px)*.35)),112px);min-height:calc(100svh - var(--header-height,60px))!important;height:auto;display:grid!important;grid-template-columns:minmax(0,1fr);grid-template-rows:repeat(4,auto);gap:var(--frame-gap);padding:.5rem 1.5rem;box-sizing:border-box;overflow:visible;justify-content:stretch;align-items:stretch;align-content:center}
 
 #home .hero-copy{display:flex!important;flex-direction:column;gap:.75rem;align-items:center;width:100%;max-width:none;grid-column:1;margin:0;padding:0!important}
-#home .greeting{margin:0 auto 4px;font-size:1rem;min-height:20px}
+#home .greeting{margin:0 auto 4px;font-size:clamp(16px,1.667vw,32px);line-height:1.4;min-height:1.4em;width:15em;max-width:90%}
 #home .headline-top,#home .headline-bottom{font-size:clamp(1.75rem,3.5vw,3rem)!important;line-height:1.08!important}
-#home .hero-copy>p{margin:4px 0 0!important;line-height:1.25;font-size:1rem!important}
+#home .hero-copy>p{margin:4px 0 0!important;line-height:1.25;font-size:clamp(16px,1.667vw,32px)!important}
 #home .scene-slot{margin:0 auto!important;align-self:stretch;display:grid;place-items:center;width:var(--scene-width)!important;max-width:100%;height:auto;position:relative;grid-column:1;grid-row:auto;padding:0}
 #home .connection-object{width:100%;height:auto;display:block}
 #home .cabinet-scene{margin:0 auto;max-width:100%}

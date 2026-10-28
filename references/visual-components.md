@@ -1,3 +1,9 @@
+## Approved responsive typography — October 28, 2026
+
+![Approved wide-screen text and header scaling, 1920×1080, light theme](responsive-type-approved.png)
+
+Julie approved the text scaling at 3:27 AM. Header mark/name, links, greeting and role use the responsive sizes in [the design contract](../design-system.md). This reference approves typography only: the local LED controls, table perspective and gallery experiments are outside this release.
+
 ## Approved landing rhythm and front-edge LED — October 28, 2026
 
 **Approved:** Julie reviewed the local preview and authorized publication at 2:55 AM. Preserve equal inter-group gaps of 6% of scene width and the half-size LED attached over the player’s front edge. See [the current sizing contract](../design-system.md).
