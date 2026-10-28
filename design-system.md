@@ -217,3 +217,6 @@ The laptop uses a dark graphite chassis, near-upright thin-bezel display, shallo
 - Avoid toy-like thick outlines, oversized sleeve edges and bright flat furniture fills. Use restrained wood tones, paper grain, thin board edges, recessed shelf shading and contact shadows. Keep physical objects independently animatable.
 - Cabinet keeps the same 2.1:1 scene aspect ratio at every breakpoint. Object dimensions, placement, edge thickness and shadows scale with the scene; no mobile-only stretching. Sleeve artwork is square with no flex shrinking and no competing max-height constraint.
 - Live labels remain at least 16px and wrap outside the artwork. Never distort an object to make its label fit. Headphones keep the SVG's original proportions. Verify 320px, 390px and desktop layouts.
+
+## floating shelf and larger player — October 27
+The latest composition supersedes the cabinet body: retain only the tabletop, double the player width from 34% to 68% of the scene, and place three square featured-record sleeves on a separate shelf above the player. The fixed scene ratio is now 1.6:1 at every viewport. Sleeve names appear only on hover or keyboard focus; touch users tap once to reveal the title and again to open the project. Labels stay above all other objects and never change sleeve geometry. Other fun stuff remains accessible through side quests.

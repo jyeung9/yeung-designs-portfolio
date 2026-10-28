@@ -36,3 +36,14 @@ const sketchPaths=[
 ];
 studies.insertAdjacentHTML('beforeend',sketchPaths.map(([cls,path])=>`<svg class="${cls}" viewBox="0 0 160 160"><g fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round">${path}</g></svg>`).join(''));
 requestAnimationFrame(fitWelcome);
+
+// A floating shelf contains only the three featured projects; extras stay in side quests.
+cabinetScene.querySelector('.cabinet-body').remove();
+shelf.querySelector('.extras-stack').remove();
+shelf.setAttribute('aria-label','featured case studies');
+let touchedSleeve=null;
+shelf.querySelectorAll('.cabinet-record').forEach(link=>{
+ link.addEventListener('pointerdown',event=>{if(event.pointerType==='touch' && touchedSleeve!==link){touchedSleeve=link;link.dataset.previewTap='true';shelf.querySelectorAll('.cabinet-record').forEach(other=>other.classList.toggle('touch-preview',other===link));}});
+ link.addEventListener('click',event=>{if(link.dataset.previewTap){event.preventDefault();event.stopImmediatePropagation();delete link.dataset.previewTap;}},true);
+});
+document.addEventListener('pointerdown',event=>{if(!shelf.contains(event.target)){touchedSleeve=null;shelf.querySelectorAll('.touch-preview').forEach(link=>link.classList.remove('touch-preview'));}});
