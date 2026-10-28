@@ -75,7 +75,7 @@ shelf.querySelectorAll('[data-record]').forEach((link,i)=>{
  link.href=cabinetProjects[i].card.href;
 });
 
-function resetQueue(){queueEpoch++;localAudio.pause();carrier.getAnimations().forEach(a=>a.cancel());changingRecord=false;trackIndex=-1;leftQueue=tracks.map((_,i)=>i);rightQueue=[];queueSource=-1;musicButton.classList.remove('changing-record');musicState(false);setLEDTitle('ready');renderQueue()}
+function resetQueue(){queueEpoch++;localAudio.pause();carrier.getAnimations().forEach(a=>a.cancel());changingRecord=false;trackIndex=-1;leftQueue=tracks.map((_,i)=>i);rightQueue=[];queueSource=-1;musicButton.classList.remove('changing-record');musicState(false);setLEDTitle('load record');renderQueue()}
 resetQueue();
 addEventListener('hashchange',()=>{if(!location.hash||location.hash==='#home')resetQueue()});
 trackControls.querySelectorAll('.edge-disc-arrow').forEach(el=>{el.innerHTML='<svg viewBox="0 0 60 24" aria-hidden="true"><path d="M54 5 Q35 23 8 13 M8 13 L17 7 M8 13 L15 20"/></svg>'});
@@ -87,9 +87,9 @@ function setLEDTitle(title){
 }
 function syncLED(){const playing=!localAudio.paused&&!localAudio.ended;nowPlaying.classList.toggle('led-playing',playing);nowPlaying.firstElementChild.innerHTML=`${playing?'NOW PLAYING':trackIndex>=0?'PAUSED':'READY'} <i aria-hidden="true" class="led-symbol ${playing||trackIndex<0?'symbol-play':'symbol-pause'}"></i>`;}
 ['playing','pause','ended','error'].forEach(event=>localAudio.addEventListener(event,syncLED));
-setLEDTitle(trackIndex>=0?tracks[trackIndex].title:'ready');syncLED();
+setLEDTitle(trackIndex>=0?tracks[trackIndex].title:'load record');syncLED();
 addEventListener('hashchange',syncLED);
-addEventListener('resize',()=>setLEDTitle(trackIndex>=0?tracks[trackIndex].title:'ready'));
+addEventListener('resize',()=>setLEDTitle(trackIndex>=0?tracks[trackIndex].title:'load record'));
 
 // Cursor-local hint belongs to the actual hit target, not the decorative deck.
 armControl.addEventListener('pointermove',event=>{if(event.pointerType==='touch')return;const r=armControl.getBoundingClientRect(),hint=armControl.querySelector('.edge-disc-label');hint.style.left=Math.max(0,Math.min(event.clientX-r.left+12,innerWidth-r.left-hint.offsetWidth-12))+'px';hint.style.top=(event.clientY-r.top+14)+'px';armControl.classList.add('cursor-hint')});

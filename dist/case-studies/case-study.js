@@ -1,0 +1,4 @@
+const sections=[...document.querySelectorAll('.story-section')],links=[...document.querySelectorAll('nav a')];
+let scheduled=false;
+function updateActive(){scheduled=false;const threshold=innerWidth<=800?document.querySelector('aside').getBoundingClientRect().bottom+50:innerHeight*.28;let active=sections[0];for(const section of sections)if(section.getBoundingClientRect().top<=threshold)active=section;if(innerHeight+scrollY>=document.documentElement.scrollHeight-4)active=sections.at(-1);for(const section of sections)section.classList.toggle('active',section===active);for(const link of links){const current=link.hash==='#'+active.id;if(current)link.setAttribute('aria-current','location');else link.removeAttribute('aria-current')}}
+addEventListener('scroll',()=>{if(!scheduled){scheduled=true;requestAnimationFrame(updateActive)}},{passive:true});addEventListener('resize',updateActive);addEventListener('hashchange',()=>requestAnimationFrame(updateActive));updateActive();

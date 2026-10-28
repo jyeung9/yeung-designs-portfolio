@@ -1,16 +1,42 @@
-## Brand mark and digital lettering — October 28, 2026
+## Visual evidence accompanies component rules — October 28, 2026
+
+Open the [visual component reference library](references/visual-components.md) before changing a component. It contains durable screenshots, the current logo asset, scoped preservation rules, known mobile regressions and explicit evidence gaps. Text alone is not a sufficient visual specification. Capture matching before/after views and motion frames for affected components; do not treat an implementation screenshot as user approval.
+
+## Current responsive frame and native case studies — October 28, 2026
+
+- Landing page fits the available viewport: reserve header, text and footer space, then size and center the whole scene. Scale complete graphics proportionally; never crop a graphic to conceal overflow. Text remains at least 16px and primary touch targets at least 44px. Extremely constrained accessibility/zoom views must remain reachable rather than silently clipped.
+- Mobile uses a top-right hamburger for home, collection, about, contact, LinkedIn and résumé. Hide the bottom dock and desktop social links on phone widths. The modal menu supports keyboard focus, Escape and direct first-tap actions.
+- The headline vine draws left to right behind the words, followed by a sprout at the final n. Reduced motion shows the completed drawing immediately.
+- Native case studies preserve portfolio typography, cream paper, restrained accent colors and rounded chips. Desktop has a persistent left section menu; mobile has a sticky horizontal section menu. The active menu item and section heading share the record’s accent color, with aria-current for accessibility.
+- Case studies scroll intentionally; the no-scroll requirement applies to the landing composition. Include only sections supported by source material, not fabricated research, tests, metrics or reflections. Store source provenance below. All shelf and collection entry points stay on this website.
+- Case-study sources: existing CAPI Notion page 2a55db5f5e7e80fca480cdc137fe6a0b and ConnectMyHealth page 649b8aee46924d63a12dc8f0aa4ecf7a, read October 28. Supplied local project images remain the visual evidence. Screenshot reference supplies structure only, not its branding, text or reported outcomes.
+
+## Current typography, LED and case-study browsing — October 28, 2026
+
+These decisions supersede the earlier pixel/dot typography and 1.1-second cover reveal.
+
+- **Approved LED housing:** retain the recessed dark green/black glass, subtle dot-grid surface, rounded 10px screen corners, thin muted metal rim, 6–8px internal padding and 54–64px height. Keep it as an independent scene element, clear of the platter. Do not redesign this physical component during typography changes.
+- **LED content:** always show the selected song title, including when paused; “load record” before loading, with READY status. Solid pale-green monospace text and matching solid green play/pause icons. Long song names wrap continuously via the existing horizontal marquee; no pixel masking on letters.
+- **Page typography:** restore solid text. Both headline lines use DM Sans 600 at the same size and line height, with coral emphasis retained for “meaningful connection.” Role stays solid DM Sans. Greeting scrolls slowly in a centered, fixed-width window, with a duplicated ribbon for seamless wrap; reduced motion stops it.
+- **Spacing:** allocate the viewport between header, headline, scene and controls; center the complete scene inside its remaining row. Keep the role in normal flow. Shelf annotation is handwritten “case studies” with a curved hand-drawn arrow. Do not position sleeves on top of the role.
+- **Track affordances:** black track arrows and their labels appear only on hover or keyboard focus. Touch activation still works immediately with accessible names.
+- **Expanded records:** wait at least 2 seconds of sustained mouse hover before opening. First click/tap opens the browsable record gallery immediately; this is an action, not a consumed preview tap. Show neighboring records where available. Support horizontal scrolling/swiping, previous/next controls, keyboard arrows and Escape/close.
+- **Case-study cards:** prefix titles with “Case Study:”. Impact statement uses solid DM Sans, regular weight, 18px (16px on small screens), no handwriting, shadow, halo or box. Keep chips wrapped inside the frame.
+- **Navigation:** clicking an expanded card scales it up slightly and fades it out over 420ms before navigating to its case-study page. Reduced motion navigates directly. All four records open native pages under case-studies/. CAPI and ConnectMyHealth use content from the existing Notion write-ups. Titanic’s End remains a documented overview; Portfolio Refresh describes the ongoing build without invented outcomes.
+
+## Historical brand mark and digital lettering (pixel treatment superseded) — October 28, 2026
 - Favicon uses the header’s circular “y.” identity with fine concentric record rings, replacing the unrelated square “j.” tile.
 - Digital greeting, role, clock and LED titles share a 2.4px dot pitch with clear gaps between dots. LED icons use the same treatment at 3.5px pitch. Preserve minimum type sizes and inspect both themes; do not blur the dots with text shadows.
 
 ## Current interaction contract — October 28, 2026
 
-This section is the current source of truth. Check it before implementation and during preview. Historical notes below do not override it. Product goals remain in product-intent.md.
+The current decisions above override historical rows below. Check the latest contract before implementation and during preview. Product goals remain in product-intent.md.
 
 | Component | Required behavior / preview check |
 | --- | --- |
 | Player and loaded record | One click/tap anywhere on the deck loads and plays when empty, pauses when playing, and resumes when paused. Keyboard Enter/Space does the same. No first-tap interception for music. No autoplay. |
 | Side stacks | One click/tap changes track with the existing physical transfer animation. Only “previous track” / “next track” appears beneath the curved arrow on hover/focus. |
-| Shelf sleeves | Vinyl slips out first, then details expand after 1.1 seconds. Touch previews the sleeve before navigation. |
+| Shelf sleeves | Details expand after 2 seconds of sustained mouse hover. First tap opens the gallery; tapping the expanded card opens the native case study. |
 | Expanded sleeve | Same saturated circular artwork as the small sleeve: circle diameter 80% of square. Rounded jacket, separate vinyl visibly sliding and rocking at right. Title/impact above, three chip-category groups below, all text at least 16px. |
 | View Record | Handwritten accent-colored link with the same fine squiggly underline as header links; no button border. |
 | Timezone | Clock hidden until opt-in; no explanatory fallback paragraph. Denial leaves the selector available. Time-based lighting starts only after selection. |

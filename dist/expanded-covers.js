@@ -17,7 +17,7 @@ document.addEventListener('pointerdown',event=>{if(!shelf.contains(event.target)
 document.addEventListener('keydown',event=>{if(event.key==='Escape'){shelf.querySelectorAll('.cover-preview').forEach(el=>el.classList.remove('cover-preview'));document.activeElement?.blur()}});
 // Give the previously unclassified browse label the same treatment as the other two.
 document.querySelectorAll('#home .balanced-menu>a').forEach(link=>link.lastElementChild.classList.add('menu-label'));
-function positionExpanded(link){const panel=link.querySelector('.expanded-cover'),r=link.getBoundingClientRect();panel.style.left=((innerWidth-panel.offsetWidth)/2-r.left)+'px';panel.style.top=(Math.max(20,(innerHeight-panel.offsetHeight)/2)-r.top)+'px'}
+function positionExpanded(link){const panel=link.querySelector('.expanded-cover'),r=link.getBoundingClientRect();if(!panel)return;panel.style.left=((innerWidth-panel.offsetWidth)/2-r.left)+'px';panel.style.top=(Math.max(20,(innerHeight-panel.offsetHeight)/2)-r.top)+'px'}
 shelf.querySelectorAll('.cabinet-record').forEach(link=>['pointerenter','focus','pointerdown'].forEach(event=>link.addEventListener(event,()=>positionExpanded(link))));
 addEventListener('resize',()=>shelf.querySelectorAll('.cabinet-record').forEach(positionExpanded));
 // Enforce the user's minimum on actual text nodes, including legacy page styles.
