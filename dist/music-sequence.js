@@ -9,7 +9,7 @@ const trackControls=document.createElement('div');trackControls.className='track
 let changingRecord=false,historyTracks=[],historyCursor=-1,remainingTracks=[];
 const delay=ms=>new Promise(resolve=>setTimeout(resolve,ms));
 function nextTrackIndex(){if(historyCursor<historyTracks.length-1)return historyTracks[++historyCursor];if(!remainingTracks.length)remainingTracks=tracks.map((_,i)=>i).filter(i=>i!==trackIndex).sort(()=>Math.random()-.5);const index=remainingTracks.pop()??0;historyTracks.push(index);historyCursor=historyTracks.length-1;return index;}
-function selectLocalTrack(index){trackIndex=index;localAudio.src=tracks[index].src;trackStatus.textContent=tracks[index].title+(tracks[index].artist?' · '+tracks[index].artist:'');disc.querySelector('.live-label').textContent=tracks[index].title;nowPlaying.querySelector('strong').textContent=tracks[index].title;disc.querySelector('.live-label').style.backgroundColor=['#e0c9a5','#bdcdb7','#cfb8a2','#c3c1da'][index%4];}
+function selectLocalTrack(index){trackIndex=index;localAudio.src=tracks[index].src;trackStatus.textContent=tracks[index].title+(tracks[index].artist?' · '+tracks[index].artist:'');disc.querySelector('.live-label').textContent=tracks[index].title;nowPlaying.querySelector('strong').textContent=tracks[index].title;nowPlaying.classList.toggle('long-title',tracks[index].title.length>12);disc.querySelector('.live-label').style.backgroundColor=['#e0c9a5','#bdcdb7','#cfb8a2','#c3c1da'][index%4];}
 async function playLocal(){if(changingRecord)return;if(trackIndex<0)selectLocalTrack(nextTrackIndex());try{await localAudio.play();}catch{musicState(false);trackStatus.textContent='music could not start. tap the player to try again.';}}
 function toggleLocal(){if(changingRecord)return;if(localAudio.paused)playLocal();else localAudio.pause();}
 async function switchRecord(direction=1){
@@ -50,7 +50,7 @@ document.addEventListener('pointerdown',event=>{if(!event.target.closest('.arm-c
 document.getElementById('headphone-hint').textContent='use the tonearm to play or pause. use the left and right discs to change songs.';
 requestAnimationFrame(fitWelcome);
 
-const nowPlaying=document.createElement('span');nowPlaying.className='now-playing-led';nowPlaying.innerHTML='<span>now playing:</span><strong>ready to play</strong>';musicButton.querySelector('.independent-deck').append(nowPlaying);
+const nowPlaying=document.createElement('span');nowPlaying.className='now-playing-led';nowPlaying.innerHTML='<span>NOW PLAYING</span><strong>ready</strong>';musicButton.querySelector('.independent-deck').append(nowPlaying);
 function syncPlayerHover(){musicButton.classList.toggle('player-hover',musicButton.matches(':hover')||armControl.matches(':hover,:focus-visible')||armControl.classList.contains('audio-preview'));}
 [musicButton,armControl].forEach(el=>['pointerenter','pointerleave','focus','blur'].forEach(name=>el.addEventListener(name,()=>requestAnimationFrame(syncPlayerHover))));
 new MutationObserver(syncPlayerHover).observe(armControl,{attributes:true,attributeFilter:['class']});
@@ -58,3 +58,12 @@ new MutationObserver(syncPlayerHover).observe(armControl,{attributes:true,attrib
 const impactPrompts=['designed for more connection & IRL hangouts','make custom videos from viral favorites','designed for 4m+ patients & caregivers'];
 shelf.querySelectorAll('[data-record]').forEach((link,i)=>{const label=link.querySelector('.jacket-title');label.replaceChildren();const impact=document.createElement('span');impact.textContent=impactPrompts[i];const project=document.createElement('small');project.textContent=cabinetProjects[i].title;label.append(impact,project);link.setAttribute('aria-label',cabinetProjects[i].title+' — '+impactPrompts[i]);});
 const contactNote=document.querySelector('#home .rail .desk-note');contactNote.setAttribute('aria-label','contact me');contactNote.querySelector('.menu-label').textContent='contact me';contactNote.querySelector('.written-hello').innerHTML='contact<br>me';
+
+// Sleeve details are printed on the cover; activation opens its existing case-study destination.
+shelf.querySelectorAll('[data-record]').forEach((link,i)=>{
+ const details=document.createElement('span');details.className='sleeve-details';
+ const title=document.createElement('b');title.textContent=cabinetProjects[i].title;
+ const benefit=document.createElement('span');benefit.textContent=impactPrompts[i];
+ details.append(title,benefit);link.querySelector('.jacket-art').append(details);
+ link.href=cabinetProjects[i].card.href;
+});

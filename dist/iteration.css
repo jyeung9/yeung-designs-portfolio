@@ -106,3 +106,39 @@
 .now-playing-led{width:40%;right:2%;height:28%}
 .now-playing-led span{font-family:Arial,sans-serif!important;letter-spacing:-.8px}
 @media(max-width:600px){.cabinet-scene .shared-table{left:0;width:100%}.edge-disc{width:25%}.edge-disc-left{left:-3%}.edge-disc-right{right:-3%}.now-playing-led{width:40%}}
+
+/* Proportional inset dot-matrix display. Decorative lettering scales with hardware. */
+.now-playing-led{width:38%;right:3%;bottom:6%;height:25%;padding:2.5%;gap:.7cqw;border:2px solid #59645e;border-radius:.5cqw;background:radial-gradient(circle,#49624d45 .5px,transparent .8px) 0 0/3px 3px,linear-gradient(#080f0d,#142019);box-shadow:inset 0 .6cqw 1cqw #000,0 .3cqw 0 #f3e1b4}
+.now-playing-led span{font:500 1.65cqw/1.2 'DM Mono',monospace!important;letter-spacing:.1cqw!important;color:#8aab87;opacity:1}
+.now-playing-led strong{font:500 2.3cqw/1.2 'DM Mono',monospace!important;letter-spacing:0!important;color:transparent;background:radial-gradient(circle,#91f79b 0 38%,#447b4a 44%,transparent 53%) 0 0/2px 2px;background-clip:text;-webkit-background-clip:text;filter:drop-shadow(0 0 2px #75ff9344);text-shadow:none;animation:none;width:100%;max-width:100%;text-overflow:ellipsis}
+/* One composition at every breakpoint: positions and dimensions share scene units. */
+#home .scene-slot{width:min(880px,90vw);max-width:100%;margin:20px 0 16px}
+.connection-object .cabinet-scene{aspect-ratio:2!important}
+.connection-object .cabinet-scene .independent-player{width:52%;left:24%;top:29%}
+.cabinet-scene .shared-table{left:0;width:100%;top:57%;height:43%}
+.cabinet-scene .edge-disc{width:22%;top:60%}.cabinet-scene .edge-disc-left{left:2%}.cabinet-scene .edge-disc-right{right:2%}
+.cabinet-scene .arm-control{left:49%;top:34%;width:24%;height:48%}
+.cabinet-shelf{left:20%;right:20%;height:25%}
+#home>.rail.balanced-menu>a{min-height:94px}
+#home>.rail.balanced-menu{margin-top:20px}
+.afterglow #home .hero-copy{gap:6px}
+.now-playing-led span{font-size:1.3cqw!important}.now-playing-led strong{font-size:1.8cqw!important}
+@media(min-height:850px) and (min-width:900px){#home .scene-slot{width:min(1000px,72vw)}#home>.rail.balanced-menu{margin-top:28px}}
+
+/* Lift the complete sleeve forward, retaining square proportions and its separate vinyl. */
+.cabinet-record{transition:transform .35s cubic-bezier(.2,.7,.2,1);transform-origin:50% 75%}
+.cabinet-record .jacket-title{display:none!important}
+.cabinet-record:is(:hover,:focus-visible,.touch-preview){transform:translateY(10%) scale(2.4);z-index:150!important}
+.cabinet-record:is(:hover,:focus-visible,.touch-preview) .jacket-art{transform:none!important}
+.sleeve-details{position:absolute;inset:0;padding:10%;display:flex;flex-direction:column;justify-content:space-between;gap:4%;opacity:0;background:linear-gradient(#f1e7c9ee,#f1e7c9cc);color:#253530;text-align:left;transition:opacity .2s;z-index:5;box-sizing:border-box}
+.sleeve-details b{font:600 max(7px,1.7cqw)/1.12 'DM Sans',sans-serif!important;letter-spacing:-.03em}
+.sleeve-details>span{font:500 max(6.7px,1.45cqw)/1.15 var(--hover-hand)!important}
+.cabinet-record:is(:hover,:focus-visible,.touch-preview) .sleeve-details{opacity:1}
+@media(prefers-reduced-motion:reduce){.cabinet-record,.sleeve-details{transition:none}}
+.cabinet-record{transform-origin:50% 0}
+.now-playing-led strong{font-size:2.2cqw!important;background-image:radial-gradient(circle,#a3ffac 0 55%,#62a46a 60%,transparent 68%);background-size:1.5px 1.5px}
+.now-playing-led span{font-size:1.45cqw!important}
+
+.now-playing-led.long-title strong{width:max-content;max-width:none;animation:led-long-title 12s linear infinite}
+@keyframes led-long-title{0%,20%{translate:0}80%,100%{translate:min(0px,calc(15cqw - 100%))}}
+@media(prefers-reduced-motion:reduce){.now-playing-led.long-title strong{animation:none;max-width:100%;text-overflow:ellipsis}}

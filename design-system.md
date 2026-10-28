@@ -8,7 +8,9 @@ This section is the running source of truth; older sections below are historical
 - Hovering anywhere over the player activates record and tonearm motion while stopped; playback and disc-change physics take priority. Song titles appear on the vinyl and an inset LED display without changing layout.
 - Table sides are solid, with no fade. The platter sits slightly higher on the deck.
 - Gray background drawings use fine dotted strokes; the grid remains solid.
-- Sleeve prompts lead with the intended benefit, then project name. Do not claim measured outcomes without evidence.
+- Sleeves lift forward on hover/focus or first touch; project name and intended benefit are printed on the enlarged square cover. A click or second touch opens the existing case-study destination. No detached tooltip below sleeves. Do not claim measured outcomes without evidence.
+- The scene uses one 2:1 coordinate system at all sizes: player 52% wide, side discs 22%, table 100%. Breakpoints change overall available size, never relative object proportions.
+- LED uses recessed dark glass and green dot-matrix lettering: smaller uppercase NOW PLAYING above a larger song title. Decorative hardware text scales with the scene; navigation and body text retain the 16px minimum.
 - Contact note and its annotation read “contact me”.
 - Table has a visible front edge, coherent perspective and contact shadows. All objects retain their proportions at every breakpoint.
 - Text-to-object gaps use the same spacing token above the sleeves and below the subtitle.
