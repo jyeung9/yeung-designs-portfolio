@@ -1,0 +1,113 @@
+/* [design-approved:care-about] A front-facing portrait and one continuous heart drawn on arrival. */
+#about .about-polaroid,#about .polaroid-paper,#about .portrait-crop,#about .portrait-crop img{transform:none;rotate:0deg}
+.care-word{position:relative;display:inline-block;isolation:isolate}
+.care-heart{position:absolute;width:174%;height:215%;left:-37%;top:-55%;overflow:visible;pointer-events:none;z-index:-1}
+.care-heart path{fill:none;stroke:var(--accent,#c64c3b);stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:1;stroke-dashoffset:1}
+#about:not([hidden]) .care-heart path{animation:care-draw 1.5s .25s ease-out forwards}
+@keyframes care-draw{to{stroke-dashoffset:0}}
+@media(prefers-reduced-motion:reduce){#about .care-heart path{animation:none;stroke-dashoffset:0}}
+/* [design-approved:a-side-motion] Equal grid tracks and three readable, category-colored rows. */
+#work .cabinet-shelf{grid-auto-rows:1fr;align-items:stretch}
+#work .cabinet-record{justify-content:flex-start;align-self:stretch;align-items:stretch;position:relative;isolation:isolate;overflow:visible;transform:none!important;transition:background .25s,box-shadow .25s}
+#work .cabinet-record>.jacket-art{flex:none;z-index:2;animation:none!important;transform-origin:50% 80%;transition:translate .35s,scale .35s}
+#work .collection-summary{flex:1;justify-content:flex-start}
+#work .collection-summary>strong{min-height:2.6em}
+#work .collection-chips{display:grid;grid-template-rows:repeat(3,auto);gap:8px;width:100%;min-width:0}
+#work .collection-chips>.collection-chip-row{display:flex;gap:6px;flex-wrap:nowrap;overflow-x:auto;max-width:100%;padding:0 0 4px;border:0;border-radius:0;background:none;scrollbar-width:thin}
+.collection-chip-row>span{flex:none;white-space:nowrap;font:400 16px/1.35 'DM Sans',sans-serif;padding:4px 10px;border:1px solid color-mix(in srgb,var(--ink) 24%,transparent);border-radius:999px;color:var(--ink)}
+.collection-chip-row[data-row="1"]>span{background:#9acda535;border-color:#7cae8a80}
+.collection-chip-row[data-row="2"]>span{background:#b8a0d835;border-color:#ab91c980}
+.collection-chip-row[data-row="3"]>span{background:transparent}
+#work .cabinet-record>.sleeve-vinyl{display:block!important;position:absolute;left:18%;top:8%;width:65%;height:auto;aspect-ratio:1;border-radius:50%;z-index:1;opacity:0;transform:none;translate:0 0;background:radial-gradient(circle,#e6c879 0 2%,#445957 2.5% 15%,transparent 15.5%),repeating-radial-gradient(circle,#171e1b 0 2px,#47504b 2.5px 3px);box-shadow:0 6px 14px #0003;transition:translate .5s,opacity .2s}
+#work .cabinet-record:is(:hover,:focus-visible){background:color-mix(in srgb,var(--bg) 80%,#efbd6b 20%);box-shadow:0 0 35px #efb64c28}
+#work .cabinet-record:is(:hover,:focus-visible)>.jacket-art{translate:-3% -5%;scale:.96;animation:collection-jiggle .75s ease-in-out!important}
+#work .cabinet-record:is(:hover,:focus-visible)>.sleeve-vinyl{opacity:1;translate:28% -17%;animation:collection-spin 4s linear infinite!important}
+@keyframes collection-jiggle{0%,100%{rotate:0deg}25%{rotate:-4deg}60%{rotate:3deg}80%{rotate:-1deg}}
+@keyframes collection-spin{to{rotate:360deg}}
+@media(prefers-reduced-motion:reduce){#work .cabinet-record,#work .cabinet-record>.jacket-art,#work .cabinet-record>.sleeve-vinyl{transition:none!important;animation:none!important}#work .cabinet-record:is(:hover,:focus-visible)>.jacket-art,#work .cabinet-record:is(:hover,:focus-visible)>.sleeve-vinyl{animation:none!important;translate:0 0;scale:1}}
+/* [design-approved:a-side-type-pastels] Match the home headline family and weight; use mono for the supporting line. */
+#work .section-head{display:flex;flex-direction:column;align-items:flex-start;justify-content:flex-start;gap:12px}
+#work .section-head h1{font-family:'DM Sans',sans-serif;font-size:clamp(32px,3.2vw,48px);font-weight:600;line-height:1.08;letter-spacing:-.04em;margin:12px 0 0;color:var(--ink)}
+#work .section-head p{font-family:'DM Mono',monospace;font-size:clamp(16px,1.2vw,18px);font-weight:400;line-height:1.6;max-width:100%;margin:0;text-align:left}
+#work .collection-chip-row[data-row="1"]>span{background:#d3ecf6b8;border-color:#b8d6e180}
+#work .collection-chip-row[data-row="2"]>span{background:#e8def5b8;border-color:#cfc0df80}
+body.nighttime #work .collection-chip-row[data-row="1"]>span{background:#b6deef25;border-color:#b6deef60}
+body.nighttime #work .collection-chip-row[data-row="2"]>span{background:#d6c4ed25;border-color:#d6c4ed60}
+#work .cabinet-record:is(:hover,:focus-visible){background:color-mix(in srgb,var(--bg) 96%,var(--ink) 4%);box-shadow:none;outline:2px solid color-mix(in srgb,var(--ink) 40%,transparent);outline-offset:3px}
+/* [design-approved:chip-led-indicators] Neutral pills with quiet borders; category color lives in a small LED. */
+#work .collection-chip-row>span,
+body.nighttime #work .collection-chip-row>span{display:inline-flex;align-items:center;gap:7px;background:transparent!important;border-color:color-mix(in srgb,var(--ink) 15%,transparent)!important}
+#work .collection-chip-row>span::before{content:'';flex:0 0 6px;width:6px;height:6px;border-radius:50%;background:radial-gradient(circle at 35% 30%,#fff 0 8%,var(--chip-led) 40% 100%);box-shadow:0 0 4px color-mix(in srgb,var(--chip-led) 55%,transparent);border:1px solid color-mix(in srgb,var(--chip-led) 65%,transparent)}
+#work .collection-chip-row[data-row="1"]{--chip-led:#88c9ed}
+#work .collection-chip-row[data-row="2"]{--chip-led:#b49bdd}
+#work .collection-chip-row[data-row="3"]{--chip-led:#efb16d}
+#work .cabinet-record:is(:hover,:focus-visible){outline:1.5px solid #e8b86b;outline-offset:3px;box-shadow:none}
+/* [design-approved:vintage-sleeves] Matte printed stock, subtle ring wear, paper fibers and a narrow folded edge; preserve the existing cover identities. */
+#work .cabinet-record>.jacket-art{
+ border-radius:4px;border:1px solid #b6a88c;
+ background:linear-gradient(90deg,#af9a7440 0,transparent 2%,transparent 97%,#8b765145 100%),linear-gradient(175deg,#f3ead4,#e5d7b9);
+ box-shadow:inset 0 0 0 2px #fff8df55,inset -3px 0 5px #81705325,1px 2px 0 #bdad8d,2px 4px 7px #211a1024;
+}
+#work .jacket-art .jacket-orbit{filter:saturate(.76) contrast(.9);opacity:.94}
+#work .cabinet-record>.jacket-art:after{
+ content:'';position:absolute;inset:0;z-index:5;pointer-events:none;
+ background:url('assets/paper-grain.svg') 0 0/145px 145px,radial-gradient(ellipse at 50% 51%,transparent 0 48%,#f4e9cf35 49%,#8b755018 50%,transparent 51%),linear-gradient(92deg,#a28b5e25,transparent 4% 96%,#fff2d033);
+ box-shadow:inset 0 0 13px #7e653224,inset 0 1px #fff6db99;
+ mix-blend-mode:multiply;opacity:.85;
+}
+#work .cabinet-record>.jacket-art:before{
+ content:'';position:absolute;left:5%;right:5%;bottom:2.5%;height:1px;z-index:6;opacity:.45;
+ background:linear-gradient(90deg,#857351 0 5%,transparent 5% 7%,#857351 7% 9%,transparent 9% 89%,#857351 89% 100%);
+}
+/* [design-approved:collection-fit] Fit current collections on desktop without shrinking text below 16px. */
+#work .section-head p{text-transform:uppercase}
+body[data-page="work"] .masthead,body[data-page="work"] .masthead a,#work .eyebrow,body[data-page="work"] .section-menu a{font-size:16px!important}
+#work .section-head{margin-bottom:24px}
+#work .shelf-stage{width:min(1080px,100%);margin:0 auto 24px}
+#work .cabinet-shelf{grid-template-columns:repeat(3,minmax(0,1fr));gap:20px}
+#work .cabinet-record{padding:18px;gap:16px}
+#work .collection-summary>strong{font-size:20px;min-height:2.6em}
+#work .collection-chip-row>span{font-size:16px}
+#explorations .page-heading{margin:0 0 24px}
+#explorations .page-heading h1{font:600 clamp(32px,3.2vw,48px)/1.08 'DM Sans',sans-serif;letter-spacing:-.04em;margin:12px 0}
+#explorations .page-heading p{font:400 16px/1.6 'DM Mono',monospace;text-transform:uppercase;margin:0}
+.b-record-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:20px;width:min(100%,960px);margin-inline:auto}
+.b-record-card{display:flex;flex-direction:column;align-items:center;justify-content:flex-start;padding:16px;gap:10px;min-width:0;border:1px solid var(--line);border-radius:20px;background:color-mix(in srgb,var(--bg) 96%,var(--ink) 4%);color:var(--ink);text-decoration:none}
+.b-record-card>.jacket-art{width:clamp(80px,calc((100svh - 530px)/2),170px);max-width:100%;aspect-ratio:1;flex:none;transform:none;border-radius:4px;background:url('assets/paper-grain.svg'),linear-gradient(175deg,#f3ead4,#e5d7b9);box-shadow:1px 2px 0 #bdad8d,2px 4px 7px #211a1024;filter:hue-rotate(var(--record-hue)) saturate(.75)}
+.b-record-card h2{font:600 18px/1.3 'DM Sans',sans-serif;margin:0;text-align:center}
+.b-record-card p{font:400 16px/1.35 'DM Sans',sans-serif;text-align:center;margin:0;color:var(--muted)}
+a.b-record-card:is(:hover,:focus-visible){outline:1.5px solid #e8b86b;outline-offset:3px}
+@media(min-width:901px){#work .cabinet-record>.jacket-art{width:min(100%,calc(100svh - 470px));align-self:center}body[data-page="work"] main>.section,body[data-page="explorations"] main>.section{padding-top:28px;padding-bottom:24px}}
+@media(max-width:900px){#work .cabinet-shelf{grid-template-columns:repeat(2,minmax(0,1fr))}.b-record-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:600px){#work .cabinet-shelf{grid-template-columns:1fr}.b-record-grid{gap:12px}.b-record-card{padding:12px 8px}.b-record-card>.jacket-art{width:110px}.b-record-card h2{font-size:16px}}
+/* [design-approved:collection-fit] Seven current explorations share a compact desktop overview. */
+@media(min-width:901px){.b-record-grid{grid-template-columns:repeat(4,minmax(0,1fr));gap:16px}.b-record-card>.jacket-art{width:clamp(80px,calc((100svh - 560px)/2),145px)}}
+/* [design-approved:timezone-inset] Reserve a distinct trailing gutter for the chevron and a 44px control height. */
+.city-select{appearance:none!important;-webkit-appearance:none!important;min-height:44px!important;padding-left:16px!important;padding-right:44px!important;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'%3E%3Cpath d='m4 6 4 4 4-4' fill='none' stroke='%235d6969' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E")!important;background-repeat:no-repeat!important;background-position:right 16px center!important;background-size:16px 16px!important}
+/* [design-approved:merged-portfolio-system] Keep the living guide inside the portfolio exploration, with its own accessible link. */
+.b-record-group{display:flex;flex-direction:column;min-width:0;position:relative}
+.b-record-group .b-record-card{flex:1;padding-bottom:40px}
+.b-record-group .system-link{position:absolute;bottom:12px;left:12px;right:12px;text-align:center;font:400 16px/1.4 'DM Sans';color:var(--ink);text-underline-offset:4px}
+@media(min-width:901px){.b-record-grid{grid-template-columns:repeat(3,minmax(0,1fr))}}
+/* [design-approved:b-side-family] The same vintage sleeve, LED pills and warm outline in a compact, experimental collection. */
+#explorations .b-record-card{position:relative;isolation:isolate;align-items:stretch;text-align:left;gap:10px;overflow:visible;min-width:0}
+#explorations .b-record-card>.jacket-art{align-self:center;filter:none;border-radius:4px;z-index:2;transform-origin:50% 80%;transition:translate .25s,scale .25s}
+#explorations .jacket-orbit{filter:saturate(.9)!important}
+#explorations .b-record-card h2{text-align:left;font:600 18px/1.3 'DM Sans';min-height:1.3em}
+#explorations .collection-chips{display:grid;grid-template-rows:repeat(3,auto);gap:5px;min-width:0}
+#explorations .collection-chip-row{display:flex;gap:6px;max-width:100%;min-width:0;overflow-x:auto;scrollbar-width:thin;padding:0 0 3px;border:0;background:none;border-radius:0}
+#explorations .collection-chip-row:empty{display:none}
+#explorations .collection-chip-row>span{display:inline-flex;align-items:center;gap:7px;flex:none;font:400 16px/1.35 'DM Sans';padding:4px 10px;border:1px solid color-mix(in srgb,var(--ink) 15%,transparent);border-radius:999px;background:transparent}
+#explorations .collection-chip-row>span:before{content:'';width:6px;height:6px;flex:0 0 6px;border-radius:50%;background:radial-gradient(circle at 35% 30%,#fff 0 8%,var(--chip-led) 40%);box-shadow:0 0 4px color-mix(in srgb,var(--chip-led) 55%,transparent)}
+#explorations .collection-chip-row[data-row="1"]{--chip-led:#88c9ed}#explorations .collection-chip-row[data-row="2"]{--chip-led:#b49bdd}#explorations .collection-chip-row[data-row="3"]{--chip-led:#efb16d}
+#explorations .b-record-card>.sleeve-vinyl{position:absolute;top:25px;left:calc(50% - 55px);width:110px;aspect-ratio:1;z-index:1;border-radius:50%;opacity:0;background:radial-gradient(circle,#e6c879 0 2%,#445957 2.5% 15%,transparent 15.5%),repeating-radial-gradient(circle,#171e1b 0 2px,#47504b 2.5px 3px);transition:translate .3s,opacity .2s}
+#explorations .b-record-card:is(:hover,:focus-visible)>.jacket-art{translate:-4% -4%;scale:.96;animation:collection-jiggle .6s ease-in-out}
+#explorations .b-record-card:is(:hover,:focus-visible)>.sleeve-vinyl{opacity:1;translate:35% -12%;animation:collection-spin 4s linear infinite}
+#explorations .b-record-card:is(:hover,:focus-visible){outline:1.5px solid #e8b86b;outline-offset:3px}
+@media(min-width:901px){.b-record-card>.jacket-art{width:clamp(80px,calc((100svh - 690px)/2),130px)}.b-record-grid{gap:16px}}
+.section-pager{display:flex;justify-content:space-between;gap:16px;max-width:1080px;margin:16px auto 24px;padding-inline:16px}
+.section-pager button{min-height:44px;padding:8px 16px;border:1px solid var(--line);border-radius:999px;background:transparent;color:var(--ink);font:400 16px/1.3 'DM Sans';cursor:pointer}
+.section-pager button:disabled{opacity:.35;cursor:default}
+body[data-page=home] .section-pager{max-width:560px}
+@media(prefers-reduced-motion:reduce){#explorations .b-record-card>.jacket-art,#explorations .b-record-card>.sleeve-vinyl{transition:none!important;animation:none!important}}
+@media(min-width:901px){body[data-page=explorations] main>.section,body[data-page=work] main>.section{min-height:0!important}#explorations .b-record-card>.jacket-art{width:clamp(80px,calc((100svh - 740px)/2),110px)}.b-record-card>.sleeve-vinyl{max-width:100px}}

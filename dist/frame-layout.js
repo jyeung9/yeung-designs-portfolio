@@ -99,3 +99,6 @@ function roundTableCorners(){
 }
 const tableCornerObserver=new ResizeObserver(roundTableCorners);
 tableCornerObserver.observe(cabinetScene);
+
+// [design-approved:a-side-type-pastels] Each routed page gets a semantic primary heading.
+{ const old=document.querySelector("#work .section-head h2"); if(old){const heading=document.createElement("h1");heading.textContent=old.textContent;old.replaceWith(heading);} }

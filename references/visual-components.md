@@ -1,3 +1,11 @@
+## Approved cross-page consistency checkpoint — October 28, 2026
+
+GitHub checkpoint; public publication remains separate. The screenshots below preserve the reviewed stage before the next chip-fit and stack-animation experiment.
+
+![A-Side vintage sleeves and LED chips](../.local-previews/a-side-three-preview.png)
+
+![B-Side shared cards and experimental colors](../.local-previews/b-side-family-preview.png)
+
 ## Approved emotional-design release — October 28, 2026
 
 Julie's supplied approval references preserve the mobile bottom island, matcha contact artwork, larger attached heart and paired settings. Theme colors respond to the selected time/location; these screenshots are not a new fixed palette. See [the release contract](../design-system.md).

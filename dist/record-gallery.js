@@ -15,7 +15,8 @@ shelf.querySelectorAll('.cabinet-record').forEach((original,index)=>{
  const summary=document.createElement('span');summary.className='collection-summary';
  const name=document.createElement('strong');name.textContent=project.name;summary.append(name);
  const tags=document.createElement('span');tags.className='collection-chips';
- project.chips.flat().forEach(text=>{const chip=document.createElement('span');chip.textContent=text;tags.append(chip)});
+ // [design-approved:chip-rows] Preserve the three supplied categories without shrinking readable text.
+ project.chips.forEach((items,index)=>{const row=document.createElement('span');row.className='collection-chip-row';row.dataset.row=index+1;row.tabIndex=0;row.setAttribute('aria-label',['Project category','Design disciplines','Platform'][index]);items.forEach(text=>{const chip=document.createElement('span');chip.textContent=text;row.append(chip)});tags.append(row)});
  summary.append(tags);link.append(summary);link.setAttribute('aria-label','Open case study: '+project.name);
  card.addEventListener('click',async e=>{e.preventDefault();if(departing)return;departing=true;clearTimeout(hoverTimer);if(!matchMedia('(prefers-reduced-motion: reduce)').matches)await card.animate([{transform:'scale(1)',opacity:1},{transform:'scale(1.14)',opacity:0}],{duration:420,easing:'ease-in',fill:'forwards'}).finished;location.assign(card.href)});
 });

@@ -1,3 +1,16 @@
+## Approved cross-page consistency checkpoint — October 28, 2026
+
+GitHub checkpoint authorized with Julie’s note: “improve font, styling, and design pattern consistency across pages”. This checkpoint is not a public deployment.
+
+- A-Side contains Titanic’s End, CAPI and ConnectMyHealth; Portfolio Revamp belongs to B-Side with its living design-system link and design systems skill.
+- A-Side uses DM Sans 600 headings, uppercase DM Mono descriptions, and a 16px minimum for visible page text. Desktop has three equal cards; B-Side has six compact explorations with experimental cover palettes.
+- Both collections use vintage paper sleeves, neutral cards, light-gray chip borders, blue/purple/orange LED category dots, and a thin yellow-orange hover outline. Sleeves lift and jiggle; a record emerges and spins. Reduced motion disables decorative movement.
+- About has a straight portrait and a larger irregular heart drawing around care. Removed the extra About link.
+- Scroll navigation is available on Home and interior pages, with directional 130ms exit / 180ms entry animations and previous/next controls. The timezone chevron is inset 16px, with 44px right padding and a 44px minimum control height.
+- Known follow-up: chips currently scroll horizontally; Julie has requested fully contained chips. The gesture quiet-interval lock can feel unresponsive during momentum; stack-to-grid transitions are the next local experiment, not part of this checkpoint.
+
+Verified JavaScript syntax, whitespace, desktop card alignment, visible font sizes, and Home / A-Side / B-Side navigation. Full accessibility and cross-browser audits remain outstanding.
+
 ## Approved emotional-design release — October 28, 2026
 
 Julie approved GitHub and public publication with this exact note:

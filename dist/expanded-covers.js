@@ -1,9 +1,9 @@
 // Cover copy supplied by Julie. No category labels or unverified outcome claims.
 const expandedProjects=[
- {name:"Titanic's End App",impact:'Building for community engagement',tone:'blue',href:projects[0].href,chips:[['Consumer Social','Community Engagement'],['Design System','AI-Assisted Product Design'],['Mobile + Desktop']]},
- {name:'CAPI',impact:impactPrompts[1],tone:'green',href:projects[2].href,chips:[['Consumer Social Media'],['Product Design','Design Leadership','Stakeholder Management'],['Mobile']]},
- {name:'Design Portfolio Refresh',impact:'A clear, fun experience with personality',tone:'purple',href:'#portfolio-refresh',chips:[['Consumer Web'],['Product Design','AI-Assisted Product Development'],['Mobile and Desktop Web']]},
- {name:'ConnectMyHealth',impact:impactPrompts[2],tone:'red',href:projects[1].href,chips:[['Consumer Healthcare'],['Product Design','User Research','Stakeholder Management'],['Mobile']]}
+ {name:"Titanic's End App",impact:'Building for community engagement',tone:'blue',href:projects[0].href,chips:[['Consumer Social','Community Engagement'],['Design System','AI-Assisted Product Design'],['mobile','desktop']]},
+ {name:'CAPI',impact:impactPrompts[1],tone:'green',href:projects[2].href,chips:[['Consumer Social Media'],['Product Design','Design Leadership','Stakeholder Management'],['mobile']]},
+ {name:'Design Portfolio Refresh',impact:'A clear, fun experience with personality',tone:'purple',href:'#portfolio-refresh',chips:[['Consumer Web'],['Product Design','Design Systems','AI-Assisted Product Development'],['mobile','desktop','web']]},
+ {name:'ConnectMyHealth',impact:impactPrompts[2],tone:'red',href:projects[1].href,chips:[['Consumer Healthcare'],['Product Design','User Research','Stakeholder Management'],['mobile']]}
 ];
 const refreshOverview=document.createElement('dialog');refreshOverview.className='refresh-overview';refreshOverview.innerHTML='<button type="button" aria-label="Close portfolio overview">close</button><h2>Design Portfolio Refresh</h2><p>A clear, fun portfolio experience with personality.</p><p>Product Design · AI-Assisted Product Development</p><p>The full case study is being prepared.</p>';document.body.append(refreshOverview);refreshOverview.querySelector('button').onclick=()=>refreshOverview.close();
 shelf.replaceChildren();
