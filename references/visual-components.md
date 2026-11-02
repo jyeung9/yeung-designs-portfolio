@@ -1,3 +1,9 @@
+## Approved November 2 player and menu
+
+![Approved player](approved-player-nov02.png)
+
+Approved for publication November 2; see design-system.md for behavior and validation. Stars are not part of this release.
+
 ## Approved corner settings and restored menu — October 28, 2026
 
 Full-size island, one grid tile lower; persistent desktop corner settings with dropdown text matching the header links. This supersedes the rejected half-size menu preview.

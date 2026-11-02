@@ -9,3 +9,7 @@
 @media(max-width:600px){.masthead .brand,.case-brand .brand{font-size:16px}.case-brand{padding:10px 16px;min-height:52px}}
 
 body:not([data-page=home]) .masthead .brand-name{display:none}
+
+/* [design-approved:stable-brand-position] Identical header geometry across routes and case studies; neutralize home-only wide composition zoom. */
+body .masthead,body .case-brand{padding:8px 4vw!important;min-height:60px!important;height:auto!important;box-sizing:border-box;align-items:center;position:sticky;top:0;z-index:100;zoom:calc(1 / var(--wide-scale,1))}
+@media(max-width:600px){body .masthead,body .case-brand{padding:10px 16px!important;min-height:64px!important}}

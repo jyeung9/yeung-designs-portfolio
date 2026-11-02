@@ -147,3 +147,192 @@ body.nighttime #home .rail.balanced-menu a,body.nighttime #home .rail.balanced-m
  body>.corner-utilities .theme-sun,body>.corner-utilities .theme-moon{top:13px}
  body>.corner-utilities .ambient-toggle[aria-checked=true] .theme-knob{transform:translateX(35px)}
 }
+
+/* [design-approved:static-greeting] Center a single stationary introduction without clipping. */
+#home .greeting{width:auto;max-width:100%;overflow:visible;white-space:normal;text-align:center}
+
+/* [design-approved:menu-settings-rhythm] Shared 16px control gap and 24px separation below the island; desktop settings retain the corner placement. */
+#home .landing-navigation{gap:24px;padding-bottom:24px}
+.hero-bottom .local-time,.mobile-menu-settings{gap:16px!important}
+#home .hero-bottom{padding-top:0!important;margin-top:0!important}
+@media(min-width:901px){#home .landing-navigation{padding-bottom:88px}body>.corner-utilities .local-time{gap:16px}}
+/* [design-approved:new-portrait] Use the supplied portrait throughout; object-fit crops the screenshot edges without altering the original asset. */
+.portrait-crop img,#about .portrait-crop img{width:100%!important;height:100%!important;left:0!important;top:0!important;object-fit:cover;object-position:50% 37%;transform:none}
+#home .rail a[href="#about"] .polaroid-paper{transition:transform .25s ease;transform-origin:50% 80%}
+#home .rail a[href="#about"]:is(:hover,:focus-visible) .polaroid-paper{animation:about-photo-wave .85s ease-in-out infinite}
+@keyframes about-photo-wave{0%,100%{transform:translateY(-3px) rotate(-4deg)}50%{transform:translateY(-7px) rotate(5deg)}}
+/* [design-approved:taller-led-engraving] Increase LED height exactly 15%, keeping transport aligned via its shared height variable. */
+.connection-object .cabinet-scene{--led-height:clamp(36.8px,10.925cqw,50.6px)}
+#home .hero-copy>p.engraving-accessible-copy{position:absolute!important;width:1px!important;height:1px!important;padding:0!important;margin:-1px!important;overflow:hidden;clip-path:inset(50%);white-space:nowrap}
+.deck-engraving{position:absolute;right:4%;bottom:4%;max-width:48%;font:500 clamp(7px,1.25cqw,13px)/1.3 'DM Sans',sans-serif;letter-spacing:.015em;text-align:right;color:#604522;text-shadow:0 1px 0 #fff4cd99;pointer-events:none;z-index:5}
+@media(prefers-reduced-motion:reduce){#home .rail a[href="#about"]:is(:hover,:focus-visible) .polaroid-paper{animation:none;transform:translateY(-4px)}}
+#home .independent-deck>.deck-engraving{display:block!important;position:absolute!important;inset:auto 4% 4% auto!important;width:60%!important;max-width:60%!important;height:auto!important;font-family:'DM Sans',sans-serif!important;font-size:clamp(6px,.9cqw,10px)!important;font-weight:500!important;line-height:1.2!important;letter-spacing:0!important;white-space:nowrap!important;color:#604522!important;text-align:right!important;transform:none!important}
+
+#home .landing-navigation>.hero-bottom{position:static!important;inset:auto!important;transform:none!important;height:auto!important}
+#home .independent-deck>.deck-engraving{height:auto!important;filter:drop-shadow(0 1px 0 #fff4cd88)}
+/* The island has an existing 32px visual offset; include it so the visible edge-to-edge gap is 24px. */
+#home .landing-navigation{row-gap:56px}
+/* [design-approved:themed-timezone] Theme-aware city picker replaces OS-specific gray popup. */
+.themed-city-trigger{font:inherit;color:var(--ink);cursor:pointer;text-align:center;background-color:var(--bg)}
+.timezone-picker{width:min(380px,calc(100vw - 32px));max-height:70svh;padding:20px;border:1px solid var(--line);border-radius:22px;background:var(--bg);color:var(--ink);box-shadow:0 16px 48px #18293633}
+.timezone-picker::backdrop{background:#18293644;backdrop-filter:blur(3px)}
+.timezone-picker h2{font:600 22px 'DM Sans',sans-serif;margin:4px 0 20px}
+.timezone-picker .timezone-close{float:right;font:16px 'DM Sans';padding:8px;border-radius:12px}
+.timezone-picker input{width:100%;padding:12px 16px;border:1px solid var(--line);border-radius:14px;background:var(--panel);color:var(--ink);font:16px 'DM Sans';box-sizing:border-box}
+.timezone-options{max-height:44svh;overflow:auto;margin-top:12px;display:grid;gap:4px}
+.timezone-options button{float:none;text-align:left;font:16px 'DM Sans';padding:12px 16px;border-radius:12px;min-height:44px}
+.timezone-options button:hover,.timezone-options button:focus-visible{background:var(--panel)}
+.timezone-options button[hidden]{display:none}
+/* [design-approved:square-about-photo] Match 125%-size record silhouette with an undistorted square photograph. */
+#home .rail.balanced-menu .desk-polaroid .polaroid-paper{width:125%!important;height:125%!important;aspect-ratio:1!important;max-width:none;position:relative;left:-12.5%;top:-12.5%;padding:6% 6% 12%!important;box-sizing:border-box;transform:rotate(0deg)}
+#home .rail.balanced-menu .desk-polaroid .portrait-crop{width:100%;height:100%;min-height:0;flex:1}
+/* [design-approved:recessed-player-controls] Rectangular wood front, seen straight-on beneath the perspective top. */
+.player-front-fascia{position:absolute;left:23.2%;width:53.6%;top:80.5%;height:calc(var(--led-height) + 16px);border-radius:3px 3px 10px 10px;background:url('assets/oak-grain.svg') center/cover,linear-gradient(#bb9665,#957046);border:1px solid #967048;box-shadow:inset 0 2px 1px #f9dba466,inset 0 -3px 3px #50351866;z-index:45;pointer-events:none}
+#home .scene-readout,#home .led-transport{top:calc(80.5% + 8px)!important}
+#home .scene-readout>.now-playing-led{border:2px solid #806b4b!important;border-radius:5px!important;box-shadow:inset 0 3px 6px #000b,0 1px 0 #efd1a777!important;padding-inline:7px!important}
+#home .led-transport button:before{box-shadow:inset 0 2px 5px #000b,0 1px 0 #efd1a766;border-color:#71674e}
+/* [design-approved:shared-navigation-type] Greeting, menu labels and header links share one physical size, including the home composition's wide-screen zoom. */
+body{--shared-label-size:clamp(16px,1.15vw,20px)}
+#home .greeting,#home .rail.balanced-menu a>.menu-label{font-size:var(--shared-label-size)!important;line-height:1.4!important}
+body .masthead nav a{font-size:calc(var(--shared-label-size) * var(--wide-scale,1))!important;line-height:1.4!important}
+@media(min-width:1800px) and (min-height:900px){body .masthead nav a{font-size:calc(var(--shared-label-size) * 1.25)!important}}
+
+/* [design-approved:integrated-player-front] One continuous chassis: front face follows the projected top, with a quiet joint and inset hardware. */
+#home .player-front-fascia{left:var(--front-left);width:var(--front-width);top:var(--front-top);height:calc(var(--led-height) + 28px);border-radius:0 0 12px 12px;border-top:0;background:url('assets/oak-grain.svg') center bottom/100% 250%,linear-gradient(180deg,#b28d5d,#aa8455);box-shadow:inset 1px 0 1px #efd4a855,inset -1px -2px 3px #62432344,0 5px 6px #38261420;z-index:44}
+#home .scene-readout,#home .led-transport{top:calc(var(--front-top) + 14px)!important;left:calc(var(--front-left) + var(--front-width)/2)!important}
+#home .led-transport{width:calc(var(--front-width) - 32px);--skip-visual:clamp(28px,5cqw,40px);--skip-gap:clamp(8px,1.5cqw,14px)}
+#home .scene-readout{width:calc(var(--front-width) - 32px - 2 * clamp(28px,5cqw,40px) - 2 * clamp(8px,1.5cqw,14px))}
+#home .scene-readout>.now-playing-led{padding:6px 10px!important;border-color:#786446!important;box-shadow:inset 0 2px 5px #000b,0 1px 0 #e7cd9e88!important}
+#home .led-transport button:before{border-color:#635f48;background:#10271f;box-shadow:inset 0 2px 4px #000a,0 1px 0 #e7cd9e66}
+#home .solo-player-scene .independent-player .independent-deck{box-shadow:0 2px 0 #c6a371,0 4px 0 #a98558!important}
+/* Small screens need a wider chassis to preserve room for the readout and 44px control targets. */
+@media(max-width:600px){#home .cabinet-scene{--player-width:68%;--disc-width:18%}#home .cabinet-scene .edge-disc-left{left:0!important}#home .cabinet-scene .edge-disc-right{right:0!important}}
+/* [design-approved:continuous-rounded-chassis] One wood silhouette owns every outer corner; hardware remains above it. */
+#home .player-wood-shell{position:absolute;z-index:1;overflow:visible;pointer-events:none;filter:drop-shadow(0 4px 4px #50371b30)}
+#home .player-front-fascia{background:none!important;border:0!important;box-shadow:none!important}
+#home .cabinet-scene .independent-player .independent-deck{background:none!important;border-color:transparent!important;box-shadow:none!important}
+#home .independent-deck:before,#home .independent-deck:after{display:none!important}
+#home .scene-readout>.now-playing-led{border-radius:8px!important}
+
+/* [design-approved:solid-chip-dots] Flat category colors, without specular highlights or glow. */
+:is(#work,#explorations) .collection-chip-row>span::before{background:var(--chip-led)!important;box-shadow:none!important;border:0!important}
+/* [design-approved:headphones-hover] Keep the photo still as headphones lower onto the head. */
+#home .rail a[href="#about"]:is(:hover,:focus-visible) .polaroid-paper{animation:none!important;transform:none!important}
+/* [design-approved:sketched-earbuds] A drawn-on cream pencil treatment replaces the oversized headphone silhouette. */
+.portrait-earbuds{position:absolute;inset:0;width:100%;height:100%;z-index:2;pointer-events:none;opacity:0;transition:opacity .18s ease;filter:drop-shadow(0 .35px .3px #30251c66)}
+.portrait-earbuds path{stroke-dasharray:1;stroke-dashoffset:1;transition:stroke-dashoffset .65s ease}
+#home .rail a[href="#about"]:is(:hover,:focus-visible) .portrait-earbuds{opacity:1}
+#home .rail a[href="#about"]:is(:hover,:focus-visible) .portrait-earbuds path{stroke-dashoffset:0}
+/* [design-approved:single-row-utilities] Clock, city and appearance remain one aligned row, including the compact menu. */
+.hero-bottom .local-time,.mobile-menu-settings .local-time{display:flex!important;flex-direction:row!important;flex-wrap:nowrap!important;align-items:center!important;gap:16px!important}
+.local-time>br,.local-time>.time-message{display:none!important}
+.local-time .clock{flex:0 0 auto;white-space:nowrap}
+.local-time .themed-city-trigger{flex:0 1 auto;min-width:0!important;white-space:nowrap}
+.local-time .ambient-toggle{flex-shrink:0;margin:0!important}
+@media(max-width:600px){
+ .hero-bottom .local-time,.mobile-menu-settings .local-time{gap:8px!important;width:100%!important}
+ .local-time .themed-city-trigger{flex:1 1 auto!important;width:auto!important;max-width:none!important;padding-left:8px!important;padding-right:22px!important;background-position:right 6px center!important;background-size:12px!important;font-size:16px!important}
+ .local-time .ambient-toggle{width:52px!important;min-width:52px!important;flex-basis:52px!important}
+ .local-time .ambient-toggle[aria-checked=true] .theme-knob{transform:translateX(15px)}
+}
+@media(prefers-reduced-motion:reduce){.portrait-earbuds,.portrait-earbuds path{transition:none}}
+/* Keep utility contrast coherent inside the mobile dialog in both themes. */
+.mobile-menu{background:var(--bg);color:var(--ink)}
+.mobile-menu .clock{color:var(--ink)!important}
+
+/* [design-approved:material-lighting] Upper-left key light: darker lower/right face, soft cast shadow, and dark incised lettering without a white halo. */
+#home .player-wood-shell{filter:drop-shadow(3px 4px 2px #39231135) drop-shadow(10px 15px 10px #39231130)}
+#home .independent-deck>.deck-engraving{filter:none!important;text-shadow:none!important}
+#home .deck-engraving text{fill:#382515;font-weight:650;stroke:none}
+#home .rail.balanced-menu{background:color-mix(in srgb,var(--bg) 58%,transparent)!important;backdrop-filter:blur(18px) saturate(125%);-webkit-backdrop-filter:blur(18px) saturate(125%);border:1px solid #ffffff60;box-shadow:0 8px 28px #18293614,inset 0 1px 0 #ffffff90}
+/* [design-approved:brushed-hardware] Restrained two-pixel silver bezel with directional highlights and a recessed dark center. */
+#home .scene-readout>.now-playing-led{border:2px solid #a4aaa7;border-top-color:#e0e4df;border-left-color:#c8cfca;border-bottom-color:#737c77;box-shadow:inset 0 2px 5px #000b,1px 2px 3px #38251555,0 0 0 1px #74644780}
+#home .led-transport button:before{border:2px solid transparent;background:linear-gradient(#10271f,#0b2018) padding-box,repeating-linear-gradient(172deg,#b0b8b2 0px,#d0d5d0 1px,#8f9992 2px,#bec6bf 3px) border-box;box-shadow:inset 0 2px 4px #000a,1px 2px 3px #38251566;transition:box-shadow .2s ease,filter .2s ease}
+#home .led-transport button:is(:hover,:focus-visible):before{box-shadow:inset 0 2px 4px #0009,0 0 0 3px #b8f0b32e,0 0 15px 4px #a5e9a55c;filter:brightness(1.12)}
+.track-cursor-hint{position:fixed;z-index:1000;pointer-events:none;opacity:0;font:18px 'Caveat',cursive;color:var(--ink);background:color-mix(in srgb,var(--bg) 90%,transparent);padding:3px 8px;border-radius:8px;white-space:nowrap;transition:opacity .15s}
+.track-cursor-hint.visible{opacity:1}
+/* [design-approved:musical-menu] Ink doodles drift up with staggered, slightly different paths. */
+#home .rail a{position:relative}
+.floating-music-notes{position:absolute;inset:0;pointer-events:none;overflow:visible}
+.floating-music-notes svg{position:absolute;left:calc(24% + var(--note)*20%);top:24%;width:20px;height:27px;fill:none;stroke:var(--ink);stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round;opacity:0}
+#home .rail a:is(:hover,:focus-visible) .floating-music-notes svg{animation:music-note-rise 1.8s calc(var(--note)*.3s) ease-out infinite}
+@keyframes music-note-rise{0%{opacity:0;transform:translate(0,0) rotate(-10deg)}20%{opacity:.85}100%{opacity:0;transform:translate(calc((var(--note) - 1)*18px),-65px) rotate(18deg)}}
+#home .rail a[href="#contact"] .contact-matcha{animation:none!important}
+.matcha-straw{transform-origin:60px 55px}
+#home .rail a[href="#contact"]:is(:hover,:focus-visible) .matcha-straw{animation:straw-dip .55s ease-out both,straw-stir 1.5s .55s ease-in-out infinite}
+@keyframes straw-dip{from{transform:translate(4px,-22px);opacity:0}to{transform:translate(0,0);opacity:1}}
+@keyframes straw-stir{0%,100%{transform:rotate(-5deg) translateX(-1px)}50%{transform:rotate(7deg) translateX(2px)}}
+@media(prefers-reduced-motion:reduce){.floating-music-notes svg,.matcha-straw{animation:none!important}.rail a:is(:hover,:focus-visible) .floating-music-notes svg{opacity:.75}}
+#home .rail a>.floating-music-notes{position:absolute!important;inset:0!important;width:100%!important;height:100%!important;max-width:none!important;transform:none!important;z-index:8;opacity:1!important}
+#home .rail .floating-music-notes svg{color:var(--ink);stroke:currentColor}
+
+/* [design-approved:centered-note-origin] Each doodle emerges from the vinyl spindle before fanning outward. */
+#home .rail .sleeve-art>.floating-music-notes{position:absolute!important;inset:0!important;width:100%!important;height:100%!important;max-width:none;z-index:8;pointer-events:none;opacity:1!important}
+#home .rail .floating-music-notes svg{left:50%!important;top:50%!important;margin:-13px 0 0 -10px}
+.playing-music-notes{position:absolute;width:0;height:0;z-index:20;pointer-events:none}
+.playing-music-notes svg{position:absolute;left:-12px;top:-16px;width:24px;height:32px;opacity:0;fill:none;stroke:#e6aa62;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;filter:drop-shadow(0 1px 1px #35241255)}
+.playing-music-notes.playing svg{animation:playing-note-rise var(--duration) var(--delay) ease-out infinite}
+@keyframes playing-note-rise{0%{opacity:0;transform:translate(0,0) rotate(-8deg) scale(.65)}15%{opacity:.95}100%{opacity:0;transform:translate(var(--drift),-135px) rotate(18deg) scale(1.1)}}
+@media(prefers-reduced-motion:reduce){.playing-music-notes{display:none}}
+
+/* [design-approved:night-contrast] All menu ink uses the same light color as the approved About/Contact underlines. */
+body.nighttime #home .rail{--ink:#f1f3f7}
+body.nighttime #home .rail .floating-music-notes svg{stroke:#f1f3f7!important}
+body.nighttime #home .rail a>.menu-label:after{background:#f1f3f7!important;color:#f1f3f7!important}
+body.nighttime .track-cursor-hint{color:#f1f3f7}
+/* Keep inset depth and the hover halo, but remove cast shadows from both transport buttons. */
+#home .led-transport button:before{box-shadow:inset 0 1px 2px #0007}
+#home .led-transport button:is(:hover,:focus-visible):before{box-shadow:inset 0 1px 2px #0007,0 0 0 3px #b8f0b32e,0 0 15px 4px #a5e9a55c}
+.magnet-heart{position:absolute;overflow:visible;pointer-events:none;z-index:25;fill:none;stroke:#c84d3b;stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round}
+body.nighttime .magnet-heart{stroke:#ffa28b}
+.heart-stem{stroke-width:1.7}
+.heart-collected-notes{opacity:0;stroke:var(--ink);stroke-width:1.7;transition:opacity .4s 1.2s}
+.magnet-heart.collecting .heart-collected-notes,body:has(#home .rail a:is(:hover,:focus-visible) .floating-music-notes) .heart-collected-notes{opacity:1}
+#home .rail .floating-music-notes svg{animation-duration:2.8s!important;z-index:30}
+@keyframes music-note-rise{0%{opacity:0;transform:translate(0,0) rotate(-10deg)}12%{opacity:.9}75%,94%{opacity:.95;transform:translate(calc(var(--magnet-x,0px) + (var(--note) - 1)*8px),var(--magnet-y,-65px)) rotate(12deg) scale(.7)}100%{opacity:0;transform:translate(var(--magnet-x,0px),var(--magnet-y,-65px)) scale(.7)}}
+@keyframes playing-note-rise{0%{opacity:0;transform:translate(0,0) rotate(-8deg) scale(.65)}15%{opacity:.95}75%,94%{opacity:1;transform:translate(calc(var(--magnet-x,0px) + var(--drift)*.15),var(--magnet-y,-135px)) rotate(12deg) scale(.7)}100%{opacity:0;transform:translate(var(--magnet-x,0px),var(--magnet-y,-135px)) scale(.7)}}
+body.nighttime .playing-music-notes svg{stroke:#ffcf8a}
+@media(prefers-reduced-motion:reduce){.heart-collected-notes{transition:none}}
+
+/* [design-approved:soft-island-filled-heart] Keep the frosted surface without a framing outline, and use a larger strawberry-colored ink heart. */
+#home .rail.balanced-menu{border:0!important;box-shadow:0 8px 28px #18293610!important;padding-top:22px;padding-bottom:18px}
+.magnet-heart .heart-outline{fill:#e97076;stroke:#b93d50;stroke-width:1.8}
+body.nighttime .magnet-heart .heart-outline{fill:#ff9b9e;stroke:#ffd0bd}
+.magnet-heart .heart-shine{fill:none;stroke:#fff0df;stroke-width:2.5;opacity:.8}
+.magnet-heart .heart-collected-notes{stroke:#66283c;stroke-width:1.8}
+
+/* Notes appear only on arrival and remain attached as the heart moves. */
+.magnet-heart .heart-collected-notes{opacity:1!important;transition:none!important;fill:none}
+.collected-music-note{animation:note-stick .25s ease-out both}
+@keyframes note-stick{from{opacity:0;stroke-width:3}to{opacity:.95;stroke-width:1.8}}
+@media(prefers-reduced-motion:reduce){.collected-music-note{animation:none}}
+
+/* Same attraction works with touch or keyboard; navigation links retain their usual action. */
+.magnet-heart{pointer-events:auto;cursor:pointer;touch-action:manipulation}
+.magnet-heart:focus-visible{outline:2px dashed var(--ink);outline-offset:4px;border-radius:40%}
+body.touch-magnet #home .rail .floating-music-notes svg{animation:music-note-rise 2.8s calc(var(--note)*.3s) ease-out infinite}
+.magnet-heart .heart-collected-notes.releasing{opacity:0!important;transition:opacity .65s ease!important}
+@media(prefers-reduced-motion:reduce){body.touch-magnet #home .rail .floating-music-notes svg{animation:none!important;opacity:0}.magnet-heart .heart-collected-notes.releasing{transition:none!important}}
+
+/* [design-approved:fluid-wine-heart] A slow, soft double pulse is independent of the flexible stem's cursor-driven sway. */
+#home .hero-copy{position:relative}
+.magnet-heart .heart-outline{fill:#8c2546;stroke:#691a35;transform-box:fill-box;transform-origin:50% 90%;animation:wine-heart-pulse 2.2s ease-in-out infinite}
+body.nighttime .magnet-heart .heart-outline{fill:#a53255;stroke:#e796ac}
+.magnet-heart .heart-shine{stroke:#f4b4c3;opacity:.5}
+.magnet-heart .heart-collected-notes{stroke:#fff1e7}
+@keyframes wine-heart-pulse{0%,38%,100%{transform:scale(1)}12%{transform:scale(1.065,1.055)}23%{transform:scale(1.015)}29%{transform:scale(1.035)}}
+#home .rail a:is(:hover,:focus-visible) .floating-music-notes svg,body.touch-magnet #home .rail .floating-music-notes svg{animation-duration:4.2s!important;animation-delay:calc(var(--note)*.38s)!important}
+/* [design-approved:clean-handwritten-hints] All music hints share the existing handwritten face, without outlined letters or pill borders. */
+.track-cursor-hint,.headphone-music-prompt,.edge-disc-label{font-family:'Portfolio Hand','Bradley Hand',cursive!important;font-weight:400!important;font-size:20px!important;text-shadow:none!important;-webkit-text-stroke:0!important;border:0!important;outline:0!important;box-shadow:none!important;filter:none!important;background:transparent!important;color:var(--ink)!important}
+.headphone-music-prompt:before,.edge-disc-label:before{display:none!important}
+@media(prefers-reduced-motion:reduce){.magnet-heart .heart-outline{animation:none}}
+
+/* [design-approved:raised-player-feet] A thicker wooden top edge and short satin-metal feet share the upper-left lighting direction. */
+#home .scene-readout,#home .led-transport{top:calc(var(--front-top) + 26px)!important}
+
+/* [design-approved:grounded-player-power] No legs: contact shadow anchors the rounded base, with softer shadow cast down/right by upper-left light. */
+#home .player-wood-shell{filter:drop-shadow(1px 3px 1.5px #30231655) drop-shadow(7px 10px 7px #30231630)}
+#home .deck-dot{width:9px;height:9px;background:radial-gradient(circle at 35% 30%,#d9ffd1 0%,#76e47b 30%,#2a9c4f 72%);box-shadow:0 0 0 2px #32563b88,0 0 5px 2px #7de78966;transition:box-shadow .3s}
+#home .independent-player.playing .deck-dot{animation:power-led-breathe 2.4s ease-in-out infinite}
+@keyframes power-led-breathe{0%,100%{box-shadow:0 0 0 2px #356d4688,0 0 6px 3px #76ff8899,0 0 12px 5px #6bea7440}50%{box-shadow:0 0 0 2px #356d4688,0 0 9px 4px #a0ffaccc,0 0 20px 9px #6bea7466}}
+@media(prefers-reduced-motion:reduce){#home .independent-player.playing .deck-dot{animation:none;box-shadow:0 0 0 2px #356d4688,0 0 9px 4px #a0ffacaa}}

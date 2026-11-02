@@ -80,3 +80,21 @@ body{--wide-scale:1}
 @media(prefers-reduced-motion:reduce){.heart-wind{animation:none}.heart-push{transform:none;transition:none}}
 
 /* [design-approved:rooted-heart] Both motion layers pivot at the stem base (690,3); no translations can detach it from the sprout. */
+
+/* [design-approved:plain-headline] Keep the approved text position without decorative artwork. */
+#home .headline-bottom.plain-heading{position:relative;margin-block:16px 12px!important}
+/* [design-approved:single-line-led] Keep the established LED housing; all available text width belongs to one scrolling line. */
+.scene-readout .now-playing-led>span:first-child{display:none!important}
+.scene-readout .now-playing-led strong{width:100%!important;max-width:none!important;white-space:nowrap!important}
+@media(prefers-reduced-motion:reduce){.scene-readout .now-playing-led strong{overflow-x:auto;pointer-events:auto}.scene-readout .now-playing-led .led-ribbon{width:max-content;white-space:nowrap}.scene-readout .now-playing-led .led-ribbon>span{white-space:nowrap}}
+
+/* [design-approved:menu-bare-records] Full-size vinyl icons share the existing menu artwork box; colored center labels distinguish the two collections. */
+#home .rail.balanced-menu .sleeve-art{background:none;border-radius:50%;overflow:visible;box-shadow:none}
+#home .rail.balanced-menu .sleeve-art:before{width:100%;height:100%;left:0;top:0;box-shadow:0 2px 4px #18293630;border:1px solid #555b55;box-sizing:border-box}
+#home .rail.balanced-menu .sleeve-art i{width:28%;height:28%;left:36%;top:36%;background:#9ab9aa;box-shadow:0 0 0 1px #18293655}
+#home .rail.balanced-menu .b-side-menu .sleeve-art i{background:#b4a0c8}
+#home .rail.balanced-menu .sleeve-art i:after{content:'';position:absolute;width:12%;height:12%;left:44%;top:44%;background:#252c29;border-radius:50%}
+
+/* [design-approved:larger-menu-records] Enlarge vinyl faces 25% inside their existing aligned artwork slots. */
+#home .rail.balanced-menu .sleeve-art:before{width:125%;height:125%;left:-12.5%;top:-12.5%}
+#home .rail.balanced-menu .sleeve-art i{width:35%;height:35%;left:32.5%;top:32.5%}

@@ -35,12 +35,13 @@
   if(now-last>100||direction!==lastDirection)total=0;
   if(direction!==lastDirection)readyAt=0;last=now;lastDirection=direction;
   e.preventDefault();if(now<readyAt)return;
-  total+=delta;if(Math.abs(total)>=42){advance(Math.sign(total));readyAt=now+300;total=0}
+  // [design-approved:heavier-scroll] Twice the gesture distance, with the existing responsive transition gate.
+  total+=delta;if(Math.abs(total)>=84){advance(Math.sign(total));readyAt=now+300;total=0}
  },{passive:false});
  addEventListener('keydown',e=>{if(!enabled(e.target)||e.altKey||e.ctrlKey||e.metaKey)return;const direction=e.key==='PageDown'?1:e.key==='PageUp'?-1:0;if(direction&&advance(direction))e.preventDefault()});
  // [design-approved:no-pager] Section links and scroll gestures replace previous/next controls.
  let touchStart=null;
  addEventListener('touchstart',e=>{touchStart=e.touches.length===1&&enabled(e.target)?{x:e.touches[0].clientX,y:e.touches[0].clientY}:null},{passive:true});
  addEventListener('touchmove',e=>{if(touchStart&&Math.abs(e.touches[0].clientY-touchStart.y)>Math.abs(e.touches[0].clientX-touchStart.x))e.preventDefault()},{passive:false});
- addEventListener('touchend',e=>{if(!touchStart)return;const delta=touchStart.y-e.changedTouches[0].clientY;const horizontal=Math.abs(touchStart.x-e.changedTouches[0].clientX);touchStart=null;if(Math.abs(delta)>35&&Math.abs(delta)>horizontal)advance(Math.sign(delta))},{passive:true});
+ addEventListener('touchend',e=>{if(!touchStart)return;const delta=touchStart.y-e.changedTouches[0].clientY;const horizontal=Math.abs(touchStart.x-e.changedTouches[0].clientX);touchStart=null;if(Math.abs(delta)>70&&Math.abs(delta)>horizontal)advance(Math.sign(delta))},{passive:true});
 })();

@@ -57,7 +57,7 @@ const armControl=document.createElement('button');armControl.type='button';armCo
 function updateArmControl(){const playing=!localAudio.paused&&!localAudio.ended;const label=trackIndex<0?'load and play':playing?'pause music':'play music';armControl.setAttribute('aria-label',label);armControl.setAttribute('aria-pressed',String(playing));armControl.querySelector('span').textContent=label;}
 ['playing','pause','ended','error'].forEach(name=>localAudio.addEventListener(name,updateArmControl));
 armControl.addEventListener('keydown',event=>{if(trackIndex>=0&&(event.key==='ArrowRight'||event.key==='ArrowLeft')){event.preventDefault();switchRecord(event.key==='ArrowRight'?1:-1);}});
-document.getElementById('headphone-hint').textContent='click the record player to load and play. use the circular buttons to skip. the record table is the only play/pause control.';
+document.getElementById('headphone-hint').textContent='click the record player to play or pause. use the circular buttons to skip. the record table is the only play/pause control.';
 requestAnimationFrame(fitWelcome);
 
 const nowPlaying=document.createElement('span');nowPlaying.className='now-playing-led';nowPlaying.innerHTML='<span>NOW PLAYING</span><strong>ready</strong>';cabinetScene.append(nowPlaying);
@@ -78,14 +78,17 @@ shelf.querySelectorAll('[data-record]').forEach((link,i)=>{
  link.href=cabinetProjects[i].card.href;
 });
 
-function resetQueue(){playbackRequested=false;queueEpoch++;localAudio.pause();carrier.getAnimations().forEach(a=>a.cancel());changingRecord=false;trackIndex=-1;leftQueue=tracks.map((_,i)=>i);rightQueue=[];queueSource=1;musicButton.classList.remove('changing-record');musicState(false);setLEDTitle('load record');renderQueue();updateArmControl();syncTransport();syncLED()}
+// [design-approved:loaded-paused-record] Select the first track without calling play; reset and home return keep the same paused starting state.
+function resetQueue(){playbackRequested=false;queueEpoch++;localAudio.pause();carrier.getAnimations().forEach(a=>a.cancel());changingRecord=false;trackIndex=0;leftQueue=tracks.map((_,i)=>i).slice(1);rightQueue=[];queueSource=1;musicButton.classList.remove('changing-record');musicState(false);selectLocalTrack(0);renderQueue();updateArmControl();syncTransport();syncLED()}
 addEventListener('hashchange',()=>{if(!location.hash||location.hash==='#home')resetQueue()});
 trackControls.querySelectorAll('.edge-disc-arrow').forEach(el=>{el.innerHTML='<svg viewBox="0 0 60 24" aria-hidden="true"><path d="M54 5 Q35 23 8 13 M8 13 L17 7 M8 13 L15 20"/></svg>'});
 
+// [design-approved:single-line-led] One continuous title ribbon; playback status remains exposed separately to assistive technology.
 function setLEDTitle(title){
+ title='now playing: '+title;
  const field=nowPlaying.querySelector('strong');field.replaceChildren();const ribbon=document.createElement('span');ribbon.className='led-ribbon';
  for(let i=0;i<2;i++){const copy=document.createElement('span');copy.textContent=title;if(i)copy.setAttribute('aria-hidden','true');ribbon.append(copy)}field.append(ribbon);field.setAttribute('aria-label',title);
- requestAnimationFrame(()=>{const overflow=ribbon.firstElementChild.getBoundingClientRect().width>field.clientWidth;nowPlaying.classList.toggle('scroll-title',overflow);ribbon.style.animationDuration=Math.max(12,title.length*.5)+'s'});
+ requestAnimationFrame(()=>{nowPlaying.classList.add('scroll-title');ribbon.style.animationDuration=Math.max(12,title.length*.5)+'s'});
 }
 function syncLED(){const playing=!localAudio.paused&&!localAudio.ended;nowPlaying.classList.toggle('led-playing',playing);nowPlaying.firstElementChild.setAttribute('aria-label',playing?'Playing':trackIndex>=0?'Paused':'Ready');nowPlaying.firstElementChild.innerHTML=`<i aria-hidden="true" class="led-symbol ${playing?'symbol-pause':'symbol-play'}"></i>`;}
 ['playing','pause','ended','error'].forEach(event=>localAudio.addEventListener(event,syncLED));

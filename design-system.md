@@ -1,3 +1,13 @@
+## Approved player and interaction update — November 2, 2026
+
+Julie approved publishing the reviewed homepage with the note: “updating record player LED/button control positioning, depth, dimensions, animations for the heart and hovering over bottom menu.”
+
+- Continuous rounded wood body, recessed aligned LED/skip controls, thin silver top rim, dark engraving, directional shadows, no legs; green power indicator pulses during playback.
+- First record loads paused. Side stacks stay clear of the chassis. Matching handwritten playback hints and stronger hover halos.
+- Wine-red heart has soft cursor response and a gentle pulse; individual notes accumulate as they arrive, remain three seconds after interaction, then fade. Tapping the heart attracts notes without changing navigation.
+- Borderless frosted navigation, bare records, updated portrait with sketched earbuds, rising music notes and stirring matcha straw. Stable header placement, shared label typography, Los Angeles default and one-row settings. Wheel/swipe thresholds doubled.
+- Verified JavaScript syntax, whitespace, desktop and mobile fit, playback indicator and note animation, and accessible heart control. Stars are a separate unapproved preview.
+
 ## Approved corner settings and restored menu — October 28, 2026
 
 Julie approved the restored menu size and matching dropdown/header typography for GitHub and public release. The half-size island experiment was rejected.
