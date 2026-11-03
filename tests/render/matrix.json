@@ -1,0 +1,10 @@
+{
+  "viewports": [[390,844],[430,932],[768,1024],[1366,768],[1440,900],[1920,1080],[1280,600]],
+  "routes": ["home","work","explorations","about","contact"],
+  "themes": ["light","dark"],
+  "minimumText": 16,
+  "minimumTarget": 44,
+  "extraChecks": ["enlarged-text", "long-city-song", "sunrise", "sunset", "reduced-motion", "menu-focus-return", "menu-links-scroll", "playback", "timezone"],
+  "intentionalOverlaps": ["platter/record/tonearm", "heart/string/final-n", "weather/sketch", "player/transport"],
+  "scrollExceptions": "Phones, enlarged text and short windows scroll; long-content routes retain their existing scrolling behavior. New scroll containers need preview approval."
+}

@@ -1,0 +1,11 @@
+{
+  "private": true,
+  "scripts": {
+    "build": "node scripts/build-assets.mjs",
+    "check": "node scripts/check-release.mjs",
+    "test": "node tests/composition-contrast.cjs && node tests/release-gate.cjs"
+  },
+  "devDependencies": {
+    "postcss": "^8.5.32"
+  }
+}

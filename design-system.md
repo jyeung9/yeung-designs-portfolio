@@ -1,3 +1,15 @@
+## Responsive release — November 3, 2026
+
+Publication authorized after browser review, with real-device touch and native Reduce Motion testing explicitly accepted as unverified. This section supersedes older mobile layout exceptions.
+
+- At phone widths, header remains one row and the original theme switch moves into the hamburger. Home groups remain in normal flow with a shared 32px minimum gap and responsive page inset; scrolling preserves readable text and usable controls.
+- Compact player keeps its projected wood proportions; the LED hides when available width cannot fit it, while centered transport targets remain 56/84/56px with equal 12px gaps. No taller stacked fascia.
+- Navigation artwork remains proportional to the player, with a typography-based minimum width for the menu and its desktop grid column. Labels stay on one line; enlarged text uses a two-column menu and a wrapping role description.
+- Weather follows navigation on phones. City, clock and other UI retain minimum readable sizes. The B-Side design-system link reserves its own normal-flow space after wrapping tags.
+- Current heart is a red/pink balloon with gentle motion and a music-reactive sheen. No slingshot or sparks.
+- Verified 70 route/theme/viewport geometry and sampled text/target/contrast cases; reviewed settled route examples and phone states. Verified menu focus return, city selection, playback/next/pause, long playing title, enlarged text and navigation return. Native touch and Reduce Motion remain unverified, not passed.
+- CAPI and ConnectMyHealth story drafts are excluded from this release.
+
 ## Current local parity release — November 2, 2026, 10:48 PM
 
 Julie authorized publishing the current local website exactly. This section supersedes earlier conflicting specs: header lettering is 1.125× the base handwritten token (25% below the prior 1.5×); headline uses the base token and role uses `clamp(20px, 1.65vw, 28px)`. The measured landing fitter includes all occupied rows. At ≥1000px width and ≤820px height, introduction/player sit side by side; taller desktop retains the vertical composition. Content sections at ≥900px scroll inside their available frame; narrow pages retain normal scrolling. Navigation has a 380px preferred minimum width bounded by its container. Console stacks below 360px deck width or enlarged root text. Header mobile menu contains LinkedIn/résumé; section links remain in the main navigation. Current case-study pages are included to match the local build. No new visual redesign is part of this synchronization.

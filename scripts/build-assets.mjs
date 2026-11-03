@@ -1,0 +1,17 @@
+import fs from 'node:fs';
+import path from 'node:path';
+import crypto from 'node:crypto';
+import {execFileSync} from 'node:child_process';
+const hash=b=>crypto.createHash('sha256').update(b).digest('hex');
+execFileSync(process.execPath,['scripts/build-preview-script.mjs']);
+fs.copyFileSync('styles/site.css','dist/site.css');
+let html=fs.readFileSync('dist/index.html','utf8');
+html=html.replace(/<link rel="stylesheet" href="[^\"]+">/g,'').replace(/\n{3,}/g,'\n\n');
+const cssHash=hash(fs.readFileSync('dist/site.css')).slice(0,16),jsHash=hash(fs.readFileSync('dist/site-bundle.js')).slice(0,16);
+html=html.replace(/\s*<\/head>/,`\n<link rel="stylesheet" href="site.css?v=${cssHash}">\n</head>`).replace(/site-bundle\.js\?[^\"]+/g,`site-bundle.js?v=${jsHash}`);
+fs.writeFileSync('dist/index.html',html);
+const commit=execFileSync('git',['rev-parse','HEAD'],{encoding:'utf8'}).trim();
+const dirty=!!execFileSync('git',['diff','--name-only'],{encoding:'utf8'}).trim();
+const files={};function walk(dir){for(const f of fs.readdirSync(dir,{withFileTypes:true})){const p=path.join(dir,f.name);if(f.isDirectory())walk(p);else if(f.name!=='build-manifest.json')files[p.slice(5)]=hash(fs.readFileSync(p))}}walk('dist');
+fs.writeFileSync('dist/build-manifest.json',JSON.stringify({schema:1,sourceCommit:commit,dirty,artifactHash:hash(JSON.stringify(files)),assets:{css:cssHash,js:jsHash},files},null,2)+'\n');
+console.log(JSON.stringify({sourceCommit:commit,dirty,cssHash,jsHash}));

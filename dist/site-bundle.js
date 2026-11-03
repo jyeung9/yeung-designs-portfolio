@@ -475,7 +475,8 @@ cabinetScene.append(transport);
 
 transport.addEventListener('click',event=>{const b=event.target.closest('button');if(!b||b.disabled)return;event.stopPropagation();if(b.dataset.led==='play'){toggleLocal();return}switchRecord(b.dataset.led==='next'?1:-1)});
 function syncTransport(){
- const active=!localAudio.paused&&!localAudio.ended;playButton.disabled=changingRecord;playButton.setAttribute('aria-label',active?'Pause music':'Play music');playButton.innerHTML='<svg viewBox="0 0 24 24" aria-hidden="true"><path d="'+(active?'M7 5h3v14H7ZM14 5h3v14h-3Z':'M8 5v14l11-7Z')+'"/></svg>';
+ const active=!localAudio.paused&&!localAudio.ended;playButton.disabled=changingRecord;playButton.setAttribute('aria-label',active?'Pause music':'Play music');// [design-preview:combined-play-pause] Both symbols remain visible; accessible action and pressed state track playback.
+ playButton.setAttribute('aria-pressed',String(active));playButton.innerHTML='<svg viewBox="0 0 36 24" aria-hidden="true"><path d="M5 5v14l10-7Z M23 5h3v14h-3Z M29 5h3v14h-3Z"/></svg>' ;
 
  transport.querySelector('[data-led="previous"]').disabled=changingRecord||trackIndex<0||!rightQueue.length;
  transport.querySelector('[data-led="next"]').disabled=changingRecord||trackIndex<0||!leftQueue.length;
@@ -657,7 +658,7 @@ function fitHomeFrame(){
   homeFrame.style.removeProperty('--composition-unit');
  }else{homeFrame.style.removeProperty('--composition-unit');homeFrame.style.removeProperty('--fitted-scene-width')}
  const introBounds=homeFrame.querySelector('.hero-copy').getBoundingClientRect(),menuBounds=landingNavigation.getBoundingClientRect(),slotBounds=sceneSlot.getBoundingClientRect();
- const prior=Number(sceneSlot.dataset.balance||0),balance=innerWidth>=1000&&innerHeight<=820?0:prior+(introBounds.bottom+menuBounds.top)/2-(slotBounds.top+slotBounds.height/2);
+ const prior=Number(sceneSlot.dataset.balance||0),balance=innerWidth<=600||innerWidth>=1000&&innerHeight<=820?0:prior+(introBounds.bottom+menuBounds.top)/2-(slotBounds.top+slotBounds.height/2);
  sceneSlot.dataset.balance=String(balance);sceneSlot.style.translate='0 '+balance+'px';
  homeFrame.dataset.fit=document.documentElement.scrollHeight>innerHeight+2?'scroll-required':'viewport';
 }
@@ -694,7 +695,7 @@ if(roleLine){roleLine.classList.add('role-line');roleLine.textContent='product d
 ;/* Source: mobile-menu.js */
 // [design-approved:mobile-utility-menu] Bottom island owns primary navigation; hamburger contains external links and paired settings only.
 const mobileHeader=document.querySelector('.masthead,.case-brand');
-if(mobileHeader){const menuButton=document.createElement('button');menuButton.className='mobile-menu-toggle';menuButton.setAttribute('aria-label','Open navigation menu');menuButton.setAttribute('aria-haspopup','dialog');menuButton.innerHTML='<span></span><span></span><span></span>';mobileHeader.append(menuButton);const menu=document.createElement('dialog');menu.className='mobile-menu';menu.setAttribute('aria-label','Navigation');const prefix=location.pathname.includes('/case-studies/')?'../':'';menu.innerHTML=`<button class="mobile-menu-close" aria-label="Close navigation menu">close ×</button><nav aria-label="Main navigation"><a href="https://www.linkedin.com/in/julie-yeung9/">linkedin</a><a href="https://drive.google.com/file/d/18085sSWS6cHZ3y5hkS9DhmdBfyQf00_2/view?usp=sharing">résumé</a></nav>`;document.body.append(menu);
+if(mobileHeader){const menuButton=document.createElement('button');menuButton.className='mobile-menu-toggle';menuButton.setAttribute('aria-label','Open navigation menu');menuButton.setAttribute('aria-haspopup','dialog');menuButton.innerHTML='<span></span><span></span><span></span>';mobileHeader.append(menuButton);const menu=document.createElement('dialog');menu.className='mobile-menu';menu.setAttribute('aria-label','Navigation');menu.id='mobile-navigation';menuButton.setAttribute('aria-controls',menu.id);menuButton.setAttribute('aria-expanded','false');const prefix=location.pathname.includes('/case-studies/')?'../':'';menu.innerHTML=`<button class="mobile-menu-close" aria-label="Close navigation menu">close ×</button><nav aria-label="Main navigation"><a href="https://www.linkedin.com/in/julie-yeung9/">linkedin</a><a href="https://drive.google.com/file/d/18085sSWS6cHZ3y5hkS9DhmdBfyQf00_2/view?usp=sharing">résumé</a></nav>`;document.body.append(menu);
 // Move the live controls, preserving selected timezone and toggle listeners.
 const footer=document.querySelector('#home .hero-bottom');
 const dock=document.querySelector('#home .rail.balanced-menu');
@@ -711,13 +712,15 @@ const externalNav=mobileHeader.querySelector('nav');if(externalNav)headerActions
 const liveToggle=document.querySelector('.ambient-toggle');if(liveToggle)headerActions.append(liveToggle);
 headerActions.append(menuButton);mobileHeader.append(headerActions);
 const mobileQuery=matchMedia('(max-width:600px)');
+// [design-preview:mobile-flow] Move the original live switch, never clone listeners or state.
 function placeMenuSettings(){
+ if(liveToggle){if(mobileQuery.matches)settings.append(liveToggle);else headerActions.insertBefore(liveToggle,menuButton);}
  if(footer){if(document.body.dataset.page==='home')document.getElementById('home').append(footer);else document.body.append(footer);}
  if(!mobileQuery.matches&&menu.open)menu.close();
  window.dispatchEvent(new Event('resize'));
 }
 mobileQuery.addEventListener('change',placeMenuSettings);addEventListener('hashchange',placeMenuSettings);placeMenuSettings();
-menuButton.onclick=()=>{menu.showModal();menuButton.setAttribute('aria-expanded','true')};menu.querySelector('button').onclick=()=>menu.close();menu.addEventListener('click',e=>{if(e.target===menu||e.target.closest('a'))menu.close()});menu.addEventListener('close',()=>menuButton.setAttribute('aria-expanded','false'));}
+menuButton.onclick=()=>{menu.showModal();menuButton.setAttribute('aria-expanded','true')};menu.querySelector('button').onclick=()=>menu.close();menu.addEventListener('click',e=>{const r=menu.getBoundingClientRect();const backdrop=e.target===menu&&(e.clientX<r.left||e.clientX>r.right||e.clientY<r.top||e.clientY>r.bottom);if(backdrop||e.target.closest('a'))menu.close()});menu.addEventListener('close',()=>{menuButton.setAttribute('aria-expanded','false');if(mobileQuery.matches)menuButton.focus()});}
 
 
 ;/* Source: page-scroll.js */
@@ -821,7 +824,7 @@ for(const select of document.querySelectorAll('.city-select')){
  if(select.value==='local'){const la=[...select.options].find(o=>o.textContent==='san francisco');if(la){select.value=la.value;select.dispatchEvent(new Event('change',{bubbles:true}));}}
  const trigger=document.createElement('button');trigger.type='button';trigger.className='city-select themed-city-trigger';trigger.setAttribute('aria-haspopup','dialog');
  select.before(trigger);select.hidden=true;select.style.setProperty('display','none','important');
- const sync=()=>{trigger.textContent=select.selectedOptions[0]?.textContent||'select timezone'};sync();select.addEventListener('change',sync);
+ const cityLabel=document.createElement('span');cityLabel.className='themed-city-label';trigger.append(cityLabel);const sync=()=>{const city=select.selectedOptions[0]?.textContent||'san francisco';cityLabel.textContent=city;trigger.setAttribute('aria-label',city+' — select city')};sync();select.addEventListener('change',sync);
  const dialog=document.createElement('dialog');dialog.className='timezone-picker';dialog.setAttribute('aria-label','Choose timezone');
  const title=document.createElement('h2');title.textContent='choose timezone';
  const close=document.createElement('button');close.type='button';close.className='timezone-close';close.textContent='close';close.onclick=()=>dialog.close();
@@ -846,15 +849,20 @@ function fitWoodShellUnrotated(){
  const scene=cabinetScene.getBoundingClientRect(),deck=cabinetScene.querySelector('.independent-deck').getBoundingClientRect();if(!scene.width||!deck.width)return;
  const scale=scene.width/cabinetScene.offsetWidth,w=deck.width/scale,d=deck.height/scale;
  // One projected front plane supplies screen, knobs, shell and status lamp coordinates.
- const rootEm=parseFloat(getComputedStyle(document.documentElement).fontSize),target=84,gap=8,large=rootEm>20||w<360;
+ // [design-preview:compact-player] Hide the LED when its single-row space cannot contain paused at 18px.
+ const rootEm=parseFloat(getComputedStyle(document.documentElement).fontSize),target=84,availableDisplay=(w*.94-220-24)/2,minimumReadout=6*18*.6+2,mobile=matchMedia('(max-width:600px)').matches||rootEm>20||availableDisplay<minimumReadout;
  document.body.toggleAttribute('data-large-text',rootEm>20);
- transport.toggleAttribute('data-stacked',large);
- const displayWidth=large?w-32:(w*.94-220-24)/2;
+ // [design-preview:compact-player] Space, not viewport width, selects the LED-free console; never grow a second wood row.
+ transport.toggleAttribute('data-compact',mobile);
+ transport.removeAttribute('data-stacked');
+ const displayWidth=Math.max(0,availableDisplay);
+ cabinetScene.style.setProperty('--led-inline-padding',Math.max(0,Math.min(8,(displayWidth-minimumReadout)/2))+'px');
  cabinetScene.style.setProperty('--display-width',displayWidth+'px');
  cabinetScene.style.setProperty('--control-width',(w*.94)+'px');
  cabinetScene.style.setProperty('--control-center',((deck.left-scene.left)/scale+w/2)+'px');
 
- const led=Math.max(target,nowPlaying.getBoundingClientRect().height/scale)+(large?target+8:0),frontPadding=16,h=d+led+frontPadding*2,r=Math.min(16,w*.065),inset=w*.045;
+ // [design-preview:mobile-proportional-player] Fixed-ratio wood; knobs straddle the shallow fascia without stretching the artwork.
+ const led=mobile?84:Math.max(target,nowPlaying.getBoundingClientRect().height/scale),frontPadding=mobile?(w*.22-led)/2:16,h=mobile?d+w*.22:d+led+frontPadding*2,r=Math.min(16,w*.065),inset=w*.045;
  cabinetScene.style.setProperty('--control-top',((deck.top-scene.top)/scale+d+frontPadding)+'px');
  homeFrame.style.setProperty('--navigation-width',(w*.88)+'px');
  homeFrame.style.setProperty('--dock-art-size',Math.max(32,w*.097)+'px');
@@ -908,22 +916,26 @@ function hintSurface(x,y){
  const wood=shell.querySelector('g[clip-path]').getBoundingClientRect();if(x>=wood.left&&x<=wood.right&&y>=wood.top&&y<=wood.bottom)return 'rgb(185,153,104)';
  return window.compositionSkyAt?'rgb('+window.compositionSkyAt(y).join(',')+')':getComputedStyle(document.body).getPropertyValue('--bg').trim();
 }
+// [design-preview:cursor-accent-hints] Follow the actual cursor; nearby flips keep plain text on one readable surface.
 function contrastHint(x,y){
- const r=trackHint.getBoundingClientRect(),clampX=v=>Math.max(8,Math.min(v,innerWidth-r.width-8)),clampY=v=>Math.max(8,Math.min(v,innerHeight-r.height-8));
- let best=null;
+ const r=trackHint.getBoundingClientRect(),accent=getComputedStyle(document.querySelector('.headline-bottom')).color;
  const protectedRects=[nowPlaying,...document.querySelectorAll('.led-transport button,.wood-brand-engraving')].map(e=>e.getBoundingClientRect());
- const offsets=[[10,12],[-r.width-10,12],[10,-r.height-12],[-r.width-10,-r.height-12],[-r.width/2,28],[-r.width/2,-r.height-28]];
- for(const [dx,dy] of offsets){const px=x+dx,py=y+dy;
-  const left=clampX(px),top=clampY(py),lights=[];
-  for(const dx of [.05,.5,.95])for(const dy of [.2,.8]){let color=hintSurface(left+r.width*dx,top+r.height*dy);if(color.startsWith('#')){const h=color.slice(1);color='rgb('+[0,2,4].map(i=>parseInt(h.slice(i,i+2),16)).join(',')+')'}lights.push(hintLuminance(color))}
-  const dark=Math.min(...lights.map(l=>(l+.05)/.05)),light=Math.min(...lights.map(l=>1.05/(l+.05))),ratio=Math.max(dark,light),candidate={left,top,ratio,color:dark>=light?'#000000':'#ffffff'};
-  const collision=protectedRects.some(b=>left<b.right&&left+r.width>b.left&&top<b.bottom&&top+r.height>b.top);candidate.score=ratio-(collision?20:0);if(!best||candidate.score>best.score)best=candidate;if(ratio>=4.5&&!collision){best=candidate;break}
+ let best;
+ for(const [dx,dy] of [[12,16],[12,-r.height-12],[-r.width-12,16],[-r.width-12,-r.height-12]]){
+  const left=Math.max(8,Math.min(x+dx,innerWidth-r.width-8)),top=Math.max(8,Math.min(y+dy,innerHeight-r.height-8));
+  const surfaces=[.05,.5,.95].flatMap(sx=>[.2,.8].map(sy=>hintSurface(left+r.width*sx,top+r.height*sy)));
+  const color=CompositionContrast.ink(surfaces,accent),ratio=Math.min(...surfaces.map(s=>CompositionContrast.ratio(color,s)));
+  const collision=protectedRects.some(b=>left<b.right&&left+r.width>b.left&&top<b.bottom&&top+r.height>b.top);
+  const candidate={left,top,color,ratio,score:(ratio>=4.5?100:0)-(collision?20:0)};
+  if(!best||candidate.score>best.score)best=candidate;
+  if(ratio>=4.5&&!collision)break;
  }
  trackHint.dataset.contrast=best.ratio.toFixed(2);trackHint.style.left=best.left+'px';trackHint.style.top=best.top+'px';trackHint.style.setProperty('color',best.color,'important');
 }
+
 for(const button of [...document.querySelectorAll('.led-transport button'),armControl]){
  const show=(x,y)=>{trackHint.textContent=(button===armControl||button.dataset.led==='play')?(localAudio.paused?'play music':'pause music'):button.dataset.led==='next'?'next track':'previous track';trackHint.classList.add('visible');const width=trackHint.getBoundingClientRect().width;trackHint.style.left=Math.max(8,Math.min(x+10,innerWidth-width-8))+'px';trackHint.style.top=Math.max(8,Math.min(y+12,innerHeight-32))+'px';contrastHint(x,y)};
- button.addEventListener('pointerenter',e=>{if(e.pointerType!=='touch'){const r=button.getBoundingClientRect();show(r.left+r.width/2,r.bottom)}});
+ for(const event of ['pointerenter','pointermove'])button.addEventListener(event,e=>{if(e.pointerType!=='touch')show(e.clientX,e.clientY)});
  button.addEventListener('pointerleave',()=>trackHint.classList.remove('visible'));
  button.addEventListener('focus',()=>{if(button.matches(':focus-visible')){const r=button.getBoundingClientRect();show(r.left,r.bottom)}});
  button.addEventListener('blur',()=>trackHint.classList.remove('visible'));
@@ -1057,79 +1069,57 @@ window.TRACK_RHYTHM={"track-01.mp3":{"bpm":125.0,"beats":[0.071,0.519,1.026,1.48
 
 
 ;/* Source: listener-preview.js */
-// [design-approved:tethered-beat-balloon] A buoyant heart replaces the listener; the knot remains attached to the final n.
-// Track beat maps are onset estimates. Pulse follows audio time, so pause, seek and track changes remain synchronized.
+// [design-preview:soft-red-return] Restore the simple red balloon: gentle breeze and audio beat pulse, no photographic assets or rotation mesh.
 (()=>{
  const host=document.querySelector('#home .hero-copy'),heading=document.querySelector('#home .headline-bottom');if(!host||!heading)return;
  document.body.classList.add('listener-preview');magnetHeart.tabIndex=-1;magnetHeart.setAttribute('aria-hidden','true');
  const anchor=document.createElement('span');anchor.className='listener-baseline';anchor.setAttribute('aria-hidden','true');heading.append(anchor);
  const svg=document.createElementNS('http://www.w3.org/2000/svg','svg');svg.classList.add('audio-heart-balloon');svg.setAttribute('aria-hidden','true');
- svg.innerHTML='<path class="balloon-tether-shadow"/><path class="balloon-tether"/><g class="balloon-envelope"><path class="balloon-body" d="M0 20C-9 14-25 3-24-10C-23-25-7-27 0-15C7-29 25-23 25-10C26 3 10 15 0 20Z"/><path class="balloon-knot" d="M0 20l-3 5q3-2 6 0Z"/><path class="balloon-glint" d="M-17-10q1-8 8-7"/></g>';
- host.append(svg);const thread=svg.querySelector('.balloon-tether'),envelope=svg.querySelector('.balloon-envelope');
- const shadow=svg.querySelector('.balloon-tether-shadow');
- // A closed, inflated heart mesh: both front and back retain real depth as it turns.
- const facets=document.createElementNS(svg.namespaceURI,'g');facets.classList.add('balloon-disco');facets.setAttribute('aria-hidden','true');
- const meshes=[],outline=Array.from({length:180},(_,i)=>{const t=i*Math.PI*2/180;return [24*Math.sin(t)**3,-1.5*(13*Math.cos(t)-5*Math.cos(2*t)-2*Math.cos(3*t)-Math.cos(4*t))-5.5]});
- function inside(x,y){let yes=false;for(let i=0,j=outline.length-1;i<outline.length;j=i++){const a=outline[i],b=outline[j];if((a[1]>y)!=(b[1]>y)&&x<(b[0]-a[0])*(y-a[1])/(b[1]-a[1])+a[0])yes=!yes}return yes}
- function volume(x,y,side){let lo=0,hi=1;const yy=y+5.5;while(inside(x*hi,yy*hi-5.5)&&hi<100)hi*=2;for(let i=0;i<16;i++){const m=(lo+hi)/2;if(inside(x*m,yy*m-5.5))lo=m;else hi=m}const r=1/Math.max(1,hi);return [x,y,side*16*Math.sqrt(Math.max(0,1-r*r))]}
- // Small planar tile cells follow the curved silhouette, avoiding concentric rings at the center.
- for(const side of [1,-1])for(let y=-30,row=0;y<22;y+=4,row++)for(let x=-24,col=0;x<24;x+=4,col++){
-  const corners=[[x,y],[x+4,y],[x+4,y+4],[x,y+4]],poly=[];
-  for(let i=0;i<4;i++){const a=corners[i],b=corners[(i+1)%4],ia=inside(...a),ib=inside(...b);if(ia)poly.push(a);if(ia!==ib){let lo=0,hi=1;for(let k=0;k<14;k++){const m=(lo+hi)/2;if(inside(a[0]+(b[0]-a[0])*m,a[1]+(b[1]-a[1])*m)===ia)lo=m;else hi=m}poly.push([a[0]+(b[0]-a[0])*lo,a[1]+(b[1]-a[1])*lo])}}
-  if(poly.length<3)continue;
-  const tile=document.createElementNS(svg.namespaceURI,'path');tile.setAttribute('stroke-width','.25');tile.setAttribute('stroke-linejoin','round');facets.append(tile);
-  meshes.push({tile,vertices:poly.map(p=>volume(...p,side)),variation:Math.sin(col*13.7+row*9.3+side),tone:(col*3+row*11+(side>0?0:3))%7});
+ svg.innerHTML='<defs><linearGradient id="heart-iridescence" x1="0" y1="1" x2="1" y2="0"><stop stop-color="#ff9d79"/><stop offset=".4" stop-color="#df65ad"/><stop offset=".65" stop-color="#91ddd6"/><stop offset="1" stop-color="#ffe6aa"/></linearGradient></defs><path class="balloon-tether-shadow"/><path class="balloon-tether"/><g class="balloon-envelope"><path class="balloon-body" d="M0 20C-9 14-25 3-24-10C-23-25-7-27 0-15C7-29 25-23 25-10C26 3 10 15 0 20Z"/><path class="balloon-iridescence" d="M0 20C-9 14-25 3-24-10C-23-25-7-27 0-15C7-29 25-23 25-10C26 3 10 15 0 20Z"/><path class="balloon-knot" d="M0 20l-3 5q3-2 6 0Z"/><path class="balloon-glint" d="M-17-10q1-8 8-7"/></g>';
+ host.append(svg);
+ const thread=svg.querySelector('.balloon-tether'),shadow=svg.querySelector('.balloon-tether-shadow'),envelope=svg.querySelector('.balloon-envelope');
+ const reduced=matchMedia('(prefers-reduced-motion: reduce)');
+ let ax=0,ay=0,size=80,cx=0,cy=0,beatIndex=0,lastTrack='',frame=0,inView=true;
+ const playing=()=>!localAudio.paused&&!localAudio.ended&&localAudio.readyState>=3;
+ function draw(){
+  const name=localAudio.currentSrc.split('/').pop(),rhythm=window.TRACK_RHYTHM?.[name],sec=localAudio.currentTime,beats=rhythm?.beats||[];
+  if(lastTrack!==name||sec<(beats[beatIndex]||0)){beatIndex=0;lastTrack=name}
+  while(beatIndex+1<beats.length&&beats[beatIndex+1]<=sec)beatIndex++;
+  const period=beats[beatIndex+1]-beats[beatIndex]||60/(rhythm?.bpm||120),phase=((sec-(beats[beatIndex]||0))/period)%1;
+  const pulse=playing()&&!reduced.matches?Math.exp(-Math.max(0,phase)*10)*.045:0;
+  // [design-preview:gentle-wind] Unequal wind periods avoid a mechanical pendulum; the string follows with a soft lag.
+  const t=performance.now(),sway=reduced.matches?0:Math.sin(t/2700)*5+Math.sin(t/6100)*2,bob=reduced.matches?0:Math.sin(t/3900+1)*2.5-pulse*24;
+  const x=cx+sway,y=cy+bob,k=size/50*(1+pulse),tip=y+25*k;
+  envelope.setAttribute('transform',`translate(${x} ${y}) scale(${k}) rotate(${reduced.matches?0:Math.sin(t/3100-.4)*2.2} 0 25)`);
+  // The loose string keeps a continuous tangent through its curl and stays attached as the heart beats.
+  const sx=ax+7,sy=ay,dx=x-sx,dy=tip-sy,length=Math.hypot(dx,dy)||1,ux=dx/length,uy=dy/length,nx=-uy,ny=ux,mobile=innerWidth<=600;
+  const points=[],amplitude=Math.min(20,length*.15),slack=mobile?8:10;
+  for(let i=0;i<=64;i++){
+   const q=i/64,u=Math.max(0,Math.min(1,(q-.38)/.3)),along=length*q+amplitude*Math.sin(u*Math.PI*2),bow=Math.sin(q*Math.PI)*((mobile?10:8)+(reduced.matches?0:Math.sin(t/3200-q)*2))+slack*(1-Math.cos(u*Math.PI*2))*(1+.18*Math.sin(u*Math.PI));
+   points.push(`${sx+ux*along+nx*bow} ${sy+uy*along+ny*bow}`);
+  }
+  thread.setAttribute('d',`M${ax-2} ${ay} Q${ax+3} ${ay+5} ${sx} ${sy} L${points.join(' L')}`);shadow.setAttribute('d',thread.getAttribute('d'));
+  svg.dataset.playing=String(playing());svg.dataset.tempo=String(rhythm?.bpm||'estimated');
  }
- envelope.insertBefore(facets,svg.querySelector('.balloon-knot'));svg.querySelector('.balloon-body').style.opacity='0';svg.querySelector('.balloon-glint').style.display='none';
- let spin=0,lastMeshAngle=null;
- function renderVolume(angle){if(lastMeshAngle!==null&&Math.abs(angle-lastMeshAngle)<.018)return;lastMeshAngle=angle;const c=Math.cos(angle),sn=Math.sin(angle),faces=[];
-  for(const face of meshes){const v=face.vertices.map(([x,y,z])=>[x*c+z*sn,y,-x*sn+z*c]);const center=v.reduce((a,p)=>a.map((n,i)=>n+p[i]/v.length),[0,0,0]);
-   const a=v[1].map((n,i)=>n-v[0][i]),b=v[v.length-1].map((n,i)=>n-v[0][i]);let normal=[a[1]*b[2]-a[2]*b[1],a[2]*b[0]-a[0]*b[2],a[0]*b[1]-a[1]*b[0]],length=Math.hypot(...normal)||1;normal=normal.map(n=>n/length);if(normal[0]*center[0]+normal[1]*(center[1]+5.5)+normal[2]*center[2]<0)normal=normal.map(n=>-n);
-   const diffuse=Math.max(0,normal[0]*-.4+normal[1]*-.5+normal[2]*.76),specular=Math.pow(Math.max(0,normal[0]*-.2+normal[1]*-.25+normal[2]*.947),40);
-   // Jewel glass tiles retain their own pigments; broad pearly reflections travel over the volume.
-   const palette=['#d54d87','#a17cc7','#54bdca','#568dcc','#90d3bc','#edb872','#e8b4cc'];
-   const pigment=palette[face.tone],shade=CompositionContrast.mix('#25364e',pigment,.42+diffuse*.48);
-   const pearl=Math.pow(Math.max(0,normal[0]*-.48+normal[1]*-.38+normal[2]*.78),8);
-   const shimmer=Math.pow(Math.max(0,Math.sin(normal[0]*4+normal[1]*3+angle*.35+face.variation*.8)),12);
-   const color=CompositionContrast.mix(shade,'#fff8dc',Math.min(.85,pearl*.64+specular*.18+shimmer*.2));
-   face.tile.setAttribute('fill','rgb('+color.map(Math.round).join(',')+')');
-   face.tile.setAttribute('stroke',document.body.classList.contains('nighttime')?'rgba(110,143,175,.65)':'rgba(37,53,78,.7)');
-   face.tile.setAttribute('d',v.map((p,i)=>{const perspective=140/(140-p[2]);return(i?'L':'M')+(p[0]*perspective).toFixed(2)+' '+(p[1]*perspective).toFixed(2)}).join(' ')+'Z');faces.push({tile:face.tile,depth:center[2]});
-  }faces.sort((a,b)=>a.depth-b.depth).forEach(f=>facets.append(f.tile));
- }
-
- let wind=0,windVelocity=0,pushY=0,pushVY=0,lastPointer=null,lastPush=0,colorBeat=-1,colorAt=0,heartColor="#e33b51",blendedColor=[227,59,81];
- document.addEventListener('pointermove',e=>{const r=facets.getBoundingClientRect(),inside=e.clientX>=r.left-12&&e.clientX<=r.right+12&&e.clientY>=r.top-12&&e.clientY<=r.bottom+12;
- if(inside&&lastPointer&&performance.now()-lastPush>95&&!matchMedia('(prefers-reduced-motion: reduce)').matches){lastPush=performance.now();windVelocity+=Math.max(-120,Math.min(120,(e.clientX-lastPointer.x)*3.5));pushVY+=Math.max(-100,Math.min(100,(e.clientY-lastPointer.y)*3))}lastPointer={x:e.clientX,y:e.clientY};},{passive:true});
- const reduced=matchMedia('(prefers-reduced-motion: reduce)');let ax=0,ay=0,size=88,cx=0,cy=0,beatIndex=0,lastTrack='',lastTime=0,nudge=0;
- function place(){const h=host.getBoundingClientRect(),a=anchor.getBoundingClientRect(),font=parseFloat(getComputedStyle(heading).fontSize),scale=h.width/host.offsetWidth||1;
+ function place(){
+  const h=host.getBoundingClientRect(),a=anchor.getBoundingClientRect(),font=parseFloat(getComputedStyle(heading).fontSize),scale=h.width/host.offsetWidth||1;
   ax=(a.left-h.left)/scale-font*.25;ay=(a.top-h.top)/scale+font*.12;
-  // At least twice the former heart width; proportional to the headline, without stretching artwork.
-  size=Math.max(68,Math.min(150,font*2.15));cx=Math.max(size*.6,Math.min(host.clientWidth-size*.6,ax+size*.42));cy=ay-size*1.5;
-  svg.setAttribute('viewBox',`0 0 ${host.clientWidth} ${host.clientHeight}`);svg.style.width=host.clientWidth+'px';svg.style.height=host.clientHeight+'px';
+  // Smaller than the preceding 136–172px desktop and 80–120px phone heart.
+  size=Math.max(88,Math.min(120,font*3));cx=Math.max(size*.6,Math.min(host.clientWidth-size*.6,ax+size*1.05));cy=size*.62;
+  if(innerWidth<=600){size=Math.max(64,Math.min(90,innerWidth*.19));cx=host.clientWidth-size*.7;cy=size*.65;}
+  else if(innerWidth<1000){cy+=40;} // Clear the tablet header's appearance hint.
+  svg.setAttribute('viewBox',`0 0 ${host.clientWidth} ${host.clientHeight}`);svg.style.width=host.clientWidth+'px';svg.style.height=host.clientHeight+'px';draw();
  }
- new ResizeObserver(place).observe(host);addEventListener('resize',place);document.fonts.ready.then(place);place();
-
- function draw(t){const dt=Math.min(.05,(t-lastTime)/1000||.016);lastTime=t;const name=localAudio.currentSrc.split('/').pop(),rhythm=window.TRACK_RHYTHM?.[name],sec=localAudio.currentTime,beats=rhythm?.beats||[];
-  if(lastTrack!==name||sec<(beats[beatIndex]||0)){beatIndex=0;lastTrack=name}while(beatIndex+1<beats.length&&beats[beatIndex+1]<=sec)beatIndex++;
-  const playing=!localAudio.paused&&!localAudio.ended&&localAudio.readyState>=3,period=beats[beatIndex+1]-beats[beatIndex]||60/(rhythm?.bpm||120),phase=(sec-(beats[beatIndex]||0))/period;
-  const energy=window.TRACK_ENERGY?.[name]?.[Math.floor(sec*10)]||0;
-  const pulse=playing&&!reduced.matches?Math.exp(-Math.max(0,phase%1)*9)*(.08+energy*.08):0;
-  nudge*=Math.exp(-dt*2.5);const gust=Math.sin(t/2100)*size*.10+Math.sin(t/5370+1.7)*size*.065+nudge;{windVelocity+=(gust-wind)*dt*7;windVelocity*=Math.exp(-dt*1.8);wind+=windVelocity*dt;}const sway=reduced.matches?0:wind;
-  {pushVY+=-pushY*dt*7;pushVY*=Math.exp(-dt*1.7);pushY=Math.max(-size*.45,Math.min(size*.45,pushY+pushVY*dt));wind=Math.max(-size*.65,Math.min(size*.65,wind));}const bob=reduced.matches?0:Math.sin(t/2300)*size*.035+pushY;
-  const x=cx+sway,y=cy+bob,k=size/49*(1+pulse),tip=y+25*k;
-  if(playing&&!reduced.matches)spin+=dt*Math.PI/5;renderVolume(spin);const turn=1;
-  envelope.setAttribute('transform',`translate(${x} ${y}) rotate(${sway*.18}) scale(${k*turn} ${k})`);
-  thread.setAttribute('d',`M${ax-2} ${ay} C${ax-4} ${ay+5} ${ax+7} ${ay+5} ${ax+7} ${ay} C${ax+size*.32+sway} ${ay-size*.25} ${x-size*.24+sway} ${tip+size*.3} ${x} ${tip}`);
-  shadow.setAttribute('d',thread.getAttribute('d'));
-  heartColor="#e33b51";
-  if(window.CompositionContrast&&window.compositionSkyAt){const hr=host.getBoundingClientRect(),surfaces=[compositionSkyAt(hr.top+y-size*.6),compositionSkyAt(hr.top+y+size*.6)];if(!document.body.classList.contains('nighttime'))surfaces.push(...surfaces.map(s=>CompositionContrast.mix(s,'#ffffff',.3)));const target=CompositionContrast.rgb(heartColor);blendedColor=blendedColor.map((v,i)=>v+(target[i]-v)*(1-Math.exp(-dt*1.4)));const color=CompositionContrast.ink(surfaces,'rgb('+blendedColor.map(Math.round).join(',')+')');svg.querySelectorAll('.balloon-body,.balloon-knot').forEach(el=>{el.style.fill=color;el.style.stroke=color});let minimum=Math.min(...surfaces.map(s=>CompositionContrast.ratio(color,s)));
-   facets.style.opacity='1';
-
-   svg.dataset.contrast=minimum.toFixed(2)}
-  svg.dataset.playing=String(playing);svg.dataset.tempo=String(rhythm?.bpm||'unknown');requestAnimationFrame(draw);
+ function tick(){frame=0;draw();if(!reduced.matches&&inView&&!document.hidden&&document.body.dataset.page==='home')frame=requestAnimationFrame(tick)}
+ function sync(){
+  cancelAnimationFrame(frame);frame=0;draw();
+  if(!reduced.matches&&inView&&!document.hidden&&document.body.dataset.page==='home')frame=requestAnimationFrame(tick);
  }
- requestAnimationFrame(draw);
+ new ResizeObserver(place).observe(host);addEventListener('resize',place);document.fonts.ready.then(place);
+ for(const event of ['playing','pause','ended','emptied','seeked','loadedmetadata'])localAudio.addEventListener(event,sync);
+ reduced.addEventListener('change',sync);document.addEventListener('visibilitychange',sync);addEventListener('hashchange',sync);
+ new IntersectionObserver(entries=>{inView=entries[0].isIntersecting;sync()}).observe(host);
+ place();sync();
 })();
 
 
@@ -1163,11 +1153,13 @@ window.TRACK_RHYTHM={"track-01.mp3":{"bpm":125.0,"beats":[0.071,0.519,1.026,1.48
 (()=>{
  const C=CompositionContrast;
  window.compositionSkyAt=y=>{const s=getComputedStyle(document.body),base=s.getPropertyValue('--bg').trim();return document.body.classList.contains('time-lighting')?C.mix(s.getPropertyValue('--ambient-top'),s.getPropertyValue('--ambient-bottom'),y/innerHeight):C.rgb(base)};
- const selectors='.brand-name,.masthead nav a,.greeting,.headline-top,.headline-bottom,.role-line,.menu-label,.clock,.themed-city-trigger,.weather-peek,.theme-sun,.theme-moon,.timezone-picker h2,.timezone-picker button,.timezone-picker input';
+ const selectors='.brand-name,.masthead nav a,.greeting,.headline-top,.headline-bottom,.role-line,.menu-label,.clock,.clock-period,.weather-temperature,.weather-summary,.themed-city-trigger,.weather-peek,.theme-sun,.theme-moon,.timezone-picker h2,.timezone-picker button,.timezone-picker input';
  function surface(el,y){let color=window.compositionSkyAt(y);const ancestors=[];for(let n=el;n&&n!==document.body;n=n.parentElement)ancestors.unshift(n);for(const n of ancestors){const bg=getComputedStyle(n).backgroundColor,parts=bg.match(/[\d.]+/g);if(parts&&parts.length>=3){const alpha=parts.length>3?+parts[3]:1;color=C.mix(color,C.rgb(bg),alpha)}}return color}
  function refresh(){document.querySelectorAll(selectors).forEach(el=>{const r=el.getBoundingClientRect();if(!r.width||!r.height)return;el.style.removeProperty('color');const preferred=getComputedStyle(el).color,ink=C.ink([surface(el,r.top),surface(el,r.bottom)],preferred);el.style.setProperty('color',ink,'important')})}
  let pending=false;function queue(){if(pending)return;pending=true;requestAnimationFrame(()=>{pending=false;refresh()})}
  new MutationObserver(queue).observe(document.body,{attributes:true,attributeFilter:['class','style']});
+ // Weather arrives asynchronously; refresh new text without observing our own color writes.
+ new MutationObserver(queue).observe(document.body,{childList:true,subtree:true,characterData:true});
  addEventListener('resize',queue);addEventListener('scroll',queue,{passive:true});addEventListener('hashchange',queue);document.addEventListener('click',queue);document.fonts.ready.then(queue);queue();
 })();
 
@@ -1178,7 +1170,7 @@ if(['127.0.0.1','localhost'].includes(location.hostname)){
  const q=new URLSearchParams(location.search);
  if(q.get('auditText')==='2')document.documentElement.style.fontSize='32px';
  if(q.get('auditLong')==='1'){
-  document.querySelector('.themed-city-trigger').childNodes[0].textContent='San Martín de los Andes';
+  document.querySelector('.themed-city-label').textContent='San Martín de los Andes';
   document.querySelector('.led-track-name').textContent='A very long song title with an extended live instrumental version';
  }
  if(q.has('auditSky')){

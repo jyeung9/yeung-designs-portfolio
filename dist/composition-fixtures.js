@@ -3,7 +3,7 @@ if(['127.0.0.1','localhost'].includes(location.hostname)){
  const q=new URLSearchParams(location.search);
  if(q.get('auditText')==='2')document.documentElement.style.fontSize='32px';
  if(q.get('auditLong')==='1'){
-  document.querySelector('.themed-city-trigger').childNodes[0].textContent='San Martín de los Andes';
+  document.querySelector('.themed-city-label').textContent='San Martín de los Andes';
   document.querySelector('.led-track-name').textContent='A very long song title with an extended live instrumental version';
  }
  if(q.has('auditSky')){

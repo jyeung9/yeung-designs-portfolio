@@ -1,0 +1,17 @@
+name: Portfolio stability
+on: [pull_request, push]
+jobs:
+  assets-and-contract:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - run: npm run build
+      - run: npm test
+      - run: npm run check
+      # This is not a deployment workflow. Browser evidence and explicit approval
+      # are separately mandatory in scripts/prepare-release.mjs.

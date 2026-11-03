@@ -50,7 +50,7 @@ function fitHomeFrame(){
   homeFrame.style.removeProperty('--composition-unit');
  }else{homeFrame.style.removeProperty('--composition-unit');homeFrame.style.removeProperty('--fitted-scene-width')}
  const introBounds=homeFrame.querySelector('.hero-copy').getBoundingClientRect(),menuBounds=landingNavigation.getBoundingClientRect(),slotBounds=sceneSlot.getBoundingClientRect();
- const prior=Number(sceneSlot.dataset.balance||0),balance=innerWidth>=1000&&innerHeight<=820?0:prior+(introBounds.bottom+menuBounds.top)/2-(slotBounds.top+slotBounds.height/2);
+ const prior=Number(sceneSlot.dataset.balance||0),balance=innerWidth<=600||innerWidth>=1000&&innerHeight<=820?0:prior+(introBounds.bottom+menuBounds.top)/2-(slotBounds.top+slotBounds.height/2);
  sceneSlot.dataset.balance=String(balance);sceneSlot.style.translate='0 '+balance+'px';
  homeFrame.dataset.fit=document.documentElement.scrollHeight>innerHeight+2?'scroll-required':'viewport';
 }

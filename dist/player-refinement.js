@@ -4,7 +4,7 @@ for(const select of document.querySelectorAll('.city-select')){
  if(select.value==='local'){const la=[...select.options].find(o=>o.textContent==='san francisco');if(la){select.value=la.value;select.dispatchEvent(new Event('change',{bubbles:true}));}}
  const trigger=document.createElement('button');trigger.type='button';trigger.className='city-select themed-city-trigger';trigger.setAttribute('aria-haspopup','dialog');
  select.before(trigger);select.hidden=true;select.style.setProperty('display','none','important');
- const sync=()=>{trigger.textContent=select.selectedOptions[0]?.textContent||'select timezone'};sync();select.addEventListener('change',sync);
+ const cityLabel=document.createElement('span');cityLabel.className='themed-city-label';trigger.append(cityLabel);const sync=()=>{const city=select.selectedOptions[0]?.textContent||'san francisco';cityLabel.textContent=city;trigger.setAttribute('aria-label',city+' — select city')};sync();select.addEventListener('change',sync);
  const dialog=document.createElement('dialog');dialog.className='timezone-picker';dialog.setAttribute('aria-label','Choose timezone');
  const title=document.createElement('h2');title.textContent='choose timezone';
  const close=document.createElement('button');close.type='button';close.className='timezone-close';close.textContent='close';close.onclick=()=>dialog.close();
@@ -29,15 +29,20 @@ function fitWoodShellUnrotated(){
  const scene=cabinetScene.getBoundingClientRect(),deck=cabinetScene.querySelector('.independent-deck').getBoundingClientRect();if(!scene.width||!deck.width)return;
  const scale=scene.width/cabinetScene.offsetWidth,w=deck.width/scale,d=deck.height/scale;
  // One projected front plane supplies screen, knobs, shell and status lamp coordinates.
- const rootEm=parseFloat(getComputedStyle(document.documentElement).fontSize),target=84,gap=8,large=rootEm>20||w<360;
+ // [design-preview:compact-player] Hide the LED when its single-row space cannot contain paused at 18px.
+ const rootEm=parseFloat(getComputedStyle(document.documentElement).fontSize),target=84,availableDisplay=(w*.94-220-24)/2,minimumReadout=6*18*.6+2,mobile=matchMedia('(max-width:600px)').matches||rootEm>20||availableDisplay<minimumReadout;
  document.body.toggleAttribute('data-large-text',rootEm>20);
- transport.toggleAttribute('data-stacked',large);
- const displayWidth=large?w-32:(w*.94-220-24)/2;
+ // [design-preview:compact-player] Space, not viewport width, selects the LED-free console; never grow a second wood row.
+ transport.toggleAttribute('data-compact',mobile);
+ transport.removeAttribute('data-stacked');
+ const displayWidth=Math.max(0,availableDisplay);
+ cabinetScene.style.setProperty('--led-inline-padding',Math.max(0,Math.min(8,(displayWidth-minimumReadout)/2))+'px');
  cabinetScene.style.setProperty('--display-width',displayWidth+'px');
  cabinetScene.style.setProperty('--control-width',(w*.94)+'px');
  cabinetScene.style.setProperty('--control-center',((deck.left-scene.left)/scale+w/2)+'px');
 
- const led=Math.max(target,nowPlaying.getBoundingClientRect().height/scale)+(large?target+8:0),frontPadding=16,h=d+led+frontPadding*2,r=Math.min(16,w*.065),inset=w*.045;
+ // [design-preview:mobile-proportional-player] Fixed-ratio wood; knobs straddle the shallow fascia without stretching the artwork.
+ const led=mobile?84:Math.max(target,nowPlaying.getBoundingClientRect().height/scale),frontPadding=mobile?(w*.22-led)/2:16,h=mobile?d+w*.22:d+led+frontPadding*2,r=Math.min(16,w*.065),inset=w*.045;
  cabinetScene.style.setProperty('--control-top',((deck.top-scene.top)/scale+d+frontPadding)+'px');
  homeFrame.style.setProperty('--navigation-width',(w*.88)+'px');
  homeFrame.style.setProperty('--dock-art-size',Math.max(32,w*.097)+'px');
@@ -91,22 +96,26 @@ function hintSurface(x,y){
  const wood=shell.querySelector('g[clip-path]').getBoundingClientRect();if(x>=wood.left&&x<=wood.right&&y>=wood.top&&y<=wood.bottom)return 'rgb(185,153,104)';
  return window.compositionSkyAt?'rgb('+window.compositionSkyAt(y).join(',')+')':getComputedStyle(document.body).getPropertyValue('--bg').trim();
 }
+// [design-preview:cursor-accent-hints] Follow the actual cursor; nearby flips keep plain text on one readable surface.
 function contrastHint(x,y){
- const r=trackHint.getBoundingClientRect(),clampX=v=>Math.max(8,Math.min(v,innerWidth-r.width-8)),clampY=v=>Math.max(8,Math.min(v,innerHeight-r.height-8));
- let best=null;
+ const r=trackHint.getBoundingClientRect(),accent=getComputedStyle(document.querySelector('.headline-bottom')).color;
  const protectedRects=[nowPlaying,...document.querySelectorAll('.led-transport button,.wood-brand-engraving')].map(e=>e.getBoundingClientRect());
- const offsets=[[10,12],[-r.width-10,12],[10,-r.height-12],[-r.width-10,-r.height-12],[-r.width/2,28],[-r.width/2,-r.height-28]];
- for(const [dx,dy] of offsets){const px=x+dx,py=y+dy;
-  const left=clampX(px),top=clampY(py),lights=[];
-  for(const dx of [.05,.5,.95])for(const dy of [.2,.8]){let color=hintSurface(left+r.width*dx,top+r.height*dy);if(color.startsWith('#')){const h=color.slice(1);color='rgb('+[0,2,4].map(i=>parseInt(h.slice(i,i+2),16)).join(',')+')'}lights.push(hintLuminance(color))}
-  const dark=Math.min(...lights.map(l=>(l+.05)/.05)),light=Math.min(...lights.map(l=>1.05/(l+.05))),ratio=Math.max(dark,light),candidate={left,top,ratio,color:dark>=light?'#000000':'#ffffff'};
-  const collision=protectedRects.some(b=>left<b.right&&left+r.width>b.left&&top<b.bottom&&top+r.height>b.top);candidate.score=ratio-(collision?20:0);if(!best||candidate.score>best.score)best=candidate;if(ratio>=4.5&&!collision){best=candidate;break}
+ let best;
+ for(const [dx,dy] of [[12,16],[12,-r.height-12],[-r.width-12,16],[-r.width-12,-r.height-12]]){
+  const left=Math.max(8,Math.min(x+dx,innerWidth-r.width-8)),top=Math.max(8,Math.min(y+dy,innerHeight-r.height-8));
+  const surfaces=[.05,.5,.95].flatMap(sx=>[.2,.8].map(sy=>hintSurface(left+r.width*sx,top+r.height*sy)));
+  const color=CompositionContrast.ink(surfaces,accent),ratio=Math.min(...surfaces.map(s=>CompositionContrast.ratio(color,s)));
+  const collision=protectedRects.some(b=>left<b.right&&left+r.width>b.left&&top<b.bottom&&top+r.height>b.top);
+  const candidate={left,top,color,ratio,score:(ratio>=4.5?100:0)-(collision?20:0)};
+  if(!best||candidate.score>best.score)best=candidate;
+  if(ratio>=4.5&&!collision)break;
  }
  trackHint.dataset.contrast=best.ratio.toFixed(2);trackHint.style.left=best.left+'px';trackHint.style.top=best.top+'px';trackHint.style.setProperty('color',best.color,'important');
 }
+
 for(const button of [...document.querySelectorAll('.led-transport button'),armControl]){
  const show=(x,y)=>{trackHint.textContent=(button===armControl||button.dataset.led==='play')?(localAudio.paused?'play music':'pause music'):button.dataset.led==='next'?'next track':'previous track';trackHint.classList.add('visible');const width=trackHint.getBoundingClientRect().width;trackHint.style.left=Math.max(8,Math.min(x+10,innerWidth-width-8))+'px';trackHint.style.top=Math.max(8,Math.min(y+12,innerHeight-32))+'px';contrastHint(x,y)};
- button.addEventListener('pointerenter',e=>{if(e.pointerType!=='touch'){const r=button.getBoundingClientRect();show(r.left+r.width/2,r.bottom)}});
+ for(const event of ['pointerenter','pointermove'])button.addEventListener(event,e=>{if(e.pointerType!=='touch')show(e.clientX,e.clientY)});
  button.addEventListener('pointerleave',()=>trackHint.classList.remove('visible'));
  button.addEventListener('focus',()=>{if(button.matches(':focus-visible')){const r=button.getBoundingClientRect();show(r.left,r.bottom)}});
  button.addEventListener('blur',()=>trackHint.classList.remove('visible'));

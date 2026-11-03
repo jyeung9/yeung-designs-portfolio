@@ -1,3 +1,11 @@
+## Responsive release — November 3, 2026
+
+Reviewed browser examples; see the written design contract for responsive exceptions and verification limits. Phone groups use normal flow and maintain clearances; controls stay centered on the shallow front face; weather follows the navigation. Desktop menu width also accounts for its text size. Real-device touch and native Reduce Motion testing remain unverified by explicit release exception.
+
+![Phone layout](responsive-nov03-phone.png)
+
+![Desktop layout](responsive-nov03-desktop.png)
+
 ## Current local parity release — November 2, 2026, 10:48 PM
 
 Julie authorized publishing the current local website exactly. This section supersedes earlier conflicting specs: header lettering is 1.125× the base handwritten token (25% below the prior 1.5×); headline uses the base token and role uses `clamp(20px, 1.65vw, 28px)`. The measured landing fitter includes all occupied rows. At ≥1000px width and ≤820px height, introduction/player sit side by side; taller desktop retains the vertical composition. Content sections at ≥900px scroll inside their available frame; narrow pages retain normal scrolling. Navigation has a 380px preferred minimum width bounded by its container. Console stacks below 360px deck width or enlarged root text. Header mobile menu contains LinkedIn/résumé; section links remain in the main navigation. Current case-study pages are included to match the local build. No new visual redesign is part of this synchronization.

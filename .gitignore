@@ -4,3 +4,8 @@
 !.env.example
 node_modules/
 *.log
+
+# Generated release metadata and local review material
+node_modules
+dist/build-manifest.json
+.local-previews/

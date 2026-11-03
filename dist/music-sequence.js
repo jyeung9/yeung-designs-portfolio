@@ -119,7 +119,8 @@ cabinetScene.append(transport);
 
 transport.addEventListener('click',event=>{const b=event.target.closest('button');if(!b||b.disabled)return;event.stopPropagation();if(b.dataset.led==='play'){toggleLocal();return}switchRecord(b.dataset.led==='next'?1:-1)});
 function syncTransport(){
- const active=!localAudio.paused&&!localAudio.ended;playButton.disabled=changingRecord;playButton.setAttribute('aria-label',active?'Pause music':'Play music');playButton.innerHTML='<svg viewBox="0 0 24 24" aria-hidden="true"><path d="'+(active?'M7 5h3v14H7ZM14 5h3v14h-3Z':'M8 5v14l11-7Z')+'"/></svg>';
+ const active=!localAudio.paused&&!localAudio.ended;playButton.disabled=changingRecord;playButton.setAttribute('aria-label',active?'Pause music':'Play music');// [design-preview:combined-play-pause] Both symbols remain visible; accessible action and pressed state track playback.
+ playButton.setAttribute('aria-pressed',String(active));playButton.innerHTML='<svg viewBox="0 0 36 24" aria-hidden="true"><path d="M5 5v14l10-7Z M23 5h3v14h-3Z M29 5h3v14h-3Z"/></svg>' ;
 
  transport.querySelector('[data-led="previous"]').disabled=changingRecord||trackIndex<0||!rightQueue.length;
  transport.querySelector('[data-led="next"]').disabled=changingRecord||trackIndex<0||!leftQueue.length;

@@ -1,0 +1,59 @@
+{
+  "mainStylesheet": "styles/site.css",
+  "generatedStylesheet": "dist/site.css",
+  "components": {
+    "header": [
+      ".masthead",
+      ".header-actions",
+      ".brand",
+      ".ambient-toggle"
+    ],
+    "introduction": [
+      "#home .hero-copy",
+      ".greeting",
+      ".headline-top",
+      ".headline-bottom",
+      ".role-line"
+    ],
+    "player": [
+      ".cabinet-scene",
+      ".player-wood-shell",
+      ".led-transport",
+      ".transport-buttons"
+    ],
+    "navigation": [
+      ".landing-navigation",
+      ".rail.balanced-menu",
+      ".mobile-menu"
+    ],
+    "weather": [
+      ".corner-utilities",
+      ".local-time",
+      ".weather-summary",
+      ".timezone-picker"
+    ]
+  },
+  "runtimeOwners": {
+    "frame-layout.js": [
+      "--fitted-scene-width",
+      "--visible-scene-top",
+      "--visible-scene-height",
+      "--header-height"
+    ],
+    "player-refinement.js": [
+      "--display-width",
+      "--control-width",
+      "--control-center",
+      "--control-top",
+      "--navigation-width",
+      "--dock-art-size",
+      "--led-height",
+      "--led-inline-padding"
+    ]
+  },
+  "caseStudyOnly": [
+    "dist/brand.css",
+    "dist/mobile-menu.css",
+    "dist/case-studies/case-study.css"
+  ]
+}
