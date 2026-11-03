@@ -5,3 +5,13 @@
 @media(max-width:800px){.case-brand{padding:16px 20px}aside{display:none}.back{margin:0 0 4px;padding:7px 12px}nav{flex-direction:row;overflow-x:auto;gap:4px}nav a{flex:none;border-left:0;border-bottom:3px solid transparent;border-radius:8px 8px 0 0}main{margin:32px auto 0;padding:0 22px 64px;width:100%;max-width:720px}.case-intro{padding-bottom:28px}.story-section{scroll-margin-top:48px;position:relative}.section-label{margin-top:0}.case-opening{width:min(240px,75%);margin:32px auto 0}html{scroll-padding-top:0}.project-facts{grid-template-columns:1fr;padding:22px;gap:22px}}
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{transition:none!important;animation:none!important}}
 figure{margin:32px 0}figure img{display:block;width:100%;height:auto;border-radius:16px}figure img[src*="healthcare"]{width:min(320px,100%);margin:auto}figcaption{font-size:16px;color:#526258;margin-top:12px}
+
+/* [design-preview:case-hero-system] One 16:9 hero frame and shared 24px maximum radius across all case studies; contain original phone images without cropping. */
+.case-title-row{display:grid;grid-template-columns:clamp(130px,16vw,190px) minmax(0,1fr);align-items:center;gap:clamp(20px,3vw,36px);margin:20px 0 28px}
+.case-title-row .case-opening{width:100%;margin:0;align-self:center}
+.case-title-row h1{margin:0;font-size:clamp(30px,3.2vw,48px);animation:case-title-swipe .85s .15s cubic-bezier(.2,.7,.2,1) both}
+@keyframes case-title-swipe{from{clip-path:inset(0 100% 0 0);transform:translateX(-14px);opacity:.3}to{clip-path:inset(0);transform:translateX(0);opacity:1}}
+.case-hero{width:100%;aspect-ratio:16/9;margin:32px 0 0;overflow:hidden;border-radius:clamp(16px,2vw,24px);background:color-mix(in srgb,var(--case-accent) 8%,#eeeade);border:1px solid #c2c9bb66;display:grid;place-items:center;padding:clamp(16px,3vw,28px)}
+.case-hero img{width:100%;height:100%;min-height:0;object-fit:contain;border-radius:0}
+@media(max-width:600px){.case-title-row{grid-template-columns:80px minmax(0,1fr);gap:16px;margin:18px 0 24px}.case-title-row h1{font-size:clamp(26px,6.4vw,34px)}.case-hero{margin-top:24px}}
+@media(prefers-reduced-motion:reduce){.case-title-row h1{animation:none;clip-path:none;transform:none}}

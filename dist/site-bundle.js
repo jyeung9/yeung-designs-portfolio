@@ -630,7 +630,7 @@ document.querySelector('.headline-bottom').classList.add('plain-heading');
 
 // Fit artwork into measured remaining space; the wide-desktop composition scales text and controls together.
 // The minimum scene width is derived from 44px sleeve targets (18.9% of scene).
-// [design-preview:composition-measurement] CSS owns size; this observer reserves the rendered artwork envelope, including feet/shadow.
+// [design-approved:composition-measurement] CSS owns size; this observer reserves the rendered artwork envelope, including feet/shadow.
 function fitHomeFrame(){
  if(document.body.dataset.page!=='home'||!homeFrame.getBoundingClientRect().width)return;
  homeFrame.style.setProperty('--header-height',document.querySelector('.masthead').getBoundingClientRect().height+'px');
@@ -643,18 +643,21 @@ function fitHomeFrame(){
  homeFrame.style.setProperty('--visible-scene-top',top/scale+'px');
  homeFrame.style.setProperty('--visible-scene-height',(bottom-top)/scale+'px');
  const utilities=homeFrame.querySelector(':scope>.corner-utilities');
- if(utilities){const needed=utilities.querySelector('.local-time').scrollWidth;const column=(homeFrame.clientWidth-parseFloat(getComputedStyle(homeFrame).paddingLeft)*2-landingNavigation.querySelector('.rail').getBoundingClientRect().width)/2;homeFrame.toggleAttribute('data-support-row',innerWidth>=1200&&innerHeight>=800&&column<needed+16)}
- // [design-preview:desktop-fit] One common scale fits the central groups; support controls keep readable physical sizes.
- if(innerWidth>=1200&&innerHeight>=800&&!document.body.hasAttribute('data-large-text')){
-  const styles=getComputedStyle(homeFrame),gutter=parseFloat(getComputedStyle(document.body).paddingTop),available=innerHeight-2-2*gutter-document.querySelector('.masthead').getBoundingClientRect().height;
+ if(utilities){const needed=utilities.querySelector('.local-time').scrollWidth;const column=(homeFrame.clientWidth-parseFloat(getComputedStyle(homeFrame).paddingLeft)*2-landingNavigation.querySelector('.rail').getBoundingClientRect().width)/2;homeFrame.toggleAttribute('data-support-row',innerWidth>=1000&&column<needed+16)}
+ // [design-approved:viewport-budget] Measure every occupied row, including wrapped utilities.
+ // Shrink artwork only; fixed readable text and usable targets define the scrolling floor.
+ if(innerWidth>600&&!document.body.hasAttribute('data-large-text')){
+  const styles=getComputedStyle(homeFrame),gutter=parseFloat(getComputedStyle(document.body).paddingTop),available=innerHeight-4-2*gutter-document.querySelector('.masthead').getBoundingClientRect().height;
   const intro=homeFrame.querySelector('.hero-copy').getBoundingClientRect().height,nav=landingNavigation.getBoundingClientRect().height,footer=utilities?.getBoundingClientRect().height||0,gap=parseFloat(styles.rowGap),extra=parseFloat(styles.paddingTop);
-  const required=intro+(bottom-top)+Math.max(nav,footer)+gap*2+extra;
-  const current=parseFloat(homeFrame.style.getPropertyValue('--composition-unit'))||1;
-  const next=Math.max(.65,Math.min(1.5,current*available/Math.max(1,required)));
-  if(Math.abs(required-available)>2&&Math.abs(next-current)>.001){homeFrame.style.setProperty('--composition-unit',next);homeFrame.style.setProperty('--fitted-scene-width',Math.min(innerWidth*.76,1440)*next+'px')}
+  const landscape=innerWidth>=1000&&innerHeight<=820,separate=!landscape&&(innerWidth<1000||homeFrame.hasAttribute('data-support-row'));
+  const required=(landscape?Math.max(intro,bottom-top):intro+(bottom-top))+(separate?nav+footer:Math.max(nav,footer))+gap*(landscape?1:separate?3:2)+extra;
+  const current=scene.width,maxWidth=Math.min(landscape?(homeFrame.clientWidth-24)/2:homeFrame.clientWidth,1440),minWidth=Math.min(maxWidth,700);
+  const next=Math.max(minWidth,Math.min(maxWidth,current+(available-required)*1.25));
+  if(Math.abs(required-available)>2&&Math.abs(next-current)>1)homeFrame.style.setProperty('--fitted-scene-width',next+'px');
+  homeFrame.style.removeProperty('--composition-unit');
  }else{homeFrame.style.removeProperty('--composition-unit');homeFrame.style.removeProperty('--fitted-scene-width')}
  const introBounds=homeFrame.querySelector('.hero-copy').getBoundingClientRect(),menuBounds=landingNavigation.getBoundingClientRect(),slotBounds=sceneSlot.getBoundingClientRect();
- const prior=Number(sceneSlot.dataset.balance||0),balance=prior+(introBounds.bottom+menuBounds.top)/2-(slotBounds.top+slotBounds.height/2);
+ const prior=Number(sceneSlot.dataset.balance||0),balance=innerWidth>=1000&&innerHeight<=820?0:prior+(introBounds.bottom+menuBounds.top)/2-(slotBounds.top+slotBounds.height/2);
  sceneSlot.dataset.balance=String(balance);sceneSlot.style.translate='0 '+balance+'px';
  homeFrame.dataset.fit=document.documentElement.scrollHeight>innerHeight+2?'scroll-required':'viewport';
 }
@@ -724,7 +727,8 @@ menuButton.onclick=()=>{menu.showModal();menuButton.setAttribute('aria-expanded'
  let total=0,last=0,lastDirection=0,readyAt=0,transitioning=false,queued=0;
  const reduced=()=>matchMedia('(prefers-reduced-motion: reduce)').matches;
  function enabled(target){return !target.closest('input,textarea,select,[role="dialog"],[contenteditable="true"],.expanded-cover')&&!document.querySelector('dialog[open],.mobile-menu.is-open')}
- function atEdge(direction){const root=document.scrollingElement;return direction<0?root.scrollTop<=2:root.scrollTop+innerHeight>=root.scrollHeight-2}
+ function scrollRoot(){const section=document.getElementById(document.body.dataset.page);return section&&section.scrollHeight>section.clientHeight+2&&getComputedStyle(section).overflowY==='auto'?section:document.scrollingElement}
+ function atEdge(direction){const root=scrollRoot();return direction<0?root.scrollTop<=2:root.scrollTop+root.clientHeight>=root.scrollHeight-2}
  function cards(page){return [...page.querySelectorAll('.cabinet-record,.b-record-group,.b-record-grid>.b-record-card')]}
  function stackFrames(card,index,center){const r=card.getBoundingClientRect();return [{transform:`translate(${center.x-r.x-r.width/2}px,${center.y-r.y-r.height/2}px) scale(.72) rotate(${(index%3-1)*5}deg)`,opacity:.55},{transform:'translate(0,0) scale(1) rotate(0deg)',opacity:1}]}
  function animateGrid(page,enter){
@@ -748,7 +752,7 @@ menuButton.onclick=()=>{menu.showModal();menuButton.setAttribute('aria-expanded'
   });return true;
  }
  window.navigatePortfolioPage=move;
- function advance(direction){if(atEdge(direction))return move(direction);window.scrollBy({top:direction*innerHeight,behavior:'instant'});return true}
+ function advance(direction){if(atEdge(direction))return move(direction);scrollRoot().scrollBy({top:direction*innerHeight,behavior:'instant'});return true}
  addEventListener('wheel',e=>{
   if(e.ctrlKey||Math.abs(e.deltaX)>Math.abs(e.deltaY)||!enabled(e.target))return;
   const now=performance.now(),direction=Math.sign(e.deltaY);const delta=e.deltaY*(e.deltaMode===1?16:e.deltaMode===2?innerHeight:1);
@@ -842,7 +846,7 @@ function fitWoodShellUnrotated(){
  const scene=cabinetScene.getBoundingClientRect(),deck=cabinetScene.querySelector('.independent-deck').getBoundingClientRect();if(!scene.width||!deck.width)return;
  const scale=scene.width/cabinetScene.offsetWidth,w=deck.width/scale,d=deck.height/scale;
  // One projected front plane supplies screen, knobs, shell and status lamp coordinates.
- const rootEm=parseFloat(getComputedStyle(document.documentElement).fontSize),target=84,gap=8,large=rootEm>20||w<480;
+ const rootEm=parseFloat(getComputedStyle(document.documentElement).fontSize),target=84,gap=8,large=rootEm>20||w<360;
  document.body.toggleAttribute('data-large-text',rootEm>20);
  transport.toggleAttribute('data-stacked',large);
  const displayWidth=large?w-32:(w*.94-220-24)/2;

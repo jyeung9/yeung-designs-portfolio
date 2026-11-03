@@ -1,3 +1,7 @@
+## Current local parity release — November 2, 2026, 10:48 PM
+
+Julie authorized publishing the current local website exactly. This section supersedes earlier conflicting specs: header lettering is 1.125× the base handwritten token (25% below the prior 1.5×); headline uses the base token and role uses `clamp(20px, 1.65vw, 28px)`. The measured landing fitter includes all occupied rows. At ≥1000px width and ≤820px height, introduction/player sit side by side; taller desktop retains the vertical composition. Content sections at ≥900px scroll inside their available frame; narrow pages retain normal scrolling. Navigation has a 380px preferred minimum width bounded by its container. Console stacks below 360px deck width or enlarged root text. Header mobile menu contains LinkedIn/résumé; section links remain in the main navigation. Current case-study pages are included to match the local build. No new visual redesign is part of this synchronization.
+
 # Current design patterns — November 2, 2026 evening
 
 This catalog follows the approved local implementation. [Visual reference](visual-components.md). Old specs are historical, not alternative requirements.

@@ -4,7 +4,8 @@
  let total=0,last=0,lastDirection=0,readyAt=0,transitioning=false,queued=0;
  const reduced=()=>matchMedia('(prefers-reduced-motion: reduce)').matches;
  function enabled(target){return !target.closest('input,textarea,select,[role="dialog"],[contenteditable="true"],.expanded-cover')&&!document.querySelector('dialog[open],.mobile-menu.is-open')}
- function atEdge(direction){const root=document.scrollingElement;return direction<0?root.scrollTop<=2:root.scrollTop+innerHeight>=root.scrollHeight-2}
+ function scrollRoot(){const section=document.getElementById(document.body.dataset.page);return section&&section.scrollHeight>section.clientHeight+2&&getComputedStyle(section).overflowY==='auto'?section:document.scrollingElement}
+ function atEdge(direction){const root=scrollRoot();return direction<0?root.scrollTop<=2:root.scrollTop+root.clientHeight>=root.scrollHeight-2}
  function cards(page){return [...page.querySelectorAll('.cabinet-record,.b-record-group,.b-record-grid>.b-record-card')]}
  function stackFrames(card,index,center){const r=card.getBoundingClientRect();return [{transform:`translate(${center.x-r.x-r.width/2}px,${center.y-r.y-r.height/2}px) scale(.72) rotate(${(index%3-1)*5}deg)`,opacity:.55},{transform:'translate(0,0) scale(1) rotate(0deg)',opacity:1}]}
  function animateGrid(page,enter){
@@ -28,7 +29,7 @@
   });return true;
  }
  window.navigatePortfolioPage=move;
- function advance(direction){if(atEdge(direction))return move(direction);window.scrollBy({top:direction*innerHeight,behavior:'instant'});return true}
+ function advance(direction){if(atEdge(direction))return move(direction);scrollRoot().scrollBy({top:direction*innerHeight,behavior:'instant'});return true}
  addEventListener('wheel',e=>{
   if(e.ctrlKey||Math.abs(e.deltaX)>Math.abs(e.deltaY)||!enabled(e.target))return;
   const now=performance.now(),direction=Math.sign(e.deltaY);const delta=e.deltaY*(e.deltaMode===1?16:e.deltaMode===2?innerHeight:1);

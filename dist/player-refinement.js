@@ -29,7 +29,7 @@ function fitWoodShellUnrotated(){
  const scene=cabinetScene.getBoundingClientRect(),deck=cabinetScene.querySelector('.independent-deck').getBoundingClientRect();if(!scene.width||!deck.width)return;
  const scale=scene.width/cabinetScene.offsetWidth,w=deck.width/scale,d=deck.height/scale;
  // One projected front plane supplies screen, knobs, shell and status lamp coordinates.
- const rootEm=parseFloat(getComputedStyle(document.documentElement).fontSize),target=84,gap=8,large=rootEm>20||w<480;
+ const rootEm=parseFloat(getComputedStyle(document.documentElement).fontSize),target=84,gap=8,large=rootEm>20||w<360;
  document.body.toggleAttribute('data-large-text',rootEm>20);
  transport.toggleAttribute('data-stacked',large);
  const displayWidth=large?w-32:(w*.94-220-24)/2;
