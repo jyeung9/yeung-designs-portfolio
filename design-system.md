@@ -1,3 +1,32 @@
+## Approved layout and detail release — November 2, 2026 (evening)
+
+Julie authorized GitHub and public publication with: “updating design details, table deck, design conventions, sizing spacing layout”. This reviewed composition supersedes conflicting historical entries below. Separate case-study drafts are excluded from this release.
+
+- **Composition:** introduction, player and bottom navigation are reserved normal-flow groups; header and weather/clock are supporting groups. Shared page inset and composition tokens in `dist/composition.css` own sizing. Short/narrow windows scroll rather than squeeze text. Record/platter/tonearm and the string attached to the final n are intentional overlaps.
+- **Type:** header brand and links use the same enlarged handwritten scale. Greeting, navigation labels and city share the header-hand token; the role uses clean sans serif at the menu-label size. Functional text has a 16px minimum. The clock uses zero-padded 12-hour time, a smaller AM/PM and subtle split-flap detail.
+- **Deck:** straight-on pitched wood top, lighter front fascia, rounded edges, raised platter and brushed-metal feet/buttons. One coordinate system positions the shell and player parts. The bottom-right carved symbol matches header-icon diameter and uses heavier carving strokes.
+- **Controls:** previous, play/pause and next form one centered group, with 12px equal gaps. Skip targets are 56px; play/pause is 84px (1.5×). Visible knob diameters are 46/69px. LED remains left on wide decks. Below a 480px deck width, or with enlarged root text, LED and controls occupy separate rows; this is an explicit readability exception to proportional scaling. Playing shows one scrolling “now playing: song name” line; paused shows “paused”. No waveform.
+- **Heart:** multicolored mirrored glass tiles on an inflated 3D surface, turning and pulsing with music; gentle wind and pointer response remain. No click/drag/release hint, slingshot or regeneration interaction.
+- **Feedback:** plain handwritten cursor hints use explicit surface-aware text colors; avoid boxes, halos and blend modes. Normal text targets 4.5:1. Menu art enlarges 1.25× with glow/motion; portrait floats and returns on exit. Reduced motion suppresses animation. The contrast utility has 267 automated surface/ink checks; this is not an exhaustive rendered-pixel audit of every animation or glass facet.
+- **Weather:** lowercase city picker, temperature above weather sketch alongside the clock, shared frosted surface with bottom navigation. Theme toggle remains in the header.
+
+Verification: JavaScript syntax, contrast utility and whitespace checks; desktop and phone browser review; play/pause states, absent drag hint, symmetric button spacing and 56/84/56px target measurements. Tablet/ultrawide, all assistive technologies and every animation/background combination have not been exhaustively retested for this release. See the [approved visual reference](references/visual-components.md#approved-evening-composition--november-2-2026).
+
+## Historical specifications — superseded
+
+Everything below is retained history. Conflicting sizes, interactions and materials must not override the current approved section above.
+
+## Current local design patterns — November 2, 2026
+
+Julie requested a written and visual record of the current patterns after the typography, wood/feet and hover-contrast refinements. This documents the local implementation, not a new public release. Prior release entries below remain historical evidence; this section supersedes conflicting earlier component descriptions for the current local design.
+
+See the [complete pattern catalog and contrast audit](references/patterns-nov02.md) and [visual reference](references/visual-components.md#current-local-pattern-reference--november-2-2026).
+
+- **Typography:** handwritten header scales from 24 to 40 CSS px; home-menu and timezone text share a 22–32 px scale. Header neutralizes the wide composition zoom. The clock is quieter at 20–24 px. Functional text has a 16 px minimum, including LED track/status text; microscopic lettering inside decorative record art is not interface copy.
+- **Player:** straight-on pitched deck, darker satin wood top over a lighter front face, defined rounded bevel, raised platter, silver knobs and short cylindrical feet. Feet remain vertical, with their lower arcs derived from the record's projected aspect ratio. No glass platform or supports above the wood.
+- **Contrast:** no difference blending, text outlines or tooltip badges. Player hints choose black/white from the underlying surface family and prefer a nearby placement that clears light/dark boundaries. Header/menu hover retains theme ink; underlines, halos and motion carry feedback. Hints clear on route changes and loss of focus.
+- **Interaction:** first track paused; green lamp and waveform follow playback; disabled first-track rewind remains visibly inactive. Playful hand-drawn menu interactions, geometric record labels, audio-responsive listener with heart balloon, San Francisco clock/weather and natural night stars remain part of the local experience.
+
 ## Approved player and interaction update — November 2, 2026
 
 Julie approved publishing the reviewed homepage with the note: “updating record player LED/button control positioning, depth, dimensions, animations for the heart and hovering over bottom menu.”
@@ -514,3 +543,11 @@ Remove headphones and return play/pause activation to the record player. Extend 
 
 ### Verified responsive checks
 October 28: shelf hit targets measured approximately 60px square at 390px viewport and 47px square at 320px; no horizontal page overflow in either check. One-click Titanic overview, bottom collection navigation, and player pause were verified in the browser. Physical iPhone Safari remains unverified. Track hints are positioned 20px below the rendered tabletop edge with no text shadow.
+
+## Current local preview — responsive weather and wind balloon, November 2
+
+Pending visual approval. Supersedes earlier listener, sparks and toggle dimensions in the local preview. The balloon follows mouse travel with damped momentum; light wind and estimated audio beat pulses remain. No spark particles. The fine ivory string uses a dark strand edge and attaches below the final n without crossing its strokes. Reduced motion suppresses wind and pointer impulses.
+
+Weather/location/time use the header handwriting token (24–40px), never below 16px. City and weather share the first row; clock sits below. The city opens the searchable chooser; “select timezone” is not an option. Clouds appear only in light mode, with density based on current weather data; unavailable data produces no clouds. Decorative clouds remain behind content. Player skip and play hints anchor near their control like the theme hint, with viewport and contrast-aware repositioning.
+
+Wood branding is twice the prior proportional size (9% of player width); below 360px player width its baseline moves to the top/front seam to clear the record. The tonearm bearing carries the circular brand mark. Theme toggle keeps a 1.6:1 ratio and responsive 44–51px height, with proportional knob geometry and a 44px target floor.

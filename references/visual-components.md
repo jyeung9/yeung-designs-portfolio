@@ -1,3 +1,39 @@
+## Approved evening composition — November 2, 2026
+
+Publication approved with “updating design details, table deck, design conventions, sizing spacing layout”. These views supersede the older local previews below.
+
+![Approved desktop layout](approved-evening-desktop.png)
+
+**Group/alignment annotations:** header brand at upper left; links and theme control share its centerline at upper right. Introduction is centered above the deck. The deck and three-button transport share a horizontal center. The four navigation graphics share one centerline inside the frosted group below. Weather/time occupies its reserved lower-right space. Heart/string and platter/record/tonearm are intentional overlaps; other groups reserve their own space.
+
+![Approved narrow layout](approved-evening-mobile.png)
+
+**Responsive exception:** narrow screens scroll, header controls wrap, and LED moves above the centered playback row. Touch targets remain 56/84/56px with 12px gaps. Artwork retains its shape; the front fascia accommodates the separate control row. The written [release contract](../design-system.md) records typography, color, interaction and verification limits.
+
+## Historical specifications — superseded
+
+Everything below is retained history. Conflicting sizes, interactions and materials must not override the current approved section above.
+
+## Current local pattern reference — November 2, 2026
+
+Current local implementation, documented at Julie's request; not evidence of publication. The [written catalog](patterns-nov02.md) defines sizes, surfaces, states, responsive behavior and verification limits. Historical screenshots below describe older releases and experiments.
+
+### Desktop composition and material hierarchy
+
+![Current desktop composition](current-home-desktop.png)
+
+### Mobile composition
+
+![Current mobile composition](current-home-mobile.png)
+
+### Plain player hints in light and dark mode
+
+These captures use keyboard focus, which shares the same hint renderer and contrast logic as pointer hover.
+
+![Light-theme hint](current-hint-day.png)
+
+![Dark-theme hint](current-hint-night.png)
+
 ## Approved November 2 player and menu
 
 ![Approved player](approved-player-nov02.png)
@@ -168,3 +204,7 @@ Home should feel soft and approachable, with rounded component edges. Preserve e
 Check narrow phones, typical phones, tablets, desktop and short landscape screens. Resize continuously between sizes and check enlarged text. Capture matching comparisons in both themes and empty, playing and expanded-record states. Include paused/switching states for player changes. Record actual CSS viewport dimensions and what was tested.
 
 Compare against the named visual reference for the affected component. Verify proportions, apparent table/deck centering, readable labels, target sizes, no unintended horizontal overflow and no text overlap. Expanded content must remain reachable; report any conflict with one-window fit. Motion needs a recording or start/middle/end frames. If constraints conflict, explain the tradeoff rather than silently changing proportions. Do not mark a screenshot or state approved merely because it was captured.
+
+## Pending local preview — November 2 wind/weather revision
+
+Sparks removed in favor of direction-sensitive balloon movement. Ivory string loops below the final n; weather-aware clouds sit behind content in light mode. City/weather and clock share header-size handwriting in a compact two-row panel; player carries larger engraving and a circular tonearm brand. These captures are pending review, not approval: [desktop](../.local-previews/wind-weather-desktop.png), [mobile](../.local-previews/wind-weather-mobile.png).

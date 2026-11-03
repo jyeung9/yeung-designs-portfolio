@@ -1,3 +1,5 @@
+> Historical exploration/audit only. Current local specifications in design-system.md and references/patterns-nov02.md supersede conflicting directions here.
+
 Built-in image generation. Photorealistic architectural interior background: cozy ivory linen sofa, pale oak, lush plants, sheer curtains, late-afternoon sunlight and warm lamps; clear central foreground for a separate floating record player and quiet wall for a headline. Real fabric and wood textures, no people, no text, no illustration. Generated living-room.png is a raster scene; the floating turntable and navigation are interactive HTML/CSS elements.
 
 Day v2, built-in image generation: photorealistic wide cozy living room, full window and pale oak coffee table, green plants, ivory couch, sunlight, warm yellow lightbulb-shaped rope LED on upper right wall, quiet central wall for headline, no people or text.

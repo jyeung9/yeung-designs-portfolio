@@ -28,7 +28,7 @@ gallery.querySelector('.gallery-prev').onclick=()=>centerGallery(galleryIndex-1)
 gallery.addEventListener('keydown',e=>{if(e.key==='ArrowRight'||e.key==='ArrowLeft'){e.preventDefault();centerGallery(galleryIndex+(e.key==='ArrowRight'?1:-1))}});
 const shelfNote=document.createElement('div');shelfNote.className='shelf-annotation';shelfNote.setAttribute('aria-hidden','true');shelfNote.innerHTML='case studies<svg viewBox="0 0 160 32"><path d="M154 3 Q100 0 53 9 Q23 15 12 29 M10 19 L12 29 22 25"/></svg>';cabinetScene.append(shelfNote);
 // [design-approved:static-greeting] Keep one complete introduction visible instead of a repeating marquee.
-const greeting=document.querySelector('.greeting');greeting.textContent="你好, i'm julie yeung";
+const greeting=document.querySelector('.greeting');greeting.innerHTML='<span class="greeting-pronunciation-group"><span class="greeting-chinese" lang="zh-Hans"><span>你</span><span>好</span></span></span><span class="hand-word">, i’m</span> <span class="hand-word">julie</span> <span class="hand-word">yeung</span>';
 
 // Preview sizing: reserve close/navigation controls, then size sleeve and taped note together.
 function fitGalleryCard(){

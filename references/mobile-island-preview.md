@@ -1,3 +1,5 @@
+> Historical exploration/audit only. Current local specifications in design-system.md and references/patterns-nov02.md supersede conflicting directions here.
+
 > Historical iteration notes. The final version was approved for GitHub and live publication on October 28, 2026. See ../design-system.md for the current contract; earlier pending/queued statements below describe prior stages.
 
 # Mobile bottom island — local preview

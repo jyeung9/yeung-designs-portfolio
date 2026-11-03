@@ -1,0 +1,3 @@
+import {readFileSync,writeFileSync} from "node:fs";
+const files=["music-tracks.js", "app.js", "desk-update.js", "record-cabinet.js", "music-sequence.js", "expanded-covers.js", "time-lighting.js", "record-gallery.js", "frame-layout.js", "mobile-menu.js", "page-scroll.js", "collections-preview.js", "contrast-rules.js", "player-refinement.js", "track-energy.js", "track-rhythm.js", "listener-preview.js", "weather-preview.js", "composition-contrast.js", "composition-fixtures.js", "menu-interactions.js"];
+writeFileSync(new URL("../dist/site-bundle.js",import.meta.url),files.map(f=>"\n;/* Source: "+f+" */\n"+readFileSync(new URL("../dist/"+f,import.meta.url),"utf8")).join("\n"));

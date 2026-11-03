@@ -1,3 +1,5 @@
+> Historical exploration/audit only. Current local specifications in design-system.md and references/patterns-nov02.md supersede conflicting directions here.
+
 > Historical exploration notes. The final reviewed composition was approved on October 28, 2026; the current contract is in ../design-system.md. Statements below about pending approval describe the exploration at the time.
 
 # Player-first landing variation — local preview

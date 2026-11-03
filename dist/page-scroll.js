@@ -34,6 +34,7 @@
   const now=performance.now(),direction=Math.sign(e.deltaY);const delta=e.deltaY*(e.deltaMode===1?16:e.deltaMode===2?innerHeight:1);
   if(now-last>100||direction!==lastDirection)total=0;
   if(direction!==lastDirection)readyAt=0;last=now;lastDirection=direction;
+  if(!atEdge(direction)){total=0;return} // Normal scrolling inside a long composition; the gesture gate only changes sections.
   e.preventDefault();if(now<readyAt)return;
   // [design-approved:heavier-scroll] Twice the gesture distance, with the existing responsive transition gate.
   total+=delta;if(Math.abs(total)>=84){advance(Math.sign(total));readyAt=now+300;total=0}
@@ -41,7 +42,7 @@
  addEventListener('keydown',e=>{if(!enabled(e.target)||e.altKey||e.ctrlKey||e.metaKey)return;const direction=e.key==='PageDown'?1:e.key==='PageUp'?-1:0;if(direction&&advance(direction))e.preventDefault()});
  // [design-approved:no-pager] Section links and scroll gestures replace previous/next controls.
  let touchStart=null;
- addEventListener('touchstart',e=>{touchStart=e.touches.length===1&&enabled(e.target)?{x:e.touches[0].clientX,y:e.touches[0].clientY}:null},{passive:true});
- addEventListener('touchmove',e=>{if(touchStart&&Math.abs(e.touches[0].clientY-touchStart.y)>Math.abs(e.touches[0].clientX-touchStart.x))e.preventDefault()},{passive:false});
- addEventListener('touchend',e=>{if(!touchStart)return;const delta=touchStart.y-e.changedTouches[0].clientY;const horizontal=Math.abs(touchStart.x-e.changedTouches[0].clientX);touchStart=null;if(Math.abs(delta)>70&&Math.abs(delta)>horizontal)advance(Math.sign(delta))},{passive:true});
+ addEventListener('touchstart',e=>{touchStart=e.touches.length===1&&enabled(e.target)?{x:e.touches[0].clientX,y:e.touches[0].clientY,top:atEdge(-1),bottom:atEdge(1)}:null},{passive:true});
+ addEventListener('touchmove',e=>{if(touchStart){const dy=touchStart.y-e.touches[0].clientY;if((dy>0&&touchStart.bottom||dy<0&&touchStart.top)&&Math.abs(dy)>Math.abs(e.touches[0].clientX-touchStart.x))e.preventDefault()}},{passive:false});
+ addEventListener('touchend',e=>{if(!touchStart)return;const delta=touchStart.y-e.changedTouches[0].clientY;const horizontal=Math.abs(touchStart.x-e.changedTouches[0].clientX);const edge=delta>0?touchStart.bottom:touchStart.top;touchStart=null;if(edge&&Math.abs(delta)>70&&Math.abs(delta)>horizontal)advance(Math.sign(delta))},{passive:true});
 })();

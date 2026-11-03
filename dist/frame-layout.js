@@ -23,46 +23,40 @@ document.querySelector('.headline-bottom').classList.add('plain-heading');
 
 // Fit artwork into measured remaining space; the wide-desktop composition scales text and controls together.
 // The minimum scene width is derived from 44px sleeve targets (18.9% of scene).
+// [design-preview:composition-measurement] CSS owns size; this observer reserves the rendered artwork envelope, including feet/shadow.
 function fitHomeFrame(){
- if(document.body.dataset.page!=='home'||homeFrame.getBoundingClientRect().width===0)return;
- const uiScale=parseFloat(getComputedStyle(document.body).getPropertyValue('--wide-scale'))||1;
- homeFrame.style.setProperty('--header-height',`${document.querySelector('.masthead').getBoundingClientRect().height/uiScale}px`);
- const frameStyle=getComputedStyle(homeFrame);
- const sceneWidth=cabinetScene.getBoundingClientRect().width;
- const height=el=>(el?.getBoundingClientRect().height||0)/uiScale;
- const n=v=>parseFloat(v)||0;
- const mobile=matchMedia('(max-width:600px)').matches;
- // [design-approved:mobile-island] Three landing groups keep two equal 6%-of-scene gaps on phones too.
- const gapCount=2;
- const fixed=height(document.querySelector('.masthead'))+height(homeFrame.querySelector('.hero-copy'))
-   +height(landingNavigation)
-   +n(frameStyle.paddingTop)+n(frameStyle.paddingBottom)+n(getComputedStyle(sceneSlot).paddingBottom);
- const available=innerHeight/uiScale-fixed;
- const minimum=Math.ceil(44/.189);
- const contentWidth=homeFrame.clientWidth-n(frameStyle.paddingLeft)-n(frameStyle.paddingRight);
- const desired=(innerHeight-fixed)/(.5+gapCount*.06);
- const fitLimit=homeFrame.classList.contains('tableless-preview')?(available-28)/(.346667+gapCount*.06):available/(.5+gapCount*.06);
- const width=Math.min(1140,contentWidth,Math.max(minimum,uiScale>1?Math.min(desired,fitLimit):available/(.5+gapCount*.06)));
- homeFrame.style.setProperty('--fit-scene-width',`${Math.floor(width)}px`);
- homeFrame.dataset.fit=available<minimum*(.5+gapCount*.06)?'scroll-required':'viewport';
- // [design-approved:visible-scene-spacing] Measure the perspective-rendered deck, not its invisible parent box.
- const sceneBounds=cabinetScene.getBoundingClientRect();
- const deckBounds=cabinetScene.querySelector('.independent-deck').getBoundingClientRect();
- // [design-approved:integrated-player-front] Match the actual perspective-projected deck edge instead of guessing a percentage.
- const sceneScale=sceneBounds.width/cabinetScene.offsetWidth;
- cabinetScene.style.setProperty('--front-left',`${(deckBounds.left-sceneBounds.left)/sceneScale}px`);
- cabinetScene.style.setProperty('--front-width',`${deckBounds.width/sceneScale}px`);
- cabinetScene.style.setProperty('--front-top',`${(deckBounds.bottom-sceneBounds.top)/sceneScale-4}px`);
- const ledBounds=sceneReadout.getBoundingClientRect();
- homeFrame.style.setProperty('--visible-scene-top',`${(deckBounds.top-sceneBounds.top)/uiScale}px`);
- homeFrame.style.setProperty('--visible-scene-height',`${(ledBounds.bottom-deckBounds.top+10*sceneScale)/uiScale}px`);
+ if(document.body.dataset.page!=='home'||!homeFrame.getBoundingClientRect().width)return;
+ homeFrame.style.setProperty('--header-height',document.querySelector('.masthead').getBoundingClientRect().height+'px');
+ const scene=cabinetScene.getBoundingClientRect(),scale=scene.width/cabinetScene.offsetWidth||1;
+ const shell=cabinetScene.querySelector('.player-wood-shell');
+ if(!shell)return;
+ const bounds=[shell,...cabinetScene.querySelectorAll('.edge-disc')].filter(el=>el.getBoundingClientRect().width&&getComputedStyle(el).visibility!=='hidden').map(el=>el.getBoundingClientRect());
+ const top=Math.min(...bounds.map(r=>r.top))-scene.top-12;
+ const bottom=Math.max(...bounds.map(r=>r.bottom))-scene.top+24;
+ homeFrame.style.setProperty('--visible-scene-top',top/scale+'px');
+ homeFrame.style.setProperty('--visible-scene-height',(bottom-top)/scale+'px');
+ const utilities=homeFrame.querySelector(':scope>.corner-utilities');
+ if(utilities){const needed=utilities.querySelector('.local-time').scrollWidth;const column=(homeFrame.clientWidth-parseFloat(getComputedStyle(homeFrame).paddingLeft)*2-landingNavigation.querySelector('.rail').getBoundingClientRect().width)/2;homeFrame.toggleAttribute('data-support-row',innerWidth>=1200&&innerHeight>=800&&column<needed+16)}
+ // [design-preview:desktop-fit] One common scale fits the central groups; support controls keep readable physical sizes.
+ if(innerWidth>=1200&&innerHeight>=800&&!document.body.hasAttribute('data-large-text')){
+  const styles=getComputedStyle(homeFrame),gutter=parseFloat(getComputedStyle(document.body).paddingTop),available=innerHeight-2-2*gutter-document.querySelector('.masthead').getBoundingClientRect().height;
+  const intro=homeFrame.querySelector('.hero-copy').getBoundingClientRect().height,nav=landingNavigation.getBoundingClientRect().height,footer=utilities?.getBoundingClientRect().height||0,gap=parseFloat(styles.rowGap),extra=parseFloat(styles.paddingTop);
+  const required=intro+(bottom-top)+Math.max(nav,footer)+gap*2+extra;
+  const current=parseFloat(homeFrame.style.getPropertyValue('--composition-unit'))||1;
+  const next=Math.max(.65,Math.min(1.5,current*available/Math.max(1,required)));
+  if(Math.abs(required-available)>2&&Math.abs(next-current)>.001){homeFrame.style.setProperty('--composition-unit',next);homeFrame.style.setProperty('--fitted-scene-width',Math.min(innerWidth*.76,1440)*next+'px')}
+ }else{homeFrame.style.removeProperty('--composition-unit');homeFrame.style.removeProperty('--fitted-scene-width')}
+ const introBounds=homeFrame.querySelector('.hero-copy').getBoundingClientRect(),menuBounds=landingNavigation.getBoundingClientRect(),slotBounds=sceneSlot.getBoundingClientRect();
+ const prior=Number(sceneSlot.dataset.balance||0),balance=prior+(introBounds.bottom+menuBounds.top)/2-(slotBounds.top+slotBounds.height/2);
+ sceneSlot.dataset.balance=String(balance);sceneSlot.style.translate='0 '+balance+'px';
+ homeFrame.dataset.fit=document.documentElement.scrollHeight>innerHeight+2?'scroll-required':'viewport';
 }
 let frameFitPending=false;
 function queueFrameFit(){if(frameFitPending)return;frameFitPending=true;requestAnimationFrame(()=>{frameFitPending=false;fitHomeFrame()});}
 const frameObserver=new ResizeObserver(queueFrameFit);
 [document.querySelector('.masthead'),homeFrame.querySelector('.hero-copy'),sceneReadout,sceneSlot,landingNavigation].filter(Boolean).forEach(el=>frameObserver.observe(el));
 window.addEventListener('resize',queueFrameFit);
-window.addEventListener('hashchange',queueFrameFit);
+window.addEventListener('hashchange',queueFrameFit);window.addEventListener('playergeometrychange',queueFrameFit);
 document.fonts.ready.then(queueFrameFit);
 
 // Round the tapered tabletop with the same physical CSS radius as the player.
@@ -84,4 +78,4 @@ tableCornerObserver.observe(cabinetScene);
 
 // [design-approved:engraved-role] Move the role line onto the wood; retain accessible text outside the aria-hidden player artwork.
 const roleLine=homeFrame.querySelector('.hero-copy>p');
-if(roleLine){roleLine.classList.add('engraving-accessible-copy');const engraving=document.createElementNS('http://www.w3.org/2000/svg','svg');engraving.classList.add('deck-engraving');engraving.setAttribute('viewBox','0 0 300 20');engraving.innerHTML='<text x="298" y="14" text-anchor="end" fill="#604522" font-family="DM Sans, sans-serif" font-size="13">product designer | AI systems thinker</text>';engraving.setAttribute('aria-hidden','true');cabinetScene.querySelector('.independent-deck').append(engraving);}
+if(roleLine){roleLine.classList.add('role-line');roleLine.textContent='product designer | AI systems thinker';const engraving=document.createElementNS('http://www.w3.org/2000/svg','svg');engraving.classList.add('deck-engraving');engraving.setAttribute('viewBox','0 0 300 20');engraving.innerHTML='<text x="298" y="14" text-anchor="end" fill="#604522" font-family="DM Sans, sans-serif" font-size="13">product designer | AI systems thinker</text>';engraving.setAttribute('aria-hidden','true');cabinetScene.querySelector('.independent-deck').append(engraving);}

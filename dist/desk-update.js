@@ -23,18 +23,18 @@ note.querySelector('.note-paper').append(note.querySelector('.desk-pen'));
 const arm=document.querySelector('.live-arm');
 arm.innerHTML=`<svg class="tonearm-model" viewBox="0 0 70 240" aria-hidden="true" xmlns="http://www.w3.org/2000/svg">
 <defs>
-<linearGradient id="arm-metal"><stop stop-color="#374347"/><stop offset=".25" stop-color="#a4afb1"/><stop offset=".46" stop-color="#f4f5ec"/><stop offset=".62" stop-color="#c0c8c7"/><stop offset="1" stop-color="#455459"/></linearGradient>
+<linearGradient id="arm-metal"><stop stop-color="#374347"/><stop offset=".25" stop-color="#a4afb1"/><stop offset=".38" stop-color="#ffffff"/><stop offset=".46" stop-color="#e4eeea"/><stop offset=".62" stop-color="#c0c8c7"/><stop offset="1" stop-color="#455459"/></linearGradient>
 <linearGradient id="arm-shell" x2=".8" y2="1"><stop stop-color="#626c6d"/><stop offset=".35" stop-color="#303b3d"/><stop offset="1" stop-color="#10191b"/></linearGradient>
 <linearGradient id="arm-weight" x2="0" y2="1"><stop stop-color="#283336"/><stop offset=".22" stop-color="#a1aaab"/><stop offset=".45" stop-color="#d5dad7"/><stop offset=".7" stop-color="#737f81"/><stop offset="1" stop-color="#283539"/></linearGradient>
 </defs>
 <!-- Continuous rigid arm: rear weight, bearing yoke, tube and offset headshell. -->
 <g stroke-linejoin="round">
 <path d="M35 18V172Q35 181 29 187L23 193" fill="none" stroke="#344145" stroke-width="7"/>
-<path d="M35 18V172Q35 181 29 187L23 193" fill="none" stroke="url(#arm-metal)" stroke-width="5"/>
+<path d="M35 18V172Q35 181 29 187L23 193" fill="none" stroke="url(#arm-metal)" stroke-width="6"/><path d="M33.4 35V171Q33.4 179 27.8 185" fill="none" stroke="#edf7ef" stroke-opacity=".8" stroke-width="1"/>
 <rect x="22" y="9" width="26" height="25" rx="4" fill="url(#arm-weight)" stroke="#485659" stroke-width="1"/>
 <path d="M25 11V32M45 11V32" stroke="#eef0e1" opacity=".4"/>
 <rect x="25" y="43" width="20" height="18" rx="6" fill="#444f51" stroke="#b4bdb9" stroke-width="2"/>
-<circle cx="35" cy="52" r="5" fill="url(#arm-metal)"/><path d="M32 52h6" stroke="#596769"/>
+<image href="assets/brand-record.svg?v=soft-approved" x="23" y="40" width="24" height="24"/>
 <path d="M25 184L39 191L28 222L13 216Z" fill="#101819" stroke="#7b8583" stroke-width="1"/>
 <path d="M23 183L37 190L26 216L12 210Z" fill="url(#arm-shell)" stroke="#909b96" stroke-width=".8"/>
 <path d="M19 190L28 194M16 198L25 202" stroke="#0a1011" stroke-width="2"/>
@@ -60,7 +60,7 @@ document.querySelector('.clock').after(clockSelect);
 const locationNotice=document.createElement('p');locationNotice.className='location-notice';locationNotice.setAttribute('role','status');locationNotice.hidden=true;
 document.querySelector('.hero-bottom').append(locationNotice);
 let chosenCity=null,clockRequest=0;
-window.renderWorldClock=()=>{const clockEl=document.querySelector('.clock');clockEl.hidden=!chosenCity;if(!chosenCity){clockEl.textContent='';document.body.classList.remove('time-lighting');document.body.style.removeProperty('--bg');return}clockEl.textContent=new Intl.DateTimeFormat([],{hour:'2-digit',minute:'2-digit',hour12:false,timeZone:chosenCity[1]}).format(new Date());if(window.applyTimeLighting)window.applyTimeLighting(chosenCity[1])};
+window.renderWorldClock=()=>{const clockEl=document.querySelector('.clock');clockEl.hidden=!chosenCity;if(!chosenCity){clockEl.textContent='';document.body.classList.remove('time-lighting');document.body.style.removeProperty('--bg');return}const parts=new Intl.DateTimeFormat('en-US',{hour:'2-digit',minute:'2-digit',hour12:true,timeZone:chosenCity[1]}).formatToParts(new Date());const hour=parts.find(p=>p.type==='hour').value,minute=parts.find(p=>p.type==='minute').value;const period=parts.find(p=>p.type==='dayPeriod').value;const changed=clockEl.dataset.minute!==hour+minute;clockEl.dataset.minute=hour+minute;clockEl.innerHTML='<span class="clock-digits '+(changed?'clock-flip':'')+'">'+hour.padStart(2,'0')+'<span class="clock-colon" aria-hidden="true">:</span>'+minute+'</span><span class="clock-period">'+period+'</span>';clockEl.setAttribute('aria-label',hour+':'+minute+' '+period);if(window.applyTimeLighting)window.applyTimeLighting(chosenCity[1])};
 function useCity(city){chosenCity=city;sessionStorage.removeItem('julie-vinyl-theme');window.renderWorldClock();}
 clockSelect.onchange=()=>{const request=++clockRequest;locationNotice.hidden=true;
  if(clockSelect.value!=='locate'){useCity(clockSelect.value==='local'?null:cityData[Number(clockSelect.value)]);return}

@@ -1,0 +1,22 @@
+// [design-approved:city-weather-sketch] Current model weather for the selected listed city, cached 15 minutes.
+// No guessed weather on failure, no precise location request, and stale city responses cannot replace the new selection.
+(()=>{
+ const trigger=document.querySelector('.themed-city-trigger');if(!trigger)return;
+ const icon=document.createElementNS('http://www.w3.org/2000/svg','svg');icon.classList.add('weather-peek');icon.setAttribute('viewBox','0 0 80 68');icon.setAttribute('role','img');
+ const weatherGroup=document.createElement('span');weatherGroup.className='weather-summary';
+ const temperature=document.createElement('span');temperature.className='weather-temperature';
+ const source=document.createElement('a');source.className='weather-source';source.href='https://open-meteo.com/';source.target='_blank';source.rel='noopener';source.textContent='weather by Open-Meteo';document.querySelector('.timezone-picker').append(source);
+ const cloud='<path d="M18 43C5 42 7 28 19 28C17 11 42 8 47 25C63 18 76 39 61 44Q39 46 18 43Z"/><path d="M15 37L19 34M20 40L25 35M27 41L31 37M48 39L52 36M55 40L58 37" stroke-width=".75" opacity=".6"/>';
+ const sun='<path d="M47 23C46 7 22 9 22 24C21 41 48 40 47 23ZM34 3L35 7M16 9L20 13M9 24L15 24M16 40L20 36M35 43L35 48M51 37L55 41M54 23L61 22M49 10L53 6"/>';
+ const moon='<path d="M42 7C21 8 17 37 40 42Q52 43 57 32C37 38 30 18 42 7Z"/>';
+ const panel=trigger.closest('.local-time');panel.classList.add('weather-clock-card');
+ const clouds=document.createElement('div');clouds.className='weather-clouds';clouds.setAttribute('aria-hidden','true');document.body.prepend(clouds);
+ const seed=[7,29,68,87,18,56,78,38,94,3];seed.forEach((x,i)=>{const c=document.createElement('i');c.hidden=true;c.style.cssText=`left:${x}%;top:${8+(i*31)%82}%;--cloud-width:${130+(i*53)%210}px;--cloud-drift:${55+i*7}s;--cloud-delay:-${i*11}s`;clouds.append(c)});
+ function skyClouds(code,day){const count=code===null?0:code<2?3:code===2?6:10;[...clouds.children].forEach((c,i)=>c.hidden=i>=count);clouds.dataset.weather=code===null?'unknown':code<3?'fair':'overcast';clouds.style.setProperty('--cloud-alpha',day?'.30':'.16')}
+ let serial=0;const cache=new Map();
+ function draw(code,day,temp){let label,art;if(code===null){label='weather unavailable';art='<path d="M31 20Q32 10 42 12T43 29Q36 31 37 39M37 47L37 48"/>'}else if(code<2){label=day?'sunny':'clear night';art=day?sun:moon}else if(code===2){label='partly cloudy';art='<g transform="translate(15 -4) scale(.8)">'+(day?sun:moon)+'</g>'+cloud}else if(code===3){label='cloudy';art=cloud}else if(code<50){label='foggy';art=cloud+'<path d="M12 50L62 49M20 57L55 58"/>'}else if([71,73,75,77,85,86].includes(code)){label='snowy';art=cloud+'<path d="M25 49V61M20 52L30 58M30 52L20 58M52 48V60M47 51L57 57M57 51L47 57"/>'}else if(code>=95){label='thunderstorms';art=cloud+'<path d="M40 46L33 54L43 53L36 63"/>'}else{label='rainy';art=cloud+'<path d="M22 49L18 57M39 50L35 60M57 49L53 57"/>'}
+ icon.innerHTML='<g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">'+art+'<g opacity=".4" stroke-width=".7" transform="translate(1.3 -.8) rotate(1 40 30)">'+art+'</g></g>';icon.setAttribute('aria-label',label+(Number.isFinite(temp)?', '+Math.round(temp)+' degrees Fahrenheit':''));weatherGroup.append(icon,temperature);panel.append(weatherGroup);temperature.textContent=Number.isFinite(temp)?Math.round(temp)+'°F':'';skyClouds(code,day);
+ }
+ async function update(){const id=++serial,city=chosenCity;icon.remove();trigger.removeAttribute("title");if(!city)return;const key=city[0],cached=cache.get(key);if(cached&&Date.now()-cached.time<900000){draw(cached.code,cached.day,cached.temp);return}try{const q=new URLSearchParams({latitude:city[2],longitude:city[3],current:'weather_code,is_day,temperature_2m',temperature_unit:'fahrenheit'});const response=await fetch('https://api.open-meteo.com/v1/forecast?'+q,{signal:AbortSignal.timeout(10000)});if(!response.ok)throw Error('weather');const data=await response.json();if(!Number.isFinite(data.current?.weather_code))throw Error('weather');const result={code:data.current.weather_code,day:data.current.is_day,temp:data.current.temperature_2m,time:Date.now()};cache.set(key,result);if(id===serial)draw(result.code,result.day,result.temp)}catch{if(id===serial)draw(null,true)}}
+ clockSelect.addEventListener('change',()=>queueMicrotask(update));update();setInterval(update,900000);
+})();

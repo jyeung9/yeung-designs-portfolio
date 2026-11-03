@@ -17,7 +17,8 @@ const delay=ms=>new Promise(resolve=>setTimeout(resolve,ms));
 function selectLocalTrack(index){trackIndex=index;localAudio.src=tracks[index].src;trackStatus.textContent=tracks[index].title+(tracks[index].artist?' · '+tracks[index].artist:'');disc.querySelector('.live-label').replaceChildren();tintRecord(disc,index);setLEDTitle(tracks[index].title);}
 function renderQueue(){
  carrier.style.visibility=trackIndex<0?'hidden':'visible';musicButton.classList.toggle('empty-player',trackIndex<0);
- for(const [side,list] of [[-1,leftQueue],[1,rightQueue]]){const button=trackControls.querySelector(`[data-step="${side}"]`);button.hidden=!list.length;if(list.length)tintRecord(button,list[0]);button.disabled=true;button.tabIndex=-1;button.setAttribute('aria-hidden','true');button.setAttribute('aria-label',side<0?'previous track':'next track');button.querySelectorAll('.queue-layer').forEach(el=>el.remove());list.slice(1).forEach((_,i)=>{const layer=document.createElement('span');layer.className='edge-disc-face queue-layer';layer.style.translate=`${(i+1)*1.3}px ${-(i+1)*2}px`;layer.style.zIndex=String(-i-1);layer.setAttribute('aria-hidden','true');tintRecord(layer,list[i+1]);button.prepend(layer)});button.querySelector('.edge-disc-label').textContent=side<0?'previous track':'next track';}
+ // No parked records: queue state is represented by the transport controls.
+ for(const button of trackControls.querySelectorAll('button')){button.hidden=true;button.disabled=true;button.tabIndex=-1;button.setAttribute('aria-hidden','true')}
 }
 async function playLocal(){if(changingRecord)return;playbackRequested=true;if(trackIndex<0){await switchRecord(1,true);return}try{await localAudio.play()}catch{playbackRequested=false;musicState(false);updateArmControl();trackStatus.textContent='tap the record table to start the selected song.'}}
 function toggleLocal(){if(changingRecord)return;if(!playbackRequested){playLocal()}else{playbackRequested=false;localAudio.pause();updateArmControl()}}
@@ -29,10 +30,9 @@ async function switchRecord(side=queueSource,forcePlay=false){
  changingRecord=true;const epoch=queueEpoch;const resume=forcePlay||playbackRequested;
  localAudio.pause();musicButton.classList.add('changing-record');musicState(false);renderQueue();syncTransport();
  const reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;
- const platterBox=carrier.getBoundingClientRect(),stackBox=trackControls.querySelector(`[data-step="${side>0?-1:1}"]`).getBoundingClientRect();
- const dx=stackBox.left+stackBox.width/2-(platterBox.left+platterBox.width/2);
- const endBox=trackControls.querySelector(`[data-step="${side>0?1:-1}"]`).getBoundingClientRect();
- const outX=endBox.width?endBox.left+endBox.width/2-(platterBox.left+platterBox.width/2):(side>0?1:-1)*cabinetScene.clientWidth*.36;
+ // Next arrives from the right and leaves left; previous reverses this motion.
+ const travel=Math.max(140,carrier.getBoundingClientRect().width*1.15);
+ const dx=side>0?travel:-travel,outX=-dx;
  try{
   await delay(reduced?0:180);if(epoch!==queueEpoch)return;
   if(trackIndex>=0){if(!reduced)await carrier.animate([{translate:'0 0',opacity:1},{translate:'0 -20px',opacity:1,offset:.25},{translate:`${outX}px 10px`,scale:.65,opacity:0}],{duration:480,fill:'forwards',easing:'ease-in-out'}).finished;if(epoch!==queueEpoch)return;outgoing.unshift(trackIndex)}
@@ -83,18 +83,26 @@ function resetQueue(){playbackRequested=false;queueEpoch++;localAudio.pause();ca
 addEventListener('hashchange',()=>{if(!location.hash||location.hash==='#home')resetQueue()});
 trackControls.querySelectorAll('.edge-disc-arrow').forEach(el=>{el.innerHTML='<svg viewBox="0 0 60 24" aria-hidden="true"><path d="M54 5 Q35 23 8 13 M8 13 L17 7 M8 13 L15 20"/></svg>'});
 
-// [design-approved:single-line-led] One continuous title ribbon; playback status remains exposed separately to assistive technology.
+// [design-approved:single-status-marquee] Exactly one title traverses the display, then re-enters from the right.
 function setLEDTitle(title){
- title='now playing: '+title;
- const field=nowPlaying.querySelector('strong');field.replaceChildren();const ribbon=document.createElement('span');ribbon.className='led-ribbon';
- for(let i=0;i<2;i++){const copy=document.createElement('span');copy.textContent=title;if(i)copy.setAttribute('aria-hidden','true');ribbon.append(copy)}field.append(ribbon);field.setAttribute('aria-label',title);
- requestAnimationFrame(()=>{nowPlaying.classList.add('scroll-title');ribbon.style.animationDuration=Math.max(12,title.length*.5)+'s'});
+ nowPlaying.dataset.trackTitle=title;
+ renderLEDStatus();
 }
-function syncLED(){const playing=!localAudio.paused&&!localAudio.ended;nowPlaying.classList.toggle('led-playing',playing);nowPlaying.firstElementChild.setAttribute('aria-label',playing?'Playing':trackIndex>=0?'Paused':'Ready');nowPlaying.firstElementChild.innerHTML=`<i aria-hidden="true" class="led-symbol ${playing?'symbol-pause':'symbol-play'}"></i>`;}
+function renderLEDStatus(){
+ const playing=!localAudio.paused&&!localAudio.ended;
+ const message=playing?'now playing: '+(nowPlaying.dataset.trackTitle||'load record'):'paused';
+ const field=nowPlaying.querySelector('strong');
+ if(field.getAttribute('aria-label')===message)return;
+ const ribbon=document.createElement('span');ribbon.className='led-ribbon';
+ const copy=document.createElement('span');copy.className='led-track-name';copy.textContent=message;ribbon.append(copy);field.replaceChildren(ribbon);
+ field.setAttribute('aria-label',message);nowPlaying.classList.remove('scroll-title');
+
+}
+function syncLED(){const playing=!localAudio.paused&&!localAudio.ended;nowPlaying.classList.toggle('led-playing',playing);nowPlaying.firstElementChild.setAttribute('aria-label',playing?'Playing':'Paused');renderLEDStatus();}
 ['playing','pause','ended','error'].forEach(event=>localAudio.addEventListener(event,syncLED));
 setLEDTitle(trackIndex>=0?tracks[trackIndex].title:'load record');syncLED();
 addEventListener('hashchange',syncLED);
-addEventListener('resize',()=>setLEDTitle(trackIndex>=0?tracks[trackIndex].title:'load record'));
+addEventListener('resize',()=>requestAnimationFrame(()=>{const field=nowPlaying.querySelector('strong');field.style.setProperty('--marquee-entry',field.clientWidth+'px')}));
 
 // Cursor-local hint belongs to the actual hit target, not the decorative deck.
 armControl.addEventListener('pointermove',event=>{if(event.pointerType==='touch')return;const r=armControl.getBoundingClientRect(),hint=armControl.querySelector('.edge-disc-label');hint.style.left=Math.max(0,Math.min(event.clientX-r.left+12,innerWidth-r.left-hint.offsetWidth-12))+'px';hint.style.top=(event.clientY-r.top+14)+'px';armControl.classList.add('cursor-hint')});
@@ -105,10 +113,13 @@ addEventListener('resize',()=>requestAnimationFrame(placeTrackHints));document.f
 // Floating skip buttons flank the read-only LED; the record table toggles playback.
 const transport=document.createElement('div');transport.className='led-transport';transport.setAttribute('role','group');transport.setAttribute('aria-label','Playback controls');
 transport.innerHTML='<button type="button" aria-label="Previous track" data-led="previous"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 5v14M18 5 8 12l10 7Z"/></svg></button><span class="led-transport-spacer" aria-hidden="true"></span><button type="button" aria-label="Next track" data-led="next"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M18 5v14M6 5l10 7-10 7Z"/></svg></button>';
+const playButton=document.createElement('button');playButton.type='button';playButton.dataset.led='play';playButton.setAttribute('aria-label','Play music');transport.append(playButton);
+const skipGroup=document.createElement('span');skipGroup.className='transport-buttons';skipGroup.append(transport.querySelector('[data-led="previous"]'),playButton,transport.querySelector('[data-led="next"]'));transport.append(skipGroup);
 cabinetScene.append(transport);
 
-transport.addEventListener('click',event=>{const b=event.target.closest('button');if(!b||b.disabled)return;event.stopPropagation();switchRecord(b.dataset.led==='next'?1:-1)});
+transport.addEventListener('click',event=>{const b=event.target.closest('button');if(!b||b.disabled)return;event.stopPropagation();if(b.dataset.led==='play'){toggleLocal();return}switchRecord(b.dataset.led==='next'?1:-1)});
 function syncTransport(){
+ const active=!localAudio.paused&&!localAudio.ended;playButton.disabled=changingRecord;playButton.setAttribute('aria-label',active?'Pause music':'Play music');playButton.innerHTML='<svg viewBox="0 0 24 24" aria-hidden="true"><path d="'+(active?'M7 5h3v14H7ZM14 5h3v14h-3Z':'M8 5v14l11-7Z')+'"/></svg>';
 
  transport.querySelector('[data-led="previous"]').disabled=changingRecord||trackIndex<0||!rightQueue.length;
  transport.querySelector('[data-led="next"]').disabled=changingRecord||trackIndex<0||!leftQueue.length;

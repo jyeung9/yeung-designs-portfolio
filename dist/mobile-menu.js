@@ -5,18 +5,22 @@ if(mobileHeader){const menuButton=document.createElement('button');menuButton.cl
 const footer=document.querySelector('#home .hero-bottom');
 const dock=document.querySelector('#home .rail.balanced-menu');
 const settings=document.createElement('div');settings.className='mobile-menu-settings';menu.append(settings);
-const settingsAnchor=footer?document.createComment('home settings'):null;
-if(footer)footer.before(settingsAnchor);
+if(footer)footer.classList.add('corner-utilities');
 if(dock)for(const link of dock.querySelectorAll('a')){
  const target=menu.querySelector(`nav a[href="${link.getAttribute('href')}"]`);
  const art=link.querySelector('.menu-object,.dock-art');
  if(target&&art){const menuArt=art.cloneNode(true);menuArt.setAttribute('aria-hidden','true');target.prepend(menuArt);target.classList.add('mobile-object-link');}
 }
+// [design-preview:header-theme] Preserve the live toggle and its listeners beside the external links.
+const headerActions=document.createElement('div');headerActions.className='header-actions';
+const externalNav=mobileHeader.querySelector('nav');if(externalNav)headerActions.append(externalNav);
+const liveToggle=document.querySelector('.ambient-toggle');if(liveToggle)headerActions.append(liveToggle);
+headerActions.append(menuButton);mobileHeader.append(headerActions);
 const mobileQuery=matchMedia('(max-width:600px)');
 function placeMenuSettings(){
- if(footer){if(mobileQuery.matches)settings.append(footer);else settingsAnchor.after(footer);}
+ if(footer){if(document.body.dataset.page==='home')document.getElementById('home').append(footer);else document.body.append(footer);}
  if(!mobileQuery.matches&&menu.open)menu.close();
  window.dispatchEvent(new Event('resize'));
 }
-mobileQuery.addEventListener('change',placeMenuSettings);placeMenuSettings();
+mobileQuery.addEventListener('change',placeMenuSettings);addEventListener('hashchange',placeMenuSettings);placeMenuSettings();
 menuButton.onclick=()=>{menu.showModal();menuButton.setAttribute('aria-expanded','true')};menu.querySelector('button').onclick=()=>menu.close();menu.addEventListener('click',e=>{if(e.target===menu||e.target.closest('a'))menu.close()});menu.addEventListener('close',()=>menuButton.setAttribute('aria-expanded','false'));}
